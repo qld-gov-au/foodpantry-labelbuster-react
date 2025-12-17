@@ -1,9 +1,11 @@
-import React from "react";
+import { faPrint } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect } from "react";
+import Collapse from "bootstrap/js/dist/collapse";
 
 type HelpGuideHandlers = {
   onPrint?: (event: React.MouseEvent<HTMLAnchorElement>) => void;
-  onExpandAll?: (event: React.MouseEvent<HTMLButtonElement>) => void;
-  onCollapseAll?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  activeSectionId?: string | null;
 };
 
 const noop = () => {};
@@ -15,8 +17,8 @@ const sections = [
     content: (
       <>
         <p>
-          Alcohol includes beer, wine and spirits and has unique and additional requirements
-          such as number of standard drinks.
+          Alcohol includes beer, wine and spirits and has unique and additional
+          requirements such as number of standard drinks.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -24,31 +26,51 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00469" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00469"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.7.1
             </a>{" "}
             Labelling of alcoholic beverages and food containing alcohol
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00384" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00384"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.7.2
             </a>{" "}
             Beer
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00388" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00388"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.7.3
             </a>{" "}
             Fruit wine, vegetable wine and mead
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00391" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00391"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.7.4
             </a>{" "}
             Wine and wine product
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00399" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00399"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.7.5
             </a>{" "}
             Spirits
@@ -72,32 +94,46 @@ const sections = [
     content: (
       <>
         <p>
-          Nutrition, health and related claims are voluntary statements made by food businesses on labels and in
-          advertising about the content of certain nutrients or substances in a food, or the relationship between food
-          and health.
+          Nutrition, health and related claims are voluntary statements made by
+          food businesses on labels and in advertising about the content of
+          certain nutrients or substances in a food, or the relationship between
+          food and health.
         </p>
         <h4>Claims cannot be made about:</h4>
         <ul>
           <li>kava</li>
           <li>infant formula</li>
           <li>
-            any food that contains more than 1.15% alcohol by volume, other than a nutrition content claim about energy,
-            carbohydrate or gluten content; or salt or sodium content about a food that is not a beverage.
+            any food that contains more than 1.15% alcohol by volume, other than
+            a nutrition content claim about energy, carbohydrate or gluten
+            content; or salt or sodium content about a food that is not a
+            beverage.
           </li>
         </ul>
 
         <h4>Health claims</h4>
-        <p>Health claims refer to a relationship between a food and health. For example:</p>
+        <p>
+          Health claims refer to a relationship between a food and health. For
+          example:
+        </p>
         <ul>
           <li>Calcium for bones and teeth</li>
-          <li>Diets high in calcium may reduce the risk of osteoporosis in people 65 years and over</li>
+          <li>
+            Diets high in calcium may reduce the risk of osteoporosis in people
+            65 years and over
+          </li>
         </ul>
         <p>
-          Health claims are not permitted on foods that are high in saturated fat, sugar or salt.
+          Health claims are not permitted on foods that are high in saturated
+          fat, sugar or salt.
           <br />
-          There are lists of pre-approved food-health relationships that businesses can base their claims on. These are
-          listed in{" "}
-          <a href="https://www.legislation.gov.au/Series/F2015L00474" target="_blank" rel="noopener">
+          There are lists of pre-approved food-health relationships that
+          businesses can base their claims on. These are listed in{" "}
+          <a
+            href="https://www.legislation.gov.au/Series/F2015L00474"
+            target="_blank"
+            rel="noopener"
+          >
             Schedule 4 of the Code
           </a>
           .
@@ -105,22 +141,25 @@ const sections = [
 
         <h4>Nutrition content claims</h4>
         <p>
-          Nutrition content claims indicate the presence or absence of certain nutrients or substances in the food, for
-          example, &apos;low in fat&apos; or &apos;good source of calcium&apos;. These claims will need to meet certain
-          criteria set out in the Standard. For example, food with a &apos;good source of calcium&apos; claim will need
-          to contain not less than the amount of calcium specified in the Standard.
+          Nutrition content claims indicate the presence or absence of certain
+          nutrients or substances in the food, for example, &apos;low in
+          fat&apos; or &apos;good source of calcium&apos;. These claims will
+          need to meet certain criteria set out in the Standard. For example,
+          food with a &apos;good source of calcium&apos; claim will need to
+          contain not less than the amount of calcium specified in the Standard.
         </p>
 
         <h4>Endorsements</h4>
         <p>
-          An endorsement is a nutrition content claim or health claim that is made with the permission of an endorsing
-          body, for example the Heart Foundation Tick.
+          An endorsement is a nutrition content claim or health claim that is
+          made with the permission of an endorsing body, for example the Heart
+          Foundation Tick.
         </p>
 
         <h4>Consumer value claims</h4>
         <p>
-          Other consumer value claims such as cage free; organic or locally grown are covered by Australian Competition
-          and Consumer Commission.
+          Other consumer value claims such as cage free; organic or locally
+          grown are covered by Australian Competition and Consumer Commission.
         </p>
 
         <h4>Further reading</h4>
@@ -129,7 +168,11 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Details/F2018C00942" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Details/F2018C00942"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.7
             </a>{" "}
             Nutrition, health and related claims.
@@ -139,7 +182,11 @@ const sections = [
             </ul>
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00474" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00474"
+              target="_blank"
+              rel="noopener"
+            >
               Schedule 4
             </a>{" "}
             Nutrition, health and related claims
@@ -160,12 +207,19 @@ const sections = [
             </ul>
           </li>
           <li>
-            <a href="https://www.accc.gov.au/business" target="_blank" rel="noopener">
+            <a
+              href="https://www.accc.gov.au/business"
+              target="_blank"
+              rel="noopener"
+            >
               Australian Competition and Consumer Commission
             </a>
             <ul>
               <li>website https://www.accc.gov.au/business</li>
-              <li>Food and beverage industry - Food descriptors guideline to the Trade Practices Act</li>
+              <li>
+                Food and beverage industry - Food descriptors guideline to the
+                Trade Practices Act
+              </li>
             </ul>
           </li>
         </ul>
@@ -178,8 +232,10 @@ const sections = [
     content: (
       <>
         <p>
-          Drinks made from cereals, nuts and or seeds are not suitable for certain age groups, depending on the amount
-          of protein and fats in the product. There are strict rules on how this information must be labelled.
+          Drinks made from cereals, nuts and or seeds are not suitable for
+          certain age groups, depending on the amount of protein and fats in the
+          product. There are strict rules on how this information must be
+          labelled.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -187,13 +243,22 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Details/F2017C00418" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Details/F2017C00418"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.3
             </a>{" "}
-            Information requirements - warning statements, advisory statements and declarations
+            Information requirements - warning statements, advisory statements
+            and declarations
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Details/F2016C00827" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Details/F2016C00827"
+              target="_blank"
+              rel="noopener"
+            >
               Schedule 9
             </a>{" "}
             Mandatory advisory statements and declarations
@@ -208,9 +273,10 @@ const sections = [
     content: (
       <>
         <p>
-          Electrolyte drinks are formulated drinks which are designed for the rapid replacement of fluid, carbohydrates,
-          electrolytes and minerals. These types of drinks, or drink bases, have strict rules about what substances are
-          allowed and how this information must be labelled.
+          Electrolyte drinks are formulated drinks which are designed for the
+          rapid replacement of fluid, carbohydrates, electrolytes and minerals.
+          These types of drinks, or drink bases, have strict rules about what
+          substances are allowed and how this information must be labelled.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -218,7 +284,11 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Details/F2017C00721" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Details/F2017C00721"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.6.2
             </a>{" "}
             Non-alcoholic beverages and brewed soft drinks
@@ -233,8 +303,8 @@ const sections = [
     content: (
       <>
         <p>
-          Formulated caffeinated drinks have very specific rules about what substances are allowed and how this
-          information must be labelled.
+          Formulated caffeinated drinks have very specific rules about what
+          substances are allowed and how this information must be labelled.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -242,7 +312,11 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Details/F2015L00467" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Details/F2015L00467"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.6.4
             </a>{" "}
             Formulated caffeinated beverages
@@ -257,10 +331,15 @@ const sections = [
     content: (
       <>
         <p>
-          Food produced using gene technology means a food that has been derived or developed from an organism that has
-          been genetically modified. Genetically modified food means a food produced using gene technology that contains
-          novel DNA, novel protein or is listed in{" "}
-          <a href="https://www.legislation.gov.au/Series/F2015L00450" target="_blank" rel="noopener">
+          Food produced using gene technology means a food that has been derived
+          or developed from an organism that has been genetically modified.
+          Genetically modified food means a food produced using gene technology
+          that contains novel DNA, novel protein or is listed in{" "}
+          <a
+            href="https://www.legislation.gov.au/Series/F2015L00450"
+            target="_blank"
+            rel="noopener"
+          >
             Schedule 26
           </a>{" "}
           of the Food Standard Code.
@@ -272,13 +351,21 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00404" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00404"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.5.2
             </a>{" "}
             Food produced using gene technology
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00450" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00450"
+              target="_blank"
+              rel="noopener"
+            >
               Schedule 26
             </a>{" "}
             Food produced using gene technology
@@ -293,9 +380,10 @@ const sections = [
     content: (
       <>
         <p>
-          Food irradiation is a technology that improves the safety and extends the shelf life of foods by reducing or
-          eliminating microorganisms and insects. Some fruits, vegetables, herbs and spices are allowed to be irradiated
-          under strict conditions.
+          Food irradiation is a technology that improves the safety and extends
+          the shelf life of foods by reducing or eliminating microorganisms and
+          insects. Some fruits, vegetables, herbs and spices are allowed to be
+          irradiated under strict conditions.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -303,7 +391,11 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00406" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00406"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.5.3
             </a>{" "}
             Irradiation of food
@@ -318,11 +410,15 @@ const sections = [
     content: (
       <>
         <p>
-          Novel foods are non-traditional foods that require a safety assessment by FSANZ before they used in Australia.
-          Examples of novel foods include:
+          Novel foods are non-traditional foods that require a safety assessment
+          by FSANZ before they used in Australia. Examples of novel foods
+          include:
         </p>
         <ul>
-          <li>Dried marine micro-algae (Schizochytrium sp.) rich in docosahexaenoic acid</li>
+          <li>
+            Dried marine micro-algae (Schizochytrium sp.) rich in
+            docosahexaenoic acid
+          </li>
           <li>Insects for human consumption as a protein source</li>
         </ul>
         <p>
@@ -334,7 +430,8 @@ const sections = [
           >
             Australian Novel Food Committee
           </a>{" "}
-          has developed resources to help determine if a food is a novel food that needs assessment.
+          has developed resources to help determine if a food is a novel food
+          that needs assessment.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -342,13 +439,21 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00403" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00403"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.5.1
             </a>{" "}
             Novel foods
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00440" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00440"
+              target="_blank"
+              rel="noopener"
+            >
               Schedule 25
             </a>{" "}
             Permitted Novel foods
@@ -363,13 +468,16 @@ const sections = [
     content: (
       <>
         <p>
-          Special purpose foods have complex labelling requirements, such as an expanded nutrition information panel,
-          compositional requirements and advisory statements. Special purpose foods include:
+          Special purpose foods have complex labelling requirements, such as an
+          expanded nutrition information panel, compositional requirements and
+          advisory statements. Special purpose foods include:
         </p>
         <ul>
           <li>Infant formula products</li>
           <li>Foods for infants</li>
-          <li>Formulated meal replacements and formulated supplementary foods</li>
+          <li>
+            Formulated meal replacements and formulated supplementary foods
+          </li>
           <li>Formulated supplementary sports foods</li>
           <li>Food for special medical purposes</li>
         </ul>
@@ -380,31 +488,51 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00409" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00409"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.9.1
             </a>{" "}
             Infant formula products
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00417" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00417"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.9.2
             </a>{" "}
             Food for infants
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00419" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00419"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.9.3
             </a>{" "}
             Formulated meal replacements and formulated supplementary foods
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00421" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00421"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.9.4
             </a>{" "}
             Formulated supplementary sports foods
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00472" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00472"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 2.9.5
             </a>{" "}
             Food for special medical purposes
@@ -419,8 +547,8 @@ const sections = [
     content: (
       <>
         <p>
-          Some special purpose foods have mandated naming requirements and additional advisory statements that must
-          appear on pack.
+          Some special purpose foods have mandated naming requirements and
+          additional advisory statements that must appear on pack.
         </p>
         <h4>Further reading</h4>
         <p>
@@ -428,13 +556,21 @@ const sections = [
         </p>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00403" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00403"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.5.1
             </a>{" "}
             Novel foods
           </li>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00440" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00440"
+              target="_blank"
+              rel="noopener"
+            >
               Schedule 25
             </a>{" "}
             Permitted Novel foods
@@ -447,57 +583,78 @@ const sections = [
 
 export const MainPage: React.FC<HelpGuideHandlers> = ({
   onPrint = noop,
-  onExpandAll = noop,
-  onCollapseAll = noop,
+  activeSectionId = null,
 }) => {
+  useEffect(() => {
+    if (!activeSectionId) return;
+    const group = document.getElementById("help-accordion-group");
+    if (!group) return;
+    const idx = sections.findIndex((s) => s.id === activeSectionId);
+    if (idx === -1) return;
+    const collapseEl = group.querySelector<HTMLDivElement>(`#collapse-${idx + 1}`);
+    const buttonEl = group.querySelector<HTMLButtonElement>(`[data-bs-target="#collapse-${idx + 1}"]`);
+    if (collapseEl) {
+      const instance = Collapse.getOrCreateInstance(collapseEl, { toggle: false });
+      instance.show();
+    }
+    if (buttonEl) {
+      buttonEl.classList.remove("collapsed");
+      buttonEl.setAttribute("aria-expanded", "true");
+    }
+  }, [activeSectionId]);
+
   return (
     <div className="side-padding vertical-padding">
       <a className="controls btn-print" onClick={onPrint} role="button">
-        <span className="fa fa-print"></span>
+        <FontAwesomeIcon icon={faPrint} />
         Print
       </a>
-      <h2>Complex requirements</h2>
-      <section className="qg-accordion flex-column" aria-label="Accordion Label">
-        <div className="qg-acc-controls">
-          <button className="controls expand" type="button" onClick={onExpandAll}>
-            Expand all
-          </button>
-          <span className="controls">|</span>
-          <button className="controls collapse" type="button" onClick={onCollapseAll}>
-            Collapse all
+      <h3>Complex requirements</h3>
+
+      <div className="accordion-group">
+        <div className="accordion-toggle">
+          <button
+            className="accordion-toggle-btn accordion-toggle-btn--closed"
+            type="button"
+          >
+            Open all
           </button>
         </div>
 
-        {sections.map((section, index) => {
-          const contentId = `panel-content-${index + 1}`;
-          return (
-            <article key={section.id}>
-              <input
-                id={section.id}
-                type="checkbox"
-                name="tabs"
-                tabIndex={-1}
-                aria-controls={contentId}
-                aria-expanded="false"
-                role="checkbox"
-              />
-              <button className="acc-heading" type="button">
-                <label htmlFor={section.id}>
-                  <span className="title"> {section.heading} </span>
-                  <span className="arrow">
-                    <i></i>
-                  </span>
-                </label>
-              </button>
+        <div className="accordion" id="help-accordion-group">
+          {sections.map((section, index) => {
+            const headingId = `heading-${index + 1}`;
+            const collapseId = `collapse-${index + 1}`;
+            const isFirst = index === 0;
+            return (
+              <div className="accordion-item" key={section.id}>
+                <h2 className="accordion-header" id={headingId}>
+                  <button
+                    className={`accordion-button ${isFirst ? "" : "collapsed"}`}
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#${collapseId}`}
+                    aria-expanded={isFirst}
+                    aria-controls={collapseId}
+                  >
+                    {section.heading}
+                  </button>
+                </h2>
 
-              <div className="collapsing-section" id={contentId}>
-                {section.content}
+                <div
+                  id={collapseId}
+                  className={`accordion-collapse collapse ${isFirst ? "show" : ""}`}
+                  aria-labelledby={headingId}
+                  data-bs-parent="#help-accordion-group"
+                  role="region"
+                >
+                  <div className="accordion-body">{section.content}</div>
+                </div>
               </div>
-            </article>
-          );
-        })}
-      </section>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };
-

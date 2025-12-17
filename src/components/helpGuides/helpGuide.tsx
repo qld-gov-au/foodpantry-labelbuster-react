@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import "./helpGuide.css";
+import { faBook,faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type HelpGuideProps = {
   heading?: string;
   content: React.ReactNode;
   calloutLabel?: string;
   initialOpen?: boolean;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 };
 
 export const HelpGuide: React.FC<HelpGuideProps> = ({
@@ -13,37 +17,48 @@ export const HelpGuide: React.FC<HelpGuideProps> = ({
   content,
   calloutLabel = "Help guide",
   initialOpen = false,
+  open,
+  onOpenChange,
 }) => {
-  const [open, setOpen] = useState(initialOpen);
+  const isControlled = typeof open === "boolean";
+  const [internalOpen, setInternalOpen] = useState(initialOpen);
+  const isOpen = isControlled ? (open as boolean) : internalOpen;
+
+  const setOpenState = (next: boolean) => {
+    if (!isControlled) {
+      setInternalOpen(next);
+    }
+    onOpenChange?.(next);
+  };
 
   return (
     <div id="help-guide">
-      {!open && (
+      {!isOpen && (
         <button
           type="button"
           className="help-guide-callout"
-          onClick={() => setOpen(true)}
+          onClick={() => setOpenState(true)}
         >
-          <i className="fa fa-book" />
+          <FontAwesomeIcon icon={faBook} inverse/>
           <span>{calloutLabel}</span>
         </button>
       )}
 
-      {open && (
+      {isOpen && (
         <>
-          <div className="overlay visible" onClick={() => setOpen(false)} />
+          {/* <div className="overlay visible" onClick={() => setOpen(false)} /> */}
           <div className="help-guide-content open-menu">
             <div className="top-block">
-              <div className="side-padding">
-                <i className="fa fa-book" />
-                <h2>{heading}</h2>
+              <div className="left-content">
+                <FontAwesomeIcon icon={faBook} size="xl" inverse/>
+                <h3>{heading}</h3>
               </div>
               <button
                 type="button"
                 className="btn btn-link help-guide-close"
-                onClick={() => setOpen(false)}
+                onClick={() => setOpenState(false)}
               >
-                Hide <i className="fa fa-arrow-right" />
+                Hide <FontAwesomeIcon icon={faArrowRight} />
               </button>
             </div>
             {content}
@@ -53,4 +68,3 @@ export const HelpGuide: React.FC<HelpGuideProps> = ({
     </div>
   );
 };
-

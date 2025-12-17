@@ -1,27 +1,28 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { HelpGuide } from "../components/helpGuides/helpGuide";
 import { MainPage } from "./helpGuide/mainPage";
 
 export const Limitations = () => {
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+
   const handlePrint = useCallback((event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
     window.print();
   }, []);
 
-  const handleExpandCollapse = useCallback((checked: boolean) => {
-    const guide = document.getElementById("help-guide");
-    if (!guide) return;
-    const checkboxes = guide.querySelectorAll<HTMLInputElement>(".qg-accordion input[type='checkbox']");
-    checkboxes.forEach((box) => {
-      box.checked = checked;
-    });
-  }, []);
+  const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, sectionId: string | null) => {
+    if (sectionId) {
+      event.preventDefault();
+      setActiveSectionId(sectionId);
+      setGuideOpen(true);
+    }
+  };
 
   const guideContent = (
     <MainPage
       onPrint={handlePrint}
-      onExpandAll={() => handleExpandCollapse(true)}
-      onCollapseAll={() => handleExpandCollapse(false)}
+      activeSectionId={activeSectionId}
     />
   );
 
@@ -44,25 +45,41 @@ export const Limitations = () => {
             <li>
               <span>
                 an{" "}
-                <a className="link" target="_self" href="#alcoholic-drinks">
+                <a
+                  className="link"
+                  href="#alcoholic-drinks"
+                  onClick={(e) => handleLinkClick(e, "alcoholic-drinks")}
+                >
                   alcoholic drink
                 </a>
               </span>
             </li>
             <li>
               a{" "}
-              <a className="link" href="#caffeinated-drinks" target="_self">
+              <a
+                className="link"
+                href="#caffeinated-drinks"
+                onClick={(e) => handleLinkClick(e, "caffeinated-drinks")}
+              >
                 formulated caffeinated drink,
               </a>
             </li>
             <li>
               an{" "}
-              <a className="link" href="#drinks-electrolyte" target="_self">
+              <a
+                className="link"
+                href="#drinks-electrolyte"
+                onClick={(e) => handleLinkClick(e, "drinks-electrolyte")}
+              >
                 electrolyte drink
               </a>
             </li>
             <li>
-              <a className="link" href="#drinks-made" target="_self">
+              <a
+                className="link"
+                href="#drinks-made"
+                onClick={(e) => handleLinkClick(e, "drinks-made")}
+              >
                 drink made from cereals, nuts, and/or seeds
               </a>
             </li>
@@ -80,7 +97,13 @@ export const Limitations = () => {
         </p>
       </div>
 
-      <HelpGuide heading="Help guide" content={guideContent} initialOpen={false} />
+      <HelpGuide
+        heading="Help guide"
+        content={guideContent}
+        initialOpen={false}
+        open={guideOpen}
+        onOpenChange={setGuideOpen}
+      />
     </>
   );
 };

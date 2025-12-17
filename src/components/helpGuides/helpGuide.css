@@ -4,89 +4,23 @@
   right: 0;
   z-index: 9999;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: flex-end;
 }
 
-#help-guide .help-guide-content {
-  height: 100%;
-  width: 370px;
+.help-guide-callout {
   position: fixed;
-  top: 0;
-  z-index: 9999;
-  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
-  background-color: #fff;
-  align-self: flex-end;
-  overflow-y: scroll;
-}
-
-#help-guide .help-guide-content:not(.close-menu) {
-  bottom: 0;
+  top: 50%;
   right: 0;
-}
-
-#help-guide .help-guide-content.hide {
-  display: none;
-}
-
-#help-guide .help-guide-content .top-block {
-  height: 90px;
-  background-color: #00384f;
-  color: #fff;
+  width: 70px;
+  padding: 20px;
+  background-color: #001d74;
   display: flex;
-  justify-content: space-between;
-}
-
-#help-guide .help-guide-content .top-block > div {
-  display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  align-self: flex-end;
-}
-
-#help-guide .help-guide-content .top-block > div i {
-  font-size: 1.5rem;
-  margin-right: 5px;
-}
-
-#help-guide .help-guide-content .top-block > div h3 {
-  margin-bottom: 20px;
-}
-
-#help-guide .help-guide-content .top-block button {
-  align-self: start;
+  justify-content: center;
   color: #fff;
-}
-
-#help-guide .help-guide-content .qg-accordion article .acc-heading {
-  padding: 0.3rem 0;
-  margin: 5px 0;
-}
-
-#help-guide .help-guide-content .controls-group {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-#help-guide .help-guide-content .collapsing-section {
-  padding-left: 0;
-  padding-top: 0;
-}
-
-#help-guide h2 {
-  margin-top: 14px;
-}
-
-.side-padding {
-  padding-right: 16px;
-  padding-left: 16px;
-}
-
-.vertical-padding {
-  padding-top: 16px;
-  padding-bottom: 16px;
+  font-size: 18px;
 }
 
 .overlay {
@@ -103,75 +37,97 @@
   display: none;
 }
 
-@media screen and (max-width: 991px) {
-  .overlay.hide {
-    display: unset !important;
-  }
-}
-
-.help-guide-callout {
+.help-guide-content {
+  height: 100%;
+  width: 370px;
   position: fixed;
-  top: 50%;
+  top: 0;
+  bottom: 0;
   right: 0;
-  width: 70px;
-  border: none;
-  padding: 10px;
-  background-color: #00384f;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  z-index: 9999;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  background-color: #fff;
+  overflow-y: auto;
+  animation-duration: 0.3s;
 }
 
-.help-guide-callout i,
-.help-guide-callout span {
-  display: block;
-  color: #fff;
-  font-size: 18px;
-}
-
-.open-menu {
+.help-guide-content.open-menu {
   animation-name: slideOpen;
-  animation-duration: 0.3s;
-  right: 0px;
+  right: 0;
 }
 
-.close-menu {
+.help-guide-content.close-menu {
   animation-name: slideClose;
-  animation-duration: 0.3s;
   right: -370px;
+}
+
+.help-guide-content .top-block {
+  height: 90px;
+  background-color: #001d74;
+  display: flex;
+  color: #fff;
+  justify-content: space-between;
+}
+
+.help-guide-content .top-block .left-content {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  color: #fff;
+}
+
+.help-guide-content .top-block h3 {
+  color: #fff;
+  margin-bottom: 40px;
+}
+
+.help-guide-content .top-block button {
+  color: #fff;
+}
+
+.side-padding {
+  padding: 0 16px 0 16px;
+}
+
+.vertical-padding {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.controls-group {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
 }
 
 @media screen and (max-width: 767px) {
   #help-guide .help-guide-content {
     width: 90%;
-    top: unset;
+    top: auto;
+    bottom: 0;
   }
 
-  #help-guide .help-guide-content .top-block button i {
+  .help-guide-content .top-block button i {
     transform: rotate(90deg);
   }
 
   .help-guide-callout {
     width: 156px;
     height: 54px;
-    align-self: flex-end;
     flex-direction: row;
     justify-content: space-evenly;
-    top: unset;
+    top: auto;
     bottom: 0;
+    transform: none;
   }
 
-  .open-menu {
-    bottom: 0;
-    animation: slideUp;
-    animation-duration: 0.3s;
+  .help-guide-content.open-menu {
+    animation-name: slideUp;
   }
 
-  .close-menu {
-    bottom: -100vh;
-    animation: slideDown;
-    animation-duration: 0.3s;
-    right: unset;
+  .help-guide-content.close-menu {
+    animation-name: slideDown;
+    right: auto;
   }
 }
 
