@@ -8,8 +8,9 @@ import { Home } from "./pages/Home";
 import { AboutFoodLabels } from "./pages/AboutFoodLabels";
 import { Limitations } from "./pages/limitations/Limitations";
 import { FoodName } from "./pages/FoodName";
+import { BusinessDetails } from "./pages/BusinessDetails";
 
-type Page = "home" | "terms" | "about" | "limitations" | "foodName";
+type Page = "home" | "terms" | "about" | "limitations" | "foodName" | "businessDetails";
 
 const App = () => {
   const [page, setPage] = useState<Page>("home");
@@ -40,7 +41,13 @@ const App = () => {
       <div style={{ display: page === "foodName" ? "block" : "none" }}>
         <FoodName
           onBack={() => setPage("limitations")}
-          // onNext={() => setPage("home")}
+          onNext={() => setPage("businessDetails")}
+        />
+      </div>
+      <div style={{ display: page === "businessDetails" ? "block" : "none" }}>
+        <BusinessDetails
+          onBack={() => setPage("foodName")}
+          onNext={() => setPage("home")}
         />
       </div>
     </>

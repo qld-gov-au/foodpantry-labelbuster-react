@@ -585,6 +585,7 @@ export const InitialPage: React.FC<HelpGuideHandlers> = ({
   onPrint = noop,
   activeSectionId = null,
 }) => {
+  
   useEffect(() => {
     if (!activeSectionId) return;
     const group = document.getElementById("help-accordion-group");

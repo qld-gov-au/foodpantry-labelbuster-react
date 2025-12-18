@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { InfoAlert } from "../components/GlobalWarnings";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { createNavHandlers } from "./help";
+import { FoodNamePage } from "./helpGuide/FoodNamePage";
 
 type FoodNameProps = {
   onBack?: () => void;
@@ -9,6 +10,8 @@ type FoodNameProps = {
 };
 
 export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
   const [ingredientHighlightChoice, setIngredientHighlightChoice] = useState<
     "yes" | "no" | null
   >(null);
@@ -20,6 +23,16 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
 
   const isValid = foodName.trim().length > 0;
   const showError = touched && !isValid;
+
+  const handleGuideLink = (
+    sectionId: string,
+    event: React.MouseEvent<HTMLAnchorElement>
+  ) => {
+    event.preventDefault();
+
+    setActiveSectionId(sectionId);
+    setGuideOpen(true);
+  };
 
   const handleNext = (event: React.MouseEvent<HTMLAnchorElement>) => {
     event.preventDefault();
@@ -41,34 +54,21 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
             alt=""
           />
           <figcaption>
-            The purpose of a food name and description is to correctly describe
-            what the food is. It cannot mislead the customer.
+            The purpose of a{" "}
+            <a
+              href="#about-food-names"
+              onClick={(e) => handleGuideLink("about-food-names", e)}
+            >
+              food name and description
+            </a>{" "}
+            is to correctly describe what the food is. It cannot mislead the
+            customer.
           </figcaption>
           <figcaption>
             The Food Standards Code has rules on what you can name your food.
           </figcaption>
         </figure>
       </div>
-
-      {/* <div style={{ marginTop: "16px", maxWidth: "600px" }}>
-        <label className="form-label" htmlFor="foodNameInput">
-          Food name
-        </label>
-        <input
-          id="foodNameInput"
-          className={`form-control ${showError ? "is-invalid" : ""}`}
-          type="text"
-          value={foodName}
-          onChange={(e) => setFoodName(e.target.value)}
-          onBlur={() => setTouched(true)}
-          aria-required="true"
-        />
-        {showError && (
-          <div className="text-danger small" style={{ marginTop: "4px" }}>
-            Food name is required
-          </div>
-        )}
-      </div> */}
 
       <div className="highlight-ingredient-block">
         <p style={{ fontWeight: "bold", display: "flex" }}>
@@ -163,10 +163,20 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
                 For example:
                 <ul>
                   <li>
-                    <a href="">Honey</a>
+                    <a
+                      href="#honey-products"
+                      onClick={(e) => handleGuideLink("honey-products", e)}
+                    >
+                      Honey
+                    </a>
                   </li>
                   <li>
-                    <a href="">Fermented manufactured meat</a>
+                    <a
+                      href="#prescribed-names"
+                      onClick={(e) => handleGuideLink("prescribed-names", e)}
+                    >
+                      Fermented manufactured meat
+                    </a>
                     (For example: salami, chorizo, pepperoni)
                   </li>
                 </ul>
@@ -213,7 +223,13 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
               alertMessage={
                 <p>
                   These foods have names that must be used (
-                  <a href="">prescribed names</a>).
+                  <a
+                    href="#prescribed-names"
+                    onClick={(e) => handleGuideLink("prescribed-names", e)}
+                  >
+                    prescribed names
+                  </a>
+                  ).
                 </p>
               }
               alertLink={false}
@@ -227,7 +243,16 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
                 <>
                   <p>
                     Some foods have extra requirements. Use the{" "}
-                    <a href="">Help guide</a> to find out what they are.
+                    <a
+                      href="#foodname-extra"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setGuideOpen(true);
+                      }}
+                    >
+                      Help guide
+                    </a>
+                    to find out what they are.
                   </p>
                   <p>
                     For example: Ice cream must be made from milk to call it ice
@@ -283,7 +308,9 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
           onClick={handleNext}
           aria-disabled={!isValid}
           style={
-            !isValid ? { pointerEvents: "none", opacity: 0.65, color:"white" } : undefined
+            !isValid
+              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
+              : undefined
           }
         >
           <span className="btn-label-default">Next</span>
@@ -300,7 +327,9 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
 
       <HelpGuide
         initialOpen={false}
-        content={<div>Help content goes here</div>}
+        content={<FoodNamePage activeSectionId={activeSectionId} />}
+        onOpenChange={setGuideOpen}
+        open={guideOpen}
       />
     </>
   );
