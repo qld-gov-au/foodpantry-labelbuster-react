@@ -4,15 +4,31 @@ import { InitialPage } from "../helpGuide/InitialPage";
 import { Limitation2 } from "./Limitation2";
 import { SeekProAdvice } from "../../components/SeekProAdvice";
 
-export const Limitations = () => {
+type LimitationsProps = {
+  onBack?: () => void;
+  onNext?: () => void;
+};
+
+export const Limitations = ({ onBack, onNext }: LimitationsProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
   const [serviceChoice, setServiceChoice] = useState<"yes" | "no" | null>(null);
+  const [claimChoice, setClaimChoice] = useState<"yes" | "no" | null>(null);
+
+  const handleNextClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    onNext?.();
+  };
+
+  const handleBackClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    onBack?.();
+  };
 
   const handlePrint = useCallback(
     (event: React.MouseEvent<HTMLAnchorElement>) => {
       event.preventDefault();
-      
+
       window.print();
     },
     []
@@ -23,7 +39,6 @@ export const Limitations = () => {
     sectionId: string | null
   ) => {
     if (sectionId) {
-
       event.preventDefault();
       setActiveSectionId(sectionId);
       setGuideOpen(true);
@@ -33,6 +48,8 @@ export const Limitations = () => {
   const guideContent = (
     <InitialPage onPrint={handlePrint} activeSectionId={activeSectionId} />
   );
+
+  const allowNext = claimChoice === "no";
 
   return (
     <>
@@ -149,7 +166,46 @@ export const Limitations = () => {
         </div>
       </div>
 
-      {serviceChoice === "yes" ? <SeekProAdvice /> : <Limitation2 />}
+      {serviceChoice === "yes" ? (
+        <SeekProAdvice />
+      ) : (
+        <Limitation2
+          isSelect={serviceChoice === "no"}
+          onOpenHelpGuide={(sectionId) => {
+            setActiveSectionId(sectionId);
+            setGuideOpen(true);
+          }}
+          onClaimChoiceChange={(choice) => setClaimChoice(choice)}
+        />
+      )}
+
+      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+        <a className="btn btn-primary" role="button" onClick={handleBackClick}>
+          <span className="btn-label-default">Back</span>
+        </a>
+
+        <a
+          className="btn btn-primary"
+          role="button"
+          onClick={handleNextClick}
+          aria-disabled={!allowNext}
+          style={
+            !allowNext
+              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
+              : undefined
+          }
+        >
+          <span className="btn-label-default">Next</span>
+        </a>
+
+        <a
+          className="btn btn-tertiary"
+          target="_blank"
+          data-progress-label="Loading"
+        >
+          <span className="btn-label-default">Cancel</span>
+        </a>
+      </div>
 
       <HelpGuide
         heading="Help guide"
