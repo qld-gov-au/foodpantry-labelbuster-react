@@ -581,7 +581,7 @@ const sections = [
   },
 ];
 
-export const MainPage: React.FC<HelpGuideHandlers> = ({
+export const InitialPage: React.FC<HelpGuideHandlers> = ({
   onPrint = noop,
   activeSectionId = null,
 }) => {
@@ -591,10 +591,16 @@ export const MainPage: React.FC<HelpGuideHandlers> = ({
     if (!group) return;
     const idx = sections.findIndex((s) => s.id === activeSectionId);
     if (idx === -1) return;
-    const collapseEl = group.querySelector<HTMLDivElement>(`#collapse-${idx + 1}`);
-    const buttonEl = group.querySelector<HTMLButtonElement>(`[data-bs-target="#collapse-${idx + 1}"]`);
+    const collapseEl = group.querySelector<HTMLDivElement>(
+      `#collapse-${idx + 1}`
+    );
+    const buttonEl = group.querySelector<HTMLButtonElement>(
+      `[data-bs-target="#collapse-${idx + 1}"]`
+    );
     if (collapseEl) {
-      const instance = Collapse.getOrCreateInstance(collapseEl, { toggle: false });
+      const instance = Collapse.getOrCreateInstance(collapseEl, {
+        toggle: false,
+      });
       instance.show();
     }
     if (buttonEl) {
@@ -643,7 +649,9 @@ export const MainPage: React.FC<HelpGuideHandlers> = ({
 
                 <div
                   id={collapseId}
-                  className={`accordion-collapse collapse ${isFirst ? "show" : ""}`}
+                  className={`accordion-collapse collapse ${
+                    isFirst ? "show" : ""
+                  }`}
                   aria-labelledby={headingId}
                   data-bs-parent="#help-accordion-group"
                   role="region"
