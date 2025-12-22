@@ -1,9 +1,18 @@
 import { useState } from "react";
+import type { MouseEvent } from "react";
 import { InfoAlert } from "../components/GlobalWarnings";
 import { RadioGroup } from "../components/RadioGroup";
 import { Input } from "../components/Input";
+import { HelpGuide } from "../components/helpGuides/HelpGuide";
+import { DateMarkPage } from "./helpGuide/DateMarkPage";
+import { createNavHandlers } from "./help";
 
-export const DateMarks = () => {
+type DateMarksProps = {
+  onBack?: () => void;
+  onNext?: () => void;
+};
+
+export const DateMarks = ({ onBack, onNext }: DateMarksProps) => {
   const [shelfLife2DaysChoice, setShelfLife2DaysChoice] = useState<
     string | null
   >(null);
@@ -16,6 +25,10 @@ export const DateMarks = () => {
   const [dateMarkType, setDateMarkType] = useState<string | null>(null);
   const [dateValue, setDateValue] = useState("");
   const [lotIdentification, setLotIdentification] = useState("");
+  const [guideOpen, setGuideOpen] = useState(false);
+  const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+
+  const { handleBackClick, handleNextClick } = createNavHandlers(onNext, onBack);
 
   const toggleInvalidState = (el: HTMLInputElement | HTMLSelectElement) => {
     if (el.value.trim()) {
@@ -24,6 +37,29 @@ export const DateMarks = () => {
       el.classList.add("is-invalid");
     }
   };
+
+  const handleGuideLink = (
+    sectionId: string,
+    event: MouseEvent<HTMLAnchorElement>
+  ) => {
+    event.preventDefault();
+
+    setActiveSectionId(sectionId);
+    setGuideOpen(true);
+  };
+
+  const dateMarkBlockVisible =
+    shelfLife2DaysChoice === "1" ||
+    shelfLife7DaysChoice === "1" ||
+    shelfLifeCertainDaysChoice === "1" ||
+    shelfLifeCertainDaysChoice === "2";
+
+  const isValid =
+    dateMarkBlockVisible &&
+    !!dateMarkType &&
+    (dateMarkType === "none-mark"
+      ? lotIdentification.trim().length > 0
+      : dateValue.trim().length > 0);
 
   const renderDateMarkBlock = () => (
     <div className="food-date-mark-select">
@@ -62,7 +98,15 @@ export const DateMarks = () => {
 
           <p>
             <small>
-              The date will usually be in the date format of:
+              The date will usually be in the{" "}
+              <a
+                href="#date-format"
+                onClick={(e) => handleGuideLink("date-format", e)}
+              >
+                {" "}
+                date format{" "}
+              </a>
+              of:
               <ul>
                 <li>
                   dd/mm/yyyy (e.g.: 15/3/2020) for food with a shelf life of 3
@@ -94,9 +138,22 @@ export const DateMarks = () => {
             type="text"
             id="lotIdentification-optional"
             label="Lot identification"
-            hint="Lot identification helps identify food. You must include lot identification if you are not using a date mark. If your date mark is your lot identification, leave blank; otherwise enter a lot identification below."
+            hint={
+              <p>
+                <a
+                  href="#lot-identification"
+                  onClick={(e) => handleGuideLink("lot-identification", e)}
+                >
+                  Lot identification
+                </a>{" "}
+                helps identify food. You must include lot identification if you
+                are not using a date mark. If your date mark is your lot
+                identification, leave blank; otherwise enter a lot
+                identification below.
+              </p>
+            }
             value={lotIdentification}
-            displayLabel={false}
+            displayLabel={true}
             required={false}
             onChange={(e) => setLotIdentification(e.target.value)}
           />
@@ -108,9 +165,21 @@ export const DateMarks = () => {
           type="text"
           id="lotIdentification-required"
           label="Lot identification"
-          hint="Lot identification helps identify food. You must include lot identification if you are not using a date mark."
+          hint={
+            <p>
+              <a
+                href="#lot-identification"
+                onClick={(e) => handleGuideLink("lot-identification", e)}
+              >
+                Lot identification
+              </a>{" "}
+              helps identify food. You must include lot identification if you
+              are not using a date mark. If your date mark is your lot
+              identification, leave blank; otherwise enter a lot identification
+              below.
+            </p>
+          }
           value={lotIdentification}
-          displayLabel={false}
           required
           invalidMessage="The lot identification is mandatory"
           onChange={(e) => setLotIdentification(e.target.value)}
@@ -128,8 +197,21 @@ export const DateMarks = () => {
         <figure style={{ display: "flex" }} className="">
           <figcaption>
             Foods that should be eaten before a certain date for health and
-            safety reasons must be labelled with a use-by date. Other food that
-            should be eaten in 2 years must have a best-before date.
+            safety reasons must be labelled with a{" "}
+            <a
+              href="#use-by-date"
+              onClick={(e) => handleGuideLink("use-by-date", e)}
+            >
+              use-by date
+            </a>
+            . Other food that should be eaten in 2 years must have a{" "}
+            <a
+              href="#best-before-date"
+              onClick={(e) => handleGuideLink("best-before-date", e)}
+            >
+              best-before date
+            </a>
+            .
           </figcaption>
           <img
             className="image-ratio-2x3  position-x-center position-y-center"
@@ -177,14 +259,19 @@ export const DateMarks = () => {
               <InfoAlert
                 alertHeading=" No date mark is required"
                 alertMessage={
-                  <>
-                    <p>
-                      No date marking information is required for a food with a
-                      shelf life of more than 2 years. If date marking is not
-                      required, a food business must add a lot identification so
-                      that the food can be identified.
-                    </p>
-                  </>
+                  <p>
+                    No date marking information is required for a food with a
+                    shelf life of more than 2 years. If date marking is not
+                    required, a food business must add a
+                    <a
+                      href="#lot-identification"
+                      onClick={(e) => handleGuideLink("lot-identification", e)}
+                    >
+                      {" "}
+                      Lot identification{" "}
+                    </a>
+                    so that the food can be identified.
+                  </p>
                 }
               />
               {renderDateMarkBlock()}
@@ -221,17 +308,42 @@ export const DateMarks = () => {
                 <InfoAlert
                   alertHeading="Best-before, baked-on or baked-for date"
                   alertMessage={
-                    <>
                       <p>
                         Bread with a shelf life of less than 7 days can be
                         labelled using either a:
                         <ul>
-                          <li>Best-before date</li>
-                          <li>Baked-for date</li>
-                          <li>Baked-on date</li>
+                          <li>
+                            <a
+                              href="#best-before-date"
+                              onClick={(e) =>
+                                handleGuideLink("best-before-date", e)
+                              }
+                            >
+                              Best-before date
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#baked-for-on-date"
+                              onClick={(e) =>
+                                handleGuideLink("baked-for-on-date", e)
+                              }
+                            >
+                              Baked-for date{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#baked-for-on-date"
+                              onClick={(e) =>
+                                handleGuideLink("baked-for-on-date", e)
+                              }
+                            >
+                              Baked-on date{" "}
+                            </a>
+                          </li>
                         </ul>
                       </p>
-                    </>
                   }
                 />
                 {renderDateMarkBlock()}
@@ -289,10 +401,16 @@ export const DateMarks = () => {
                   alertHeading=" Use-by date"
                   alertMessage={
                     <p>
-                      These foods must be labelled with a use-by date because
-                      they may become unsafe to eat after the use-by date has
-                      passed. A food may look, smell and taste ok but be unsafe
-                      to eat.
+                      These foods must be labelled with a{" "}
+                      <a
+                        href="#use-by-date"
+                        onClick={(e) => handleGuideLink("use-by-date", e)}
+                      >
+                        {" "}use-by date{" "}
+                      </a>
+                      because they may become unsafe to eat after the use-by
+                      date has passed. A food may look, smell and taste ok but
+                      be unsafe to eat.
                     </p>
                   }
                 />
@@ -320,6 +438,44 @@ export const DateMarks = () => {
           </>
         )}
       </div>
+
+            <div
+        className="page-navigation-block"
+        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
+      >
+        <a className="btn btn-primary" role="button" onClick={handleBackClick}>
+          <span className="btn-label-default">Back</span>
+        </a>
+
+        <a
+          className="btn btn-primary"
+          role="button"
+          onClick={handleNextClick}
+          aria-disabled={!isValid}
+          style={
+            !isValid
+              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
+              : undefined
+          }
+        >
+          <span className="btn-label-default">Next</span>
+        </a>
+
+        <a
+          className="btn btn-tertiary"
+          target="_blank"
+          data-progress-label="Loading"
+        >
+          <span className="btn-label-default">Cancel</span>
+        </a>
+      </div>
+
+      <HelpGuide
+        initialOpen={false}
+        open={guideOpen}
+        onOpenChange={setGuideOpen}
+        content={<DateMarkPage activeSectionId={activeSectionId} />}
+      />
     </>
   );
 };

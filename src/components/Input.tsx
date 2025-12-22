@@ -2,14 +2,15 @@ import React from "react";
 import type {
   ChangeEvent,
   FormEvent,
-  FocusEvent
+  FocusEvent,
+  ReactNode
 } from "react";
 
 type TextInputProps = {
   id: string;
   label: string;
   value: string;
-  hint?: string;
+  hint?: ReactNode;
   onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
   onInput?: (event: FormEvent<HTMLInputElement>) => void;
   onBlur?: (event: FocusEvent<HTMLInputElement>) => void;
