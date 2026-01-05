@@ -286,6 +286,14 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
     setGuideOpen(true);
   };
 
+  const toggleInvalidState = (el: HTMLInputElement) => {
+    if (el.value.trim()) {
+      el.classList.remove("is-invalid");
+    } else {
+      el.classList.add("is-invalid");
+    }
+  };
+
   const StorageConditionsCheckboxConfigs: CheckboxConfig[] = [
     {
       key: "coolDryConditions",
@@ -318,9 +326,12 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
             onChange={(e) =>
               handleChange("refrigeratedDegreeTo", e.target.value)
             }
+            onInput={(e) => toggleInvalidState(e.currentTarget)}
+            onBlur={(e) => toggleInvalidState(e.currentTarget)}
             // placeholder="5"
             width="420px"
             suffix="°C"
+            required
           />
         </div>
       ),
@@ -432,7 +443,10 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
             id="microwaveMinutes"
             value={data.microwaveMinutes}
             onChange={(e) => handleChange("microwaveMinutes", e.target.value)}
+            onInput={(e) => toggleInvalidState(e.currentTarget)}
+            onBlur={(e) => toggleInvalidState(e.currentTarget)}
             suffix="minutes"
+            required
           />
         </div>
       ),
@@ -458,7 +472,10 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
             id="cookForAt"
             value={data.cookForAt}
             onChange={(e) => handleChange("cookForAt", e.target.value)}
+            onInput={(e) => toggleInvalidState(e.currentTarget)}
+            onBlur={(e) => toggleInvalidState(e.currentTarget)}
             suffix="°C"
+            required
           />
         </div>
       ),
@@ -684,3 +701,5 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
     </>
   );
 };
+
+

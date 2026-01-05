@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createNavHandlers } from "./help";
+import { WarningAlert } from "../components/GlobalWarnings";
 
 type TermsOfUseProps = {
   onBack?: () => void;
@@ -74,21 +75,23 @@ export const TermsOfUse = ({ onBack, onAccept }: TermsOfUseProps) => {
           </li>
         </ul>
 
-        <div className="alert alert-warning" role="alert">
-          <h2>
-            <i className="fa fa-exclamation-triangle"></i>Warning
-          </h2>
-          <p>
-            This tool does not meet all your legislative requirements, only
-            those relating to the Food Standards Code. You will need to include
-            other requirements on your food label, such as country of origin
-            labelling.
-          </p>
-          <p>
-            It is your responsibility to ensure all the information on your food
-            label is true and correct.
-          </p>
-        </div>
+        <WarningAlert
+          alertHeading="Warning"
+          alertMessage={
+            <>
+              <p>
+                This tool does not meet all your legislative requirements, only
+                those relating to the Food Standards Code. You will need to
+                include other requirements on your food label, such as country
+                of origin labelling.
+              </p>
+              <p>
+                It is your responsibility to ensure all the information on your
+                food label is true and correct.
+              </p>
+            </>
+          }
+        />
 
         <p>
           Queensland Government respects your right to privacy in using Label

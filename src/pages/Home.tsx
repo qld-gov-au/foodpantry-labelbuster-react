@@ -1,3 +1,7 @@
+import { InfoAlert } from "../components/GlobalWarnings";
+import { faCircleInfo, faClock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 type HomeProps = {
   onStart?: () => void;
 };
@@ -41,14 +45,15 @@ export const Home = ({ onStart }: HomeProps) => {
           <i>Food Act 2006</i> (the Act), for non-compliance with the Food
           Standards Code.
         </p>
-
-        <div className="callout">
-          <h3 className="callout-title">Did you know</h3>
-          <div className="callout-text">
-            Labels must have the same information whether you sell your product
-            once at a market stall, or regularly to a supermarket.
-          </div>
-        </div>
+        <InfoAlert
+          alertHeading="Did you know"
+          alertMessage={
+            <p>
+              Labels must have the same information whether you sell your
+              product once at a market stall, or regularly to a supermarket.
+            </p>
+          }
+        />
 
         <h2>Who can use Label Buster?</h2>
         <p>
@@ -59,37 +64,39 @@ export const Home = ({ onStart }: HomeProps) => {
           legal advice from a food labelling consultant.
         </p>
 
-        <div
-          className="alert alert-info"
-          role="alert"
-          aria-label="Success alert"
-        >
-          <h2 className="alert-heading">Before you start</h2>
-          <p>To use Label Buster, you will need:</p>
-          <div className="flex-row">
-            <i className="fa fa-clock-o"></i>
-            <div>
+        <InfoAlert
+          alertHeading="Before you start"
+          alertMessage={
+            <>
+              <p>To use Label Buster, you will need:</p>
+              <div className="flex-row">
+                <FontAwesomeIcon icon={faClock} />
+                <div>
+                  <p>
+                    Up to 1 hour - if you are familiar with food labelling
+                    requirements.
+                  </p>
+                  <p>
+                    Up to 2 hours - if you have never made a food label before.
+                  </p>
+                </div>
+              </div>
               <p>
-                Up to 1 hour - if you are familiar with food labelling
-                requirements.
+                <FontAwesomeIcon icon={faCircleInfo} />
+                You will need information about your food, such as:
               </p>
-              <p>Up to 2 hours - if you have never made a food label before.</p>
-            </div>
-          </div>
-          <p>
-            <i className="fa fa-info-circle"></i>You will need information about
-            your food, such as:
-          </p>
-          <ul>
-            <li>ingredients</li>
-            <li>use-by or best-before dates</li>
-            <li>any storage conditions or directions for use</li>
-          </ul>
-          <p>
-            The questions marked with a <span className="special">*</span> must
-            be completed. Other questions are optional.
-          </p>
-        </div>
+              <ul>
+                <li>ingredients</li>
+                <li>use-by or best-before dates</li>
+                <li>any storage conditions or directions for use</li>
+              </ul>
+              <p>
+                The questions marked with a <span className="special">*</span>{" "}
+                must be completed. Other questions are optional.
+              </p>
+            </>
+          }
+        />
 
         <p>
           PLEASE NOTE: The Label Buster tool is in the process of being updated
@@ -138,10 +145,9 @@ export const Home = ({ onStart }: HomeProps) => {
           or phone (07) 3328 9310.
         </p>
 
-        {/* <!-- QGDS Component: Callout --> */}
-        <div className="callout">
-          <h3 className="callout-title">Did you know</h3>
-          <div className="callout-text">
+        <InfoAlert
+          alertHeading="Did you know"
+          alertMessage={
             <p>
               Label Buster will provide you with food labelling information to
               help you to comply with the Food Standards Code. After you finish
@@ -180,11 +186,11 @@ export const Home = ({ onStart }: HomeProps) => {
               </a>
               is a voluntary scheme you can choose to add to your food.
             </p>
-          </div>
-        </div>
+          }
+        />
       </div>
 
-      <div style={{marginTop:"60px"}}>
+      <div style={{ marginTop: "60px" }}>
         <a
           className="btn btn-primary "
           role="button"

@@ -8,6 +8,7 @@ export interface InputConfig {
   suffix?: string;
   width?: string;
   textAreaInput?: boolean;
+  invalidMessage?: string;
 }
 
 interface CheckboxWithInputProps {
@@ -30,6 +31,15 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
   children = null,
 }) => {
   const id = label.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
+  const invalidMessage = inputConfig?.invalidMessage ?? "This field is required";
+
+  const toggleInvalidState = (el: HTMLInputElement | HTMLTextAreaElement) => {
+    if (el.value.trim()) {
+      el.classList.remove("is-invalid");
+    } else {
+      el.classList.add("is-invalid");
+    }
+  };
 
   return (
     <div className="mb-3">
@@ -55,19 +65,27 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
                 type={inputConfig.type || "text"}
                 value={inputValue}
                 onChange={(e) => onInputChange && onInputChange(e.target.value)}
+                onInput={(e) => toggleInvalidState(e.currentTarget)}
+                onBlur={(e) => toggleInvalidState(e.currentTarget)}
                 // placeholder={inputConfig.placeholder}
                 width={inputConfig.width || "420px"}
                 suffix={inputConfig.suffix}
+                required
+                invalidMessage={invalidMessage}
               />
             </div>
           ) : (
               <Textarea
-                id=""
+                id={inputConfig.inputKey}
                 label={undefined}
                 value={inputValue}
                 onChange={(e) => onInputChange && onInputChange(e.target.value)}
+                onInput={(e) => toggleInvalidState(e.currentTarget)}
+                onBlur={(e) => toggleInvalidState(e.currentTarget)}
                 placeholder={inputConfig.placeholder}
                 width={inputConfig.width || "420px"}
+                required
+                invalidMessage={invalidMessage}
               />
           )}
 

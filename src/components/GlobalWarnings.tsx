@@ -22,15 +22,50 @@ type InfoAlertProps = {
   alertLink?: boolean;
 };
 
-export const InfoAlert = ({ alertHeading, alertMessage, alertLink }: InfoAlertProps) => {
+export const InfoAlert = ({
+  alertHeading,
+  alertMessage,
+  alertLink,
+}: InfoAlertProps) => {
   return (
-    <div className="alert alert-info" style={{maxWidth:"700px"}} role="alert" aria-label="Success alert">
+    <div
+      className="alert alert-info"
+      style={{ maxWidth: "1000px" }}
+      role="alert"
+      aria-label="Success alert"
+    >
       <h2 className="alert-heading">{alertHeading}</h2>
       <p>
         {alertMessage}
-        {alertLink && (
-          <a href= "#">Find out more</a>
-        )}
+        {alertLink && <a href="#">Find out more</a>}
+      </p>
+    </div>
+  );
+};
+
+type WarningAlertProps = {
+  alertHeading: string;
+  alertMessage: React.ReactNode;
+  alertLink?: boolean;
+};
+
+export const WarningAlert = ({
+  alertHeading,
+  alertMessage,
+  alertLink,
+}: WarningAlertProps) => {
+  return (
+    <div
+      className="alert alert-warning "
+      role="alert"
+      aria-label="Success alert"
+      style={{ maxWidth: "1000px" }}
+
+    >
+      <h2 className="alert-heading">{alertHeading}</h2>
+      <p>
+        {alertMessage}
+        {alertLink && <a href="#">Find out more</a>}
       </p>
     </div>
   );

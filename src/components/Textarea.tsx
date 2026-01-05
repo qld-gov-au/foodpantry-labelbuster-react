@@ -13,7 +13,6 @@ type TextareaProps = {
   required?: boolean;
   invalidMessage?: string;
   validMessage?: string;
-  tabIndex?: number;
   placeholder?: string;
   rows?: number;
   width?: string | number;
@@ -30,9 +29,8 @@ export const Textarea: React.FC<TextareaProps> = ({
   hint,
   optional = false,
   required = false,
-  invalidMessage,
-  validMessage,
-  tabIndex = 0,
+  invalidMessage = "This field is required",
+  validMessage = "Success",
   placeholder,
   rows = 3,
   width,
@@ -62,7 +60,6 @@ export const Textarea: React.FC<TextareaProps> = ({
         id={id}
         className="form-control"
         placeholder={placeholder}
-        tabIndex={tabIndex}
         required={required}
         aria-describedby={describedBy}
         rows={rows}
