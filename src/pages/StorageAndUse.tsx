@@ -524,6 +524,30 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
+  const hasValue = (value: string) => value.trim().length > 0;
+  const missingRequiredInputs =
+    (formData.keepRefrigeratedAt &&
+      (!hasValue(formData.refrigeratedDegreeFrom) ||
+        !hasValue(formData.refrigeratedDegreeTo))) ||
+    (formData.keepRefrigeratedAtBelow &&
+      !hasValue(formData.refrigeratedDegreeBelow)) ||
+    (formData.otherFrozen && !hasValue(formData.otherFrozenNote)) ||
+    (formData.consumeWithin && !hasValue(formData.consumeDays)) ||
+    (formData.onceThawedUseWithin &&
+      !hasValue(formData.onceThawedUseWithinDays)) ||
+    (formData.microwaveOn &&
+      (!hasValue(formData.microwavePower) ||
+        !hasValue(formData.microwaveMinutes))) ||
+    (formData.cookFor &&
+      (!hasValue(formData.useMinutes) || !hasValue(formData.cookForAt))) ||
+    (formData.allowToStand && !hasValue(formData.standMinutes)) ||
+    (formData.otherDirectionsForUse &&
+      !hasValue(formData.otherDirectionsForUseDetails)) ||
+    (formData.cookingPreparationInstructions &&
+      !hasValue(formData.cookingPreparationInstructionsDetails));
+
+  const isValid = !missingRequiredInputs;
+
   return (
     <>
       <div>
@@ -679,7 +703,17 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
           <span className="btn-label-default">Back</span>
         </a>
 
-        <a className="btn btn-primary" role="button" onClick={handleNextClick}>
+        <a
+          className="btn btn-primary"
+          role="button"
+          onClick={handleNextClick}
+          aria-disabled={!isValid}
+          style={
+            !isValid
+              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
+              : undefined
+          }
+        >
           <span className="btn-label-default">Next</span>
         </a>
 
