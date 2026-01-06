@@ -1,7 +1,6 @@
 import { useState } from "react";
-import type { MouseEvent } from "react";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
-import { createNavHandlers } from "./help";
+import { createNavHandlers, useGuideNavigation } from "./help";
 import { RadioGroup } from "../components/RadioGroup";
 import { InfoAlert } from "../components/GlobalWarnings";
 import { Table } from "../components/Table";
@@ -48,14 +47,10 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
     onBack
   );
 
-  const handleGuideLink = (
-    sectionId: string,
-    event: MouseEvent<HTMLAnchorElement>
-  ) => {
-    event.preventDefault();
-    setActiveSectionId(sectionId);
-    setGuideOpen(true);
-  };
+  const { handleGuideLink } = useGuideNavigation({
+    setGuideOpen,
+    setActiveSectionId,
+  });
 
   const ingredientList = ingredientRows
     .map((row) => row[0]?.trim())
@@ -86,7 +81,13 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
               <p style={{ fontWeight: "bold", display: "flex" }}>
                 Do you mention an ingredient, category of ingredients or a part
                 of the food in the name on the label (
-                <a href="">characterising ingredients</a> )?
+                <a
+                  href="#char-ingredient"
+                  onClick={handleGuideLink("char-ingredient")}
+                >
+                  characterising ingredients
+                </a>
+                )?
                 <abbr
                   className="required"
                   title="(required)"
@@ -123,10 +124,8 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
                       ingredients in the food. The Food Standards Code provides
                       details on how
                       <a
-                        href="#lot-identification"
-                        onClick={(e) =>
-                          handleGuideLink("lot-identification", e)
-                        }
+                        href="#char-ingredient"
+                        onClick={handleGuideLink("char-ingredient")}
                       >
                         {" "}
                         characterising ingredients and components{" "}
@@ -148,7 +147,14 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
               <div>
                 <p style={{ fontWeight: "bold", display: "flex" }}>
                   Do you use any
-                  <a href=""> compound ingredients </a>? to make your food?
+                  <a
+                    href="#comp-ingredient"
+                    onClick={handleGuideLink("comp-ingredient")}
+                  >
+                    {" "}
+                    compound ingredients{" "}
+                  </a>
+                  ? to make your food?
                   <abbr
                     className="required"
                     title="(required)"
@@ -186,10 +192,8 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
                     <p>
                       If a food contains
                       <a
-                        href="#lot-identification"
-                        onClick={(e) =>
-                          handleGuideLink("lot-identification", e)
-                        }
+                        href="#comp-ingredient"
+                        onClick={handleGuideLink("comp-ingredient")}
                       >
                         {" "}
                         compound ingredients{" "}
@@ -217,7 +221,14 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
               <div>
                 <p style={{ fontWeight: "bold", display: "flex" }}>
                   Do you sometimes replace an ingredient with an
-                  <a href=""> alternative ingredient </a>to make your food?
+                  <a
+                    href="#alt-ingredient"
+                    onClick={handleGuideLink("alt-ingredient")}
+                  >
+                    {" "}
+                    alternative ingredient{" "}
+                  </a>
+                  to make your food?
                   <abbr
                     className="required"
                     title="(required)"
@@ -254,13 +265,11 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
                   <>
                     <p>
                       <a
-                        href="#lot-identification"
-                        onClick={(e) =>
-                          handleGuideLink("lot-identification", e)
-                        }
+                        href="#alt-ingredient"
+                        onClick={handleGuideLink("alt-ingredient")}
                       >
                         {" "}
-                        Alternative ingredients{" "}
+                        Alternative ingredient{" "}
                       </a>
                       including food additives, must be declared.
                     </p>
@@ -277,7 +286,14 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
               <>
                 <p style={{ fontWeight: "bold", display: "flex" }}>
                   Do you want to list an ingredient with a{" "}
-                  <a href=""> generic name </a>?
+                  <a
+                    href="#generic-name"
+                    onClick={handleGuideLink("generic-name")}
+                  >
+                    {" "}
+                    generic name{" "}
+                  </a>
+                  ?
                   <abbr
                     className="required"
                     title="(required)"
@@ -296,11 +312,56 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
                       conditions.
                     </p>
                     <p>
-                      <a href="">Cereals</a>, <a href="">fats or oils</a>,{" "}
-                      <a href="">fish</a>, <a href="">milk solids</a>,{" "}
-                      <a href="">offal</a>, <a href="">nuts</a>,{" "}
-                      <a href="">starch</a>, and <a href="">sugar</a> have other
-                      requirements.
+                      <a href="#bcr" onClick={handleGuideLink("bcr")}>
+                        Cereals
+                      </a>
+                      ,{" "}
+                      <a
+                        href="#oils-margarine"
+                        onClick={handleGuideLink("oils-margarine")}
+                      >
+                        fats or oils
+                      </a>
+                      ,{" "}
+                      <a
+                        href="#fish-seafood"
+                        onClick={handleGuideLink("fish-seafood")}
+                      >
+                        fish
+                      </a>
+                      ,{" "}
+                      <a
+                        href="#milk-dairy"
+                        onClick={handleGuideLink("milk-dairy")}
+                      >
+                        milk solids
+                      </a>
+                      ,{" "}
+                      <a
+                        href="#meat-prod"
+                        onClick={handleGuideLink("meat-prod")}
+                      >
+                        offal
+                      </a>
+                      ,{" "}
+                      <a
+                        href="#nuts-seeds"
+                        onClick={handleGuideLink("nuts-seeds")}
+                      >
+                        nuts
+                      </a>
+                      ,{" "}
+                      <a href="#bcr" onClick={handleGuideLink("bcr")}>
+                        starch
+                      </a>
+                      , and{" "}
+                      <a
+                        href="#sugar-alt"
+                        onClick={handleGuideLink("sugar-alt")}
+                      >
+                        sugar
+                      </a>{" "}
+                      have other requirements.
                     </p>
                     <p>
                       For example: Apple, pear and peach listed as “fruit” in a
@@ -324,15 +385,13 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
 
             {form.ingredientGenericName === "1" && (
               <InfoAlert
-                alertHeading=" Generic names"
+                alertHeading="Generic names"
                 alertMessage={
                   <>
                     <p>
                       <a
-                        href="#lot-identification"
-                        onClick={(e) =>
-                          handleGuideLink("lot-identification", e)
-                        }
+                        href="#generic-name"
+                        onClick={handleGuideLink("generic-name")}
                       >
                         Generic names{" "}
                       </a>
@@ -354,7 +413,15 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
             {form.ingredientGenericName && (
               <>
                 <p style={{ fontWeight: "bold", display: "flex" }}>
-                  Does your food contain any <a href=""> food additives </a>?
+                  Does your food contain any{" "}
+                  <a
+                    href="#food-additive"
+                    onClick={handleGuideLink("food-additive")}
+                  >
+                    {" "}
+                    food additives{" "}
+                  </a>
+                  ?
                   <abbr
                     className="required"
                     title="(required)"
@@ -395,10 +462,8 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
                     <p>
                       The Food Standards Code specifies how to list
                       <a
-                        href="#lot-identification"
-                        onClick={(e) =>
-                          handleGuideLink("lot-identification", e)
-                        }
+                        href="#food-additive"
+                        onClick={handleGuideLink("food-additive")}
                       >
                         {" "}
                         food additives{" "}
@@ -422,7 +487,14 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
             {form.foodAdditives && (
               <>
                 <p style={{ fontWeight: "bold", display: "flex" }}>
-                  Does your food contain any <a href=""> exempt ingredients </a>
+                  Does your food contain any{" "}
+                  <a
+                    href="#exempt-ingredient"
+                    onClick={handleGuideLink("exempt-ingredient")}
+                  >
+                    {" "}
+                    exempt ingredients{" "}
+                  </a>
                   that do not need to be included in a statement of ingredients?
                   <abbr
                     className="required"
@@ -464,12 +536,12 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
 
             {form.exemptIngredients === "1" && (
               <InfoAlert
-                alertHeading=" Exempt ingredients"
+                alertHeading="Exempt ingredients"
                 alertMessage={
                   <p>
                     <a
-                      href="#lot-identification"
-                      onClick={(e) => handleGuideLink("lot-identification", e)}
+                      href="#exempt-ingredient"
+                      onClick={handleGuideLink("exempt-ingredient")}
                     >
                       Exempt ingredients{" "}
                     </a>

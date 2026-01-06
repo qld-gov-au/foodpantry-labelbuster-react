@@ -2,7 +2,6 @@ import React from "react";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 type TableSectionRow = {
   cells: React.ReactNode[];
   className?: string;
@@ -70,7 +69,7 @@ export const Table: React.FC<TableProps> = ({
   };
 
   return (
-    <div className="table-responsive qld-table" style={{ width: "60vw" }}>
+    <div className="table-responsive qld-table" style={{ width: "1000px" }}>
       <table className={`table ${tableClassName}`.trim()}>
         {(caption || subCaption) && (
           <caption className="caption">
@@ -112,7 +111,7 @@ export const Table: React.FC<TableProps> = ({
                   }}
                 >
                   {isEditable && allowReorder && (
-                    <td>
+                    <td style={{width:"10%"}}>
                       <button
                         type="button"
                         className="btn btn-outline-secondary"
@@ -131,7 +130,8 @@ export const Table: React.FC<TableProps> = ({
                     </td>
                   )}
                   {row.map((cell, cellIndex) => (
-                    <td key={cellIndex}>
+                    <td key={cellIndex} 
+                    style={{width:`${20 / headers.length}%`}}>
                       <input
                         className="form-control"
                         aria-label={`Row ${rowIndex + 1}, Column ${
@@ -187,7 +187,7 @@ export const Table: React.FC<TableProps> = ({
         >
           <button
             type="button"
-            className="btn btn-outline-primary"
+            className="btn btn-outline-secondary"
             onClick={handleAddRow}
           >
             {addRowLabel}

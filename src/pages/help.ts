@@ -1,11 +1,15 @@
 import type React from "react";
+import type { MouseEvent } from "react";
 
 type NavHandlers = {
   handleNextClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
   handleBackClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
 };
 
-export const createNavHandlers = (onNext?: () => void, onBack?: () => void): NavHandlers => {
+export const createNavHandlers = (
+  onNext?: () => void,
+  onBack?: () => void
+): NavHandlers => {
   return {
     handleNextClick: (event) => {
       event.preventDefault();
@@ -16,4 +20,23 @@ export const createNavHandlers = (onNext?: () => void, onBack?: () => void): Nav
       onBack?.();
     },
   };
-}
+};
+
+type UseGuideNavigationOptions = {
+  setGuideOpen: (open: boolean) => void;
+  setActiveSectionId: (id: string) => void;
+};
+
+export const useGuideNavigation = ({
+  setGuideOpen,
+  setActiveSectionId,
+}: UseGuideNavigationOptions) => {
+  const handleGuideLink =
+    (sectionId: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+      event.preventDefault();
+      setActiveSectionId(sectionId);
+      setGuideOpen(true);
+    };
+
+  return { handleGuideLink };
+};
