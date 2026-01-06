@@ -20,13 +20,6 @@ type Rule<T> = {
   text: (d: T) => string;
 };
 
-const buildMessage = <T,>(data: T, rules: Rule<T>[]) =>
-  rules
-    .filter((r) => r.when(data))
-    .map((r) => r.text(data).trim())
-    .filter(Boolean)
-    .join(" ");
-
 interface CheckboxConfig {
   key: string;
   label: string;
@@ -35,6 +28,7 @@ interface CheckboxConfig {
     data: FormData,
     handleChange: (field: keyof FormData, value: string) => void
   ) => React.ReactNode;
+  requiredFields?: (keyof FormData)[];
 }
 
 interface FormData {
@@ -207,6 +201,13 @@ const directionsRules: Rule<FormData>[] = [
   },
 ];
 
+const buildMessage = <T,>(data: T, rules: Rule<T>[]) =>
+  rules
+    .filter((r) => r.when(data))
+    .map((r) => r.text(data).trim())
+    .filter(Boolean)
+    .join(" ");
+
 export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
@@ -320,6 +321,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
         placeholder: "5",
         suffix: "°C",
       },
+      requiredFields: ["refrigeratedDegreeFrom", "refrigeratedDegreeTo"],
       renderChildren: (data, handleChange) => (
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <span>to</span>
@@ -342,6 +344,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
     {
       label: "Keep refrigerated at or below",
       key: "keepRefrigeratedAtBelow",
+      requiredFields: ["refrigeratedDegreeBelow"],
       renderChildren: (data, handleChange) => (
         <Input
           type="number"
@@ -386,6 +389,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
         textAreaInput: true,
         width: "420px",
       },
+      requiredFields: ["otherFrozenNote"],
     },
   ];
 
@@ -418,6 +422,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
         suffix: "days of opening.",
         type: "number",
       },
+      requiredFields: ["consumeDays"],
     },
     {
       label: "Thaw before cooking.",
@@ -434,6 +439,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
     {
       label: "Once thawed, use within",
       key: "onceThawedUseWithin",
+      requiredFields: ["onceThawedUseWithinDays"],
       renderChildren: (data, handleChange) => (
         <Input
           type="number"
@@ -478,8 +484,8 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
       label: "Microwave on",
       inputConfig: {
         inputKey: "microwavePower",
-        placeholder: "high",
       },
+      requiredFields: ["microwavePower", "microwaveMinutes"],
       renderChildren: (data, handleChange) => (
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <span>for</span>
@@ -505,10 +511,10 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
       key: "cookFor",
       inputConfig: {
         inputKey: "useMinutes",
-        placeholder: "48",
         suffix: "minutes",
         type: "number",
       },
+      requiredFields: ["useMinutes", "cookForAt"],
       renderChildren: (data, handleChange) => (
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <span>at</span>
@@ -520,6 +526,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
             onInput={(e) => toggleInvalidState(e.currentTarget)}
             onBlur={(e) => toggleInvalidState(e.currentTarget)}
             suffix="°C"
+            invalidMessage="This field is required."
             required
           />
         </div>
@@ -530,8 +537,10 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
       key: "allowToStand",
       inputConfig: {
         inputKey: "standMinutes",
+        type: "number",
         suffix: "minutes before serving.",
       },
+      requiredFields: ["standMinutes"],
     },
     {
       label: "Do not refrigerate or reheat once heated.",
@@ -549,6 +558,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
         inputKey: "otherDirectionsForUseDetails",
         textAreaInput: true,
       },
+      requiredFields: ["otherDirectionsForUseDetails"],
     },
     {
       label: "Cooking / preparation instructions, please enter.",
@@ -557,6 +567,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
         inputKey: "cookingPreparationInstructionsDetails",
         textAreaInput: true,
       },
+      requiredFields: ["cookingPreparationInstructionsDetails"],
     },
   ];
 
@@ -568,31 +579,40 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const hasValue = (value: string) => value.trim().length > 0;
-  const belowTempValue = Number(formData.refrigeratedDegreeBelow);
-  const belowTempInvalid =
-    !hasValue(formData.refrigeratedDegreeBelow) ||
-    Number.isNaN(belowTempValue) ||
-    belowTempValue > 30;
-  const missingRequiredInputs =
-    (formData.keepRefrigeratedAt &&
-      (!hasValue(formData.refrigeratedDegreeFrom) ||
-        !hasValue(formData.refrigeratedDegreeTo))) ||
-    (formData.keepRefrigeratedAtBelow && belowTempInvalid) ||
-    (formData.otherFrozen && !hasValue(formData.otherFrozenNote)) ||
-    (formData.consumeWithin && !hasValue(formData.consumeDays)) ||
-    (formData.onceThawedUseWithin &&
-      !hasValue(formData.onceThawedUseWithinDays)) ||
-    (formData.microwaveOn &&
-      (!hasValue(formData.microwavePower) ||
-        !hasValue(formData.microwaveMinutes))) ||
-    (formData.cookFor &&
-      (!hasValue(formData.useMinutes) || !hasValue(formData.cookForAt))) ||
-    (formData.allowToStand && !hasValue(formData.standMinutes)) ||
-    (formData.otherDirectionsForUse &&
-      !hasValue(formData.otherDirectionsForUseDetails)) ||
-    (formData.cookingPreparationInstructions &&
-      !hasValue(formData.cookingPreparationInstructionsDetails));
+  const hasValue = (value: string | number | null | undefined) =>
+    String(value ?? "").trim().length > 0;
+
+  const validateField = (key: keyof FormData) => {
+    const rawValue = formData[key];
+    if (!hasValue(rawValue as string)) {
+      return false;
+    }
+    if (key === "refrigeratedDegreeBelow") {
+      const value = Number(rawValue);
+      return !Number.isNaN(value) && value <= 30;
+    }
+    if (key === "onceThawedUseWithinDays") {
+      const value = Number(rawValue);
+      return !Number.isNaN(value) && value <= 100;
+    }
+    return true;
+  };
+
+  const missingRequiredInputs = [
+    ...StorageConditionsCheckboxConfigs,
+    ...DirectionForUseConfigs,
+  ].some((config) => {
+    const isChecked = Boolean(formData[config.key]);
+    if (!isChecked) return false;
+    const requiredFields: (keyof FormData)[] = [];
+    if (config.inputConfig) {
+      requiredFields.push(config.inputConfig.inputKey as keyof FormData);
+    }
+    if (config.requiredFields) {
+      requiredFields.push(...config.requiredFields);
+    }
+    return requiredFields.some((field) => !validateField(field));
+  });
 
   const isValid = !missingRequiredInputs;
 
