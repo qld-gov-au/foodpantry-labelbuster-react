@@ -12,6 +12,7 @@ import { BusinessDetails } from "./pages/BusinessDetails";
 import { DateMarks } from "./pages/DateMarks";
 import { StorageAndUse } from "./pages/StorageAndUse";
 import { Ingredients } from "./pages/Ingredients";
+import { Statements } from "./pages/Statements";
 
 type Page =
   | "home"
@@ -22,7 +23,8 @@ type Page =
   | "businessDetails"
   | "dateMarks"
   | "storageUse"
-  | "ingredients";
+  | "ingredients"
+  | "statements";
 
 const App = () => {
   const [page, setPage] = useState<Page>("home");
@@ -77,6 +79,12 @@ const App = () => {
       <div style={{ display: page === "ingredients" ? "block" : "none" }}>
         <Ingredients
           onBack={() => setPage("storageUse")}
+          onNext={() => setPage("statements")}
+        />
+      </div>
+      <div style={{ display: page === "statements" ? "block" : "none" }}>
+        <Statements
+          onBack={() => setPage("ingredients")}
           onNext={() => setPage("home")}
         />
       </div>

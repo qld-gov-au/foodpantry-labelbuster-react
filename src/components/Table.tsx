@@ -80,13 +80,19 @@ export const Table: React.FC<TableProps> = ({
 
         <thead>
           <tr>
-            {isEditable && allowReorder && <th scope="col"></th>}
+            {isEditable && allowReorder && (
+              <th scope="col" style={{ width: "1%", whiteSpace: "nowrap" }}></th>
+            )}
             {headers.map((header, index) => (
               <th scope="col" key={index}>
                 {header}
               </th>
             ))}
-            {isEditable && <th scope="col">Actions</th>}
+            {isEditable && (
+              <th scope="col" style={{ width: "1%", whiteSpace: "nowrap" }}>
+                Actions
+              </th>
+            )}
           </tr>
         </thead>
 
@@ -111,10 +117,10 @@ export const Table: React.FC<TableProps> = ({
                   }}
                 >
                   {isEditable && allowReorder && (
-                    <td style={{width:"10%"}}>
+                    <td style={{ width: "1%", whiteSpace: "nowrap" }}>
                       <button
                         type="button"
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-secondary btn-sm"
                         draggable
                         onDragStart={(event) => {
                           event.dataTransfer.setData(
@@ -131,7 +137,7 @@ export const Table: React.FC<TableProps> = ({
                   )}
                   {row.map((cell, cellIndex) => (
                     <td key={cellIndex} 
-                    style={{width:`${20 / headers.length}%`}}>
+                    >
                       <input
                         className="form-control"
                         aria-label={`Row ${rowIndex + 1}, Column ${
@@ -145,10 +151,10 @@ export const Table: React.FC<TableProps> = ({
                       />
                     </td>
                   ))}
-                  <td>
+                  <td style={{ width: "1%", whiteSpace: "nowrap" }}>
                     <button
                       type="button"
-                      className="btn btn-outline-secondary"
+                      className="btn btn-outline-secondary btn-sm"
                       onClick={() => handleDeleteRow(rowIndex)}
                     >
                       {deleteRowLabel}
