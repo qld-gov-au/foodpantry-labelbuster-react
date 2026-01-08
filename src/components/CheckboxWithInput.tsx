@@ -17,8 +17,8 @@ export interface CheckboxConfig {
   hint?: React.ReactNode;
   inputConfig?: InputConfig;
   renderChildren?: (
-    data: FormData,
-    handleChange: (field: keyof FormData, value: string) => void
+    data?: FormData,
+    handleChange?: (field: keyof FormData, value: string) => void
   ) => React.ReactNode;
   requiredFields?: (keyof FormData)[];
 }

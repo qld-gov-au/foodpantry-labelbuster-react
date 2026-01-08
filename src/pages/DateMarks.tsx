@@ -28,7 +28,10 @@ export const DateMarks = ({ onBack, onNext }: DateMarksProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
 
-  const { handleBackClick, handleNextClick } = createNavHandlers(onNext, onBack);
+  const { handleBackClick, handleNextClick } = createNavHandlers(
+    onNext,
+    onBack
+  );
 
   const toggleInvalidState = (el: HTMLInputElement | HTMLSelectElement) => {
     if (el.value.trim()) {
@@ -306,42 +309,42 @@ export const DateMarks = ({ onBack, onNext }: DateMarksProps) => {
                 <InfoAlert
                   alertHeading="Best-before, baked-on or baked-for date"
                   alertMessage={
-                      <p>
-                        Bread with a shelf life of less than 7 days can be
-                        labelled using either a:
-                        <ul>
-                          <li>
-                            <a
-                              href="#best-before-date"
-                              onClick={(e) =>
-                                handleGuideLink("best-before-date", e)
-                              }
-                            >
-                              Best-before date
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#baked-for-on-date"
-                              onClick={(e) =>
-                                handleGuideLink("baked-for-on-date", e)
-                              }
-                            >
-                              Baked-for date{" "}
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              href="#baked-for-on-date"
-                              onClick={(e) =>
-                                handleGuideLink("baked-for-on-date", e)
-                              }
-                            >
-                              Baked-on date{" "}
-                            </a>
-                          </li>
-                        </ul>
-                      </p>
+                    <p>
+                      Bread with a shelf life of less than 7 days can be
+                      labelled using either a:
+                      <ul>
+                        <li>
+                          <a
+                            href="#best-before-date"
+                            onClick={(e) =>
+                              handleGuideLink("best-before-date", e)
+                            }
+                          >
+                            Best-before date
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#baked-for-on-date"
+                            onClick={(e) =>
+                              handleGuideLink("baked-for-on-date", e)
+                            }
+                          >
+                            Baked-for date{" "}
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="#baked-for-on-date"
+                            onClick={(e) =>
+                              handleGuideLink("baked-for-on-date", e)
+                            }
+                          >
+                            Baked-on date{" "}
+                          </a>
+                        </li>
+                      </ul>
+                    </p>
                   }
                 />
                 {renderDateMarkBlock()}
@@ -437,7 +440,7 @@ export const DateMarks = ({ onBack, onNext }: DateMarksProps) => {
         )}
       </div>
 
-            <div
+      <div
         className="page-navigation-block"
         style={{ display: "flex", gap: "20px", marginTop: "20px" }}
       >

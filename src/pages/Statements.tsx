@@ -7,7 +7,6 @@ import {
   type CheckboxConfig,
 } from "../components/CheckboxWithInput";
 import { InfoAlert } from "../components/GlobalWarnings";
-import { Input } from "../components/Input";
 import { Checkbox } from "../components/Checkbox";
 import { Textarea } from "../components/Textarea";
 
@@ -90,6 +89,9 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
     oilsAndMargarine: "",
     saltAndSaltSubstitutes: "",
   });
+  const [statementSelections, setStatementSelections] = useState<
+    Record<string, boolean>
+  >({});
 
   const { handleBackClick, handleNextClick } = createNavHandlers(
     onNext,
@@ -100,6 +102,27 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
     setGuideOpen,
     setActiveSectionId,
   });
+
+  const handleStatementCheckboxChange = (id: string, checked: boolean) => {
+    setStatementSelections((prev) => ({
+      ...prev,
+      [id]: checked,
+    }));
+  };
+
+  const renderStatementCheckbox = (
+    id: string,
+    label: string,
+    hint?: React.ReactNode
+  ) => (
+    <Checkbox
+      id={id}
+      label={label}
+      hint={hint}
+      checked={!!statementSelections[id]}
+      onChange={(checked) => handleStatementCheckboxChange(id, checked)}
+    />
+  );
 
   const CerealsAndGrainsCheckboxConfigs: CheckboxConfig[] = [
     {
@@ -267,15 +290,10 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       label: "Egg and egg products",
       key: "eggAndEggProducts",
       renderChildren: () => {
-        return (
-          //   <div style={{ padding: "5px 20px" }}>
-          <Checkbox
-            label="Unpasteurised egg products"
-            id="npasteurised-egg-products"
-            hint={hint}
-            size="small"
-          />
-          //   </div>
+        return renderStatementCheckbox(
+          "unpasteurised-egg-products",
+          "Unpasteurised egg products",
+          hint
         );
       },
     },
@@ -283,14 +301,10 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       label: "Fish, crustacea and seafood",
       key: "fishCrustaceaSeafood",
       renderChildren: () => {
-        return (
-          //   <div style={{ padding: "5px 20px" }}>
-          <Checkbox
-            label="Raw fish that has been joined to look like a cut or fillet of fish using a binding system, without the application of heat, whether coated or not."
-            id="raw-fish-binding-system"
-            hint={hint}
-          />
-          //   </div>
+        return renderStatementCheckbox(
+          "raw-fish-binding-system",
+          "Raw fish that has been joined to look like a cut or fillet of fish using a binding system, without the application of heat, whether coated or not.",
+          hint
         );
       },
     },
@@ -301,11 +315,11 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
         return (
           <>
             <div>
-              <Checkbox
-                label="Contains one or more of the following substances, either alone or in combination, at a level of, or in excess of 10 g/100 g"
-                id="substances-excess-10g"
-                hint={hint}
-              />
+              {renderStatementCheckbox(
+                "substances-excess-10g",
+                "Contains one or more of the following substances, either alone or in combination, at a level of, or in excess of 10 g/100 g",
+                hint
+              )}
               <small>
                 <ul>
                   <li>lactitol</li>
@@ -318,10 +332,10 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
             </div>
 
             <div>
-              <Checkbox
-                label="Contains one or more of the following substances, either alone, or in combination, at a level or in excess of 25 g/100 g"
-                id="substances-excess-25g"
-              />
+              {renderStatementCheckbox(
+                "substances-excess-25g",
+                "Contains one or more of the following substances, either alone, or in combination, at a level or in excess of 25 g/100 g"
+              )}
               <small>
                 <ul>
                   <li>erythritol</li>
@@ -333,10 +347,10 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
             </div>
 
             <div>
-              <Checkbox
-                label="Contains one or more of the following substances in combination at a level of or in excess of 10 g/100 g"
-                id="substances-combination-10g"
-              />
+              {renderStatementCheckbox(
+                "substances-combination-10g",
+                "Contains one or more of the following substances in combination at a level of or in excess of 10 g/100 g"
+              )}
               <small>
                 <ul>
                   <li>erythritol</li>
@@ -352,19 +366,19 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
               </small>
             </div>
 
-            <Checkbox
-              label="Aspartame or aspartame-acesulphame salt"
-              id="aspartame-acesulphame"
-            />
-            <Checkbox
-              label="Added phytosterols, phytostanols or their esters."
-              id="phytosterols-phytostanols"
-            />
-            <Checkbox label="Quinine" id="quinine" />
-            <Checkbox
-              label="Guarana or extracts of guarana"
-              id="guarana-extracts"
-            />
+            {renderStatementCheckbox(
+              "aspartame-acesulphame",
+              "Aspartame or aspartame-acesulphame salt"
+            )}
+            {renderStatementCheckbox(
+              "phytosterols-phytostanols",
+              "Added phytosterols, phytostanols or their esters."
+            )}
+            {renderStatementCheckbox("quinine", "Quinine")}
+            {renderStatementCheckbox(
+              "guarana-extracts",
+              "Guarana or extracts of guarana"
+            )}
           </>
         );
       },
@@ -375,12 +389,10 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       key: "foodContainingAlcohol",
 
       renderChildren: () => {
-        return (
-          <Checkbox
-            label="A food that contains more than 1.15% alcohol by volume"
-            id="food-more-than-1.15-alcohol"
-            hint={hint}
-          />
+        return renderStatementCheckbox(
+          "food-more-than-1.15-alcohol",
+          "A food that contains more than 1.15% alcohol by volume",
+          hint
         );
       },
     },
@@ -391,9 +403,9 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox label="Bee pollen" id="bee-pollen" hint={hint} />
-            <Checkbox label="Propolis" id="propolis" />
-            <Checkbox label="Royal jelly" id="royal-jelly" />
+            {renderStatementCheckbox("bee-pollen", "Bee pollen", hint)}
+            {renderStatementCheckbox("propolis", "Propolis")}
+            {renderStatementCheckbox("royal-jelly", "Royal jelly")}
           </div>
         );
       },
@@ -405,15 +417,15 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="Dried or raw kava root"
-              id="kava-root"
-              hint={hint}
-            />
-            <Checkbox
-              label="A beverage obtained by the aqueous suspension of kava root using cold water only, and not using any organic solvent"
-              id="kava-beverage"
-            />
+            {renderStatementCheckbox(
+              "kava-root",
+              "Dried or raw kava root",
+              hint
+            )}
+            {renderStatementCheckbox(
+              "kava-beverage",
+              "A beverage obtained by the aqueous suspension of kava root using cold water only, and not using any organic solvent"
+            )}
           </div>
         );
       },
@@ -425,15 +437,15 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat."
-              id="milk-soy-beverage"
-              hint={hint}
-            />
-            <Checkbox
-              label="Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat."
-              id="evaporated-dried-soy-beverage"
-            />
+            {renderStatementCheckbox(
+              "milk-soy-beverage",
+              "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat.",
+              hint
+            )}
+            {renderStatementCheckbox(
+              "evaporated-dried-soy-beverage",
+              "Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat."
+            )}
           </div>
         );
       },
@@ -445,15 +457,15 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="Raw meat that has been formed to look like of a cut of meat, whether coated or not, using a binding system without the application of heat."
-              id="raw-meat-formed"
-              hint={hint}
-            />
-            <Checkbox
-              label="Raw meat that has been joined to look like of a cut of meat, whether coated or not, using a binding system without the application of heat."
-              id="raw-meat-joined"
-            />
+            {renderStatementCheckbox(
+              "raw-meat-formed",
+              "Raw meat that has been formed to look like of a cut of meat, whether coated or not, using a binding system without the application of heat.",
+              hint
+            )}
+            {renderStatementCheckbox(
+              "raw-meat-joined",
+              "Raw meat that has been joined to look like of a cut of meat, whether coated or not, using a binding system without the application of heat."
+            )}
           </div>
         );
       },
@@ -465,23 +477,23 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="Unpasteurised milk"
-              id="unpasteurised-milk"
-              hint={hint}
-            />
-            <Checkbox
-              label="Unpasteurised liquid milk products"
-              id="unpasteurised-liquid-milk-products"
-            />
-            <Checkbox
-              label="Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat."
-              id="milk-soy-beverage"
-            />
-            <Checkbox
-              label="Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat."
-              id="evaporated-dried-soy-beverage-2.5%"
-            />
+            {renderStatementCheckbox(
+              "unpasteurised-milk",
+              "Unpasteurised milk",
+              hint
+            )}
+            {renderStatementCheckbox(
+              "unpasteurised-liquid-milk-products",
+              "Unpasteurised liquid milk products"
+            )}
+            {renderStatementCheckbox(
+              "milk-soy-beverage",
+              "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat."
+            )}
+            {renderStatementCheckbox(
+              "evaporated-dried-soy-beverage-2.5%",
+              "Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat."
+            )}
           </div>
         );
       },
@@ -493,19 +505,19 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="A cola beverage that contains added caffeine"
-              id="cola-beverage-with-caffeine"
-              hint={hint}
-            />
-            <Checkbox
-              label="A food that contains a cola beverage that also contains added caffeine as an ingredient."
-              id="food-with-cola-beverage-containing-caffeine"
-            />
-            <Checkbox
-              label="Bottled water presented that contains added fluoride"
-              id="bottled-water-with-fluoride"
-            />
+            {renderStatementCheckbox(
+              "cola-beverage-with-caffeine",
+              "A cola beverage that contains added caffeine",
+              hint
+            )}
+            {renderStatementCheckbox(
+              "food-with-cola-beverage-containing-caffeine",
+              "A food that contains a cola beverage that also contains added caffeine as an ingredient."
+            )}
+            {renderStatementCheckbox(
+              "bottled-water-with-fluoride",
+              "Bottled water presented that contains added fluoride"
+            )}
           </div>
         );
       },
@@ -517,11 +529,11 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="Edible oil where"
-              id="edible-oil-conditions"
-              hint={hint}
-            />
+            {renderStatementCheckbox(
+              "edible-oil-conditions",
+              "Edible oil where",
+              hint
+            )}
             <small>
               <ul>
                 <li>
@@ -544,11 +556,11 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       renderChildren: () => {
         return (
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <Checkbox
-              label="Reduced sodium salt mixtures and salt substitutes"
-              id="reduced-sodium-salt-mixtures"
-              hint={hint}
-            />
+            {renderStatementCheckbox(
+              "reduced-sodium-salt-mixtures",
+              "Reduced sodium salt mixtures and salt substitutes",
+              hint
+            )}
           </div>
         );
       },
@@ -565,6 +577,58 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       [key]: checked ? "1" : "",
     }));
   };
+
+  const statementMessages = [
+    statementSelections["unpasteurised-egg-products"]
+      ? "The product is unpasteurised."
+      : null,
+    statementSelections["substances-excess-10g"] ||
+    statementSelections["substances-excess-25g"] ||
+    statementSelections["substances-combination-10g"]
+      ? "Excess consumption may have a laxative effect."
+      : null,
+    statementSelections["aspartame-acesulphame"]
+      ? "This product contains phenylalanine."
+      : null,
+    statementSelections["phytosterols-phytostanols"]
+      ? "This product should be consumed as part of a healthy diet. This product may not be suitable for children under 5 years and pregnant or lactating women. Plant sterols do not provide additional benefits when consumed in excess of 3 grams per day."
+      : null,
+    statementSelections["quinine"] ? "This product contains quinine." : null,
+    statementSelections["guarana-extracts"] ||
+    statementSelections["cola-beverage-with-caffeine"] ||
+    statementSelections["food-with-cola-beverage-containing-caffeine"]
+      ? "The product contains caffeine."
+      : null,
+    statementSelections["bee-pollen"]
+      ? "The product contains bee pollen which can cause severe allergic reactions."
+      : null,
+    statementSelections["propolis"]
+      ? "The product contains propolis which can cause severe allergic reactions."
+      : null,
+    statementSelections["royal-jelly"]
+      ? "This product contains royal jelly which has been reported to cause severe allergic reactions and in rare cases, fatalities, especially in asthma and allergy sufferers."
+      : null,
+    statementSelections["milk-soy-beverage"] ||
+    statementSelections["evaporated-dried-soy-beverage"] ||
+    statementSelections["evaporated-dried-soy-beverage-2.5%"]
+      ? "The product is not suitable as a complete milk replacement for children under 2 years."
+      : null,
+    statementSelections["unpasteurised-milk"] ||
+    statementSelections["unpasteurised-liquid-milk-products"]
+      ? "The product has not been pasteurised."
+      : null,
+    statementSelections["raw-meat-formed"] ? "This food is formed." : null,
+    statementSelections["raw-meat-joined"] ||
+    statementSelections["raw-fish-binding-system"]
+      ? "This food is joined."
+      : null,
+    statementSelections["kava-root"] || statementSelections["kava-beverage"]
+      ? "Use in moderation. May cause drowsiness."
+      : null,
+    statementSelections["bottled-water-with-fluoride"]
+      ? "The product contains added fluoride."
+      : null,
+  ].filter(Boolean) as string[];
 
   return (
     <>
@@ -781,7 +845,13 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
 
               <InfoAlert
                 alertHeading="The statements should be shown on the food label as:"
-                alertMessage={""}
+                alertMessage={
+                  <p className="wrap">
+                    {statementMessages.length > 0
+                      ? statementMessages.join(" ")
+                      : " "}
+                  </p>
+                }
               />
             </div>
           </div>
