@@ -139,7 +139,6 @@ export const BusinessDetails = ({ onBack, onNext }: BusinessDetailsProps) => {
             <label className="qld-text-input-label field-required ">
               Address line 1
             </label>
-
             <input
               className="form-control"
               type="text"
@@ -155,10 +154,10 @@ export const BusinessDetails = ({ onBack, onNext }: BusinessDetailsProps) => {
           </div>
 
           <div className="address-line2">
-            <label className="qld-text-input-label">Address line 2</label>
-
+            <label className="qld-text-input-label" htmlFor="address-line2-input">Address line 2</label>
             <input
               className="form-control"
+              id="address-line2-input"
               type="text"
               placeholder=""
               tabIndex={0}

@@ -316,7 +316,7 @@ export const StorageAndUse = ({ onBack, onNext }: StorageAndUseProps) => {
           <Input
             type="number"
             id="refrigeratedDegreeTo"
-            value={data.refrigeratedDegreeTo}
+            value={data?.refrigeratedDegreeTo}
             onChange={(e) =>
               handleChange("refrigeratedDegreeTo", e.target.value)
             }

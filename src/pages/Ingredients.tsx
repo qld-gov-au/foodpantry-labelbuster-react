@@ -640,7 +640,6 @@ export const Ingredients = ({ onBack, onNext }: IngredientsProps) => {
 
         <a
           className={`btn btn-primary${nextDisabled ? " disabled" : ""}`}
-          aria-disabled={nextDisabled}
           role="button"
           onClick={(event) => {
             if (nextDisabled) {

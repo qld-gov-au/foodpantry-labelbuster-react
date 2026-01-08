@@ -2,8 +2,8 @@ import type React from "react";
 import type { MouseEvent } from "react";
 
 type NavHandlers = {
-  handleNextClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
-  handleBackClick: (event: React.MouseEvent<HTMLAnchorElement>) => void;
+  handleNextClick: React.MouseEventHandler<HTMLElement>;
+  handleBackClick: React.MouseEventHandler<HTMLElement>;
 };
 
 export const createNavHandlers = (
