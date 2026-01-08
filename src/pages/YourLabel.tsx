@@ -5,7 +5,7 @@ type YourLabelProps = {
   onBack?: () => void;
 };
 export const YourLabel = ({ onBack }: YourLabelProps) => {
-  const { handleBackClick } = createNavHandlers(onBack);
+  const { handleBackClick } = createNavHandlers(undefined, onBack);
   return (
     <>
       <div className="main-content">

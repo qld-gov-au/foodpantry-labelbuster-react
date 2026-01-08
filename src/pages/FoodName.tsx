@@ -3,6 +3,7 @@ import { Alert } from "../components/GlobalWarnings";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { createNavHandlers } from "./help";
 import { FoodNamePage } from "./helpGuide/FoodNamePage";
+import { RadioGroup } from "../components/RadioGroup";
 
 type FoodNameProps = {
   onBack?: () => void;
@@ -13,13 +14,13 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
   const [ingredientHighlightChoice, setIngredientHighlightChoice] = useState<
-    "yes" | "no" | null
+    string | null
   >(null);
-  const [followChoice, setFollowChoice] = useState<"yes" | "no" | null>(null);
-
-  const { handleBackClick } = createNavHandlers(undefined, onBack);
+  const [followChoice, setFollowChoice] = useState<string | null>(null);
   const [foodName, setFoodName] = useState("");
   const [touched, setTouched] = useState(false);
+
+  const { handleBackClick } = createNavHandlers(undefined, onBack);
 
   const isValid = foodName.trim().length > 0;
   const showError = touched && !isValid;
@@ -98,48 +99,21 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
         </p>
 
         <div>
-          <div style={{ display: "flex", gap: "40px" }}>
-            <div className="form-check ">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="ingredientHighlightChoice"
-                id="ingredientHighlightChoiceYes"
-                value="1"
-                tabIndex={0}
-                onChange={() => setIngredientHighlightChoice("yes")}
-              />
-              <label
-                className="form-check-label"
-                htmlFor="ingredientHighlightChoiceYes"
-              >
-                Yes
-              </label>
-            </div>
-            <div className="form-check ">
-              <input
-                className="form-check-input"
-                type="radio"
-                name="ingredientHighlightChoice"
-                id="ingredientHighlightChoiceNo"
-                value="2"
-                tabIndex={0}
-                onChange={() => setIngredientHighlightChoice("no")}
-              />
-              <label
-                className="form-check-label"
-                htmlFor="ingredientHighlightChoiceNo"
-              >
-                No
-              </label>
-            </div>
-          </div>
+          <RadioGroup
+            name="ingredientHighlightChoice"
+            options={[
+              { label: "Yes", value: "1" },
+              { label: "No", value: "2" },
+            ]}
+            value={ingredientHighlightChoice}
+            onChange={setIngredientHighlightChoice}
+            inline={true}
+          />
         </div>
       </div>
 
-      {ingredientHighlightChoice === "yes" && (
+      {ingredientHighlightChoice === "1" && (
         <Alert
-          variant="info"
           alertHeading=" Characterising ingredients"
           alertMessage="Ingredients which are mentioned in the food name are called characterising ingredients. The Food Standards Code requires the amount of characterising ingredients to be shown in the ingredients list."
         />
@@ -184,43 +158,20 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
             </p>
           </div>
 
-          <div>
-            <div style={{ display: "flex", gap: "40px" }}>
-              <div className="form-check ">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="followChoice"
-                  id="followChoiceYes"
-                  value="1"
-                  tabIndex={0}
-                  onChange={() => setFollowChoice("yes")}
-                />
-                <label className="form-check-label" htmlFor="followChoiceYes">
-                  Yes
-                </label>
-              </div>
-              <div className="form-check ">
-                <input
-                  className="form-check-input"
-                  type="radio"
-                  name="followChoice"
-                  id="followChoiceNo"
-                  value="2"
-                  tabIndex={0}
-                  onChange={() => setFollowChoice("no")}
-                />
-                <label className="form-check-label" htmlFor="followChoiceNo">
-                  No
-                </label>
-              </div>
-            </div>
-          </div>
+          <RadioGroup
+            name="followChoice"
+            options={[
+              { label: "Yes", value: "1" },
+              { label: "No", value: "2" },
+            ]}
+            value={followChoice}
+            onChange={setFollowChoice}
+            inline={true}
+          />
 
-          {followChoice === "yes" && (
+          {followChoice === "1" && (
             <Alert
-              variant="info"
-              alertHeading=" Prescribed names"
+              alertHeading="Prescribed names"
               alertMessage={
                 <p>
                   These foods have names that must be used (
@@ -238,7 +189,6 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
 
           {followChoice !== null && (
             <Alert
-              variant="info"
               alertHeading=" Food with extra requirements"
               alertMessage={
                 <>
@@ -264,33 +214,44 @@ export const FoodName = ({ onBack, onNext }: FoodNameProps) => {
             />
           )}
 
-          <div>
-            <label className="qld-text-input-label field-required">
-              Food name
-            </label>
-            <input
-              id="foodNameInput"
-              className={`form-control ${showError ? "is-invalid" : ""}`}
-              type="text"
-              value={foodName}
-              onChange={(e) => setFoodName(e.target.value)}
-              onBlur={() => setTouched(true)}
-              aria-required="true"
-            />
-            {showError && (
-              <div className="text-danger small" style={{ marginTop: "4px" }}>
-                Food name is required
-              </div>
-            )}
+          {followChoice && (
+            <div>
+              <label
+                className="qld-text-input-label field-required"
+                htmlFor="food-name-Input"
+              >
+                Food name
+              </label>
+              <input
+                id="food-name-Input"
+                className={`form-control ${showError ? "is-invalid" : ""}`}
+                type="text"
+                value={foodName}
+                onChange={(e) => setFoodName(e.target.value)}
+                onBlur={() => setTouched(true)}
+                aria-required="true"
+              />
+              {showError && (
+                <div className="text-danger small" style={{ marginTop: "4px" }}>
+                  Food name is required
+                </div>
+              )}
 
-            <label className="qld-text-input-label">Description</label>
-            <input
-              className="form-control"
-              type="text"
-              placeholder=""
-              tabIndex={0}
-            />
-          </div>
+              <label
+                className="qld-text-input-label"
+                htmlFor="food-description"
+              >
+                Description
+              </label>
+              <input
+                id="food-description"
+                className="form-control"
+                type="text"
+                placeholder=""
+                tabIndex={0}
+              />
+            </div>
+          )}
         </div>
       )}
 

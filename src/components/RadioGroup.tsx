@@ -15,12 +15,17 @@ export const RadioGroup = ({
   onChange,
   inline = false,
 }: RadioGroupProps) => {
+  const containerClassName = inline ? "d-flex flex-wrap gap-4" : "";
+
   return (
-    <div style={{ display: inline ? "flex" : "block", gap: inline ? "40px" : undefined }}>
+    <div className={containerClassName}>
       {options.map((opt) => {
         const id = opt.id ?? `${name}-${opt.value}`;
         return (
-          <div className="form-check" key={opt.value} style={inline ? { marginRight: "40px" } : undefined}>
+          <div
+            className={`form-check${inline ? " form-check-inline" : ""}`}
+            key={opt.value}
+          >
             <input
               className="form-check-input"
               type="radio"
