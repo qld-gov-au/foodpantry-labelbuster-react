@@ -89,6 +89,7 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
     oilsAndMargarine: "",
     saltAndSaltSubstitutes: "",
   });
+  const [sodiumPotassiumContent, setSodiumPotassiumContent] = useState("");
   const [statementSelections, setStatementSelections] = useState<
     Record<string, boolean>
   >({});
@@ -123,6 +124,13 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
       onChange={(checked) => handleStatementCheckboxChange(id, checked)}
     />
   );
+  const toggleInvalidState = (el: HTMLTextAreaElement) => {
+    if (el.value.trim()) {
+      el.classList.remove("is-invalid");
+    } else {
+      el.classList.add("is-invalid");
+    }
+  };
 
   const CerealsAndGrainsCheckboxConfigs: CheckboxConfig[] = [
     {
@@ -840,7 +848,11 @@ export const Statements = ({ onBack, onNext }: StatementsProps) => {
                 label="Enter the sodium and potassium content expressed per 100g. You may also include a declaration of the percentage reduction of sodium in the food, relative to salt."
                 required={true}
                 id="sodium-potassim-content"
-                value=""
+                value={sodiumPotassiumContent}
+                onChange={(event) => setSodiumPotassiumContent(event.target.value)}
+                onInput={(event) => toggleInvalidState(event.currentTarget)}
+                onBlur={(event) => toggleInvalidState(event.currentTarget)}
+                invalidMessage="The sodium and potassium content must be entered for reduced sodium salt mixtures and salt substitutes."
               />
 
               <InfoAlert
