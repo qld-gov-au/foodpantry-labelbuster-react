@@ -13,7 +13,7 @@ export const RadioGroup = ({
   options,
   value = null,
   onChange,
-  inline = false,
+  inline = true,
 }: RadioGroupProps) => {
   const containerClassName = inline ? "d-flex flex-wrap gap-4" : "";
 

@@ -41,8 +41,6 @@ export const HelpGuide: React.FC<HelpGuideProps> = ({
       )}
 
       {isOpen && (
-        <>
-          {/* <div className="overlay visible" onClick={() => setOpen(false)} /> */}
           <div className="help-guide-content open-menu">
             <div className="top-block">
               <div className="left-content">
@@ -59,7 +57,6 @@ export const HelpGuide: React.FC<HelpGuideProps> = ({
             </div>
             {content}
           </div>
-        </>
       )}
     </div>
   );

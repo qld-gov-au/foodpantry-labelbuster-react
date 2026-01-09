@@ -69,10 +69,8 @@ export const BusinessDetails = ({ onBack, onNext }: BusinessDetailsProps) => {
               >
                 Business details
               </a>{" "}
-              help <br />
-              consumers, other businesses and government agencies know who to
-              contact in the event of a <br />
-              complaint or food recall.
+              help consumers, other businesses and government agencies know who
+              to contact in the event of a complaint or food recall.
             </figcaption>
             <img
               className="image-ratio-2x3  position-x-center position-y-center"
@@ -154,7 +152,12 @@ export const BusinessDetails = ({ onBack, onNext }: BusinessDetailsProps) => {
           </div>
 
           <div className="address-line2">
-            <label className="qld-text-input-label" htmlFor="address-line2-input">Address line 2</label>
+            <label
+              className="qld-text-input-label"
+              htmlFor="address-line2-input"
+            >
+              Address line 2
+            </label>
             <input
               className="form-control"
               id="address-line2-input"

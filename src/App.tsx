@@ -1,12 +1,12 @@
 import { useState } from "react";
 import "./App.css";
 import "@qld-gov-au/qgds-bootstrap5/qld.bootstrap.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import "@qld-gov-au/qgds-bootstrap5/qld.bootstrap.min.js";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { TermsOfUse } from "./pages/TermsOfUse";
 import { Home } from "./pages/Home";
 import { AboutFoodLabels } from "./pages/AboutFoodLabels";
-import { Limitations } from "./pages/limitations/Limitations";
+import { Limitations } from "./pages/Limitations";
 import { FoodName } from "./pages/FoodName";
 import { BusinessDetails } from "./pages/BusinessDetails";
 import { DateMarks } from "./pages/DateMarks";
