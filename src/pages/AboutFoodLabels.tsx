@@ -1,8 +1,8 @@
 import { createNavHandlers } from "./help";
 import {
-  TestAccordion,
+  Accordion,
   type AccordionItemConfig,
-} from "../components/QGDSAccordion";
+} from "../components/Accordion";
 
 type AboutFoodLabelsProps = {
   onBack?: () => void;
@@ -301,7 +301,7 @@ export const AboutFoodLabels = ({ onBack, onNext }: AboutFoodLabelsProps) => {
             alt="An example label for strawberry yoghurt"
           />
         </figure>
-        <TestAccordion items={aboutFoodAccordionItems} />
+        <Accordion items={aboutFoodAccordionItems} />
       </div>
 
       <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>

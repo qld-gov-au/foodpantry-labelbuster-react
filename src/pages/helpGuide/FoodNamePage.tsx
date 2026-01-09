@@ -1,9 +1,9 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  TestAccordion,
+  Accordion,
   type AccordionItemConfig,
-} from "../../components/QGDSAccordion";
+} from "../../components/Accordion";
 
 type FoodNamePageProps = {
   activeSectionId?: string | null;
@@ -636,10 +636,10 @@ export const FoodNamePage = ({ activeSectionId = null }: FoodNamePageProps) => {
       </a>
 
       <h3>General requirements</h3>
-      <TestAccordion items={generalRequirements} activeItemId={activeSectionId} />
+      <Accordion items={generalRequirements} activeItemId={activeSectionId} />
 
       <h3>Food with extra requirements</h3>
-      <TestAccordion items={extraRequirements} activeItemId={activeSectionId} />
+      <Accordion items={extraRequirements} activeItemId={activeSectionId} />
     </div>
   );
 };

@@ -1,9 +1,9 @@
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  TestAccordion,
+  Accordion,
   type AccordionItemConfig,
-} from "../../components/QGDSAccordion";
+} from "../../components/Accordion";
 
 type StatementsPageProps = {
   activeSectionId?: string | null;
@@ -248,7 +248,7 @@ export const StatementsPage = ({
       </a>
 
       <h2>General requirements</h2>
-      <TestAccordion
+      <Accordion
         items={generalRequirements}
         activeItemId={activeSectionId}
       />

@@ -1,133 +1,160 @@
-import React, { useEffect, useId } from "react";
-import Collapse from "bootstrap/js/dist/collapse";
+import { faAngleDown, faAngleUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
 
-export type AccordionSection = {
-  id: string;
-  heading: React.ReactNode;
+export type AccordionItemConfig = {
+  title: React.ReactNode;
   content: React.ReactNode;
-  /** Defaults to false for all except the first section. */
+  id: string;
   defaultOpen?: boolean;
 };
 
 type AccordionProps = {
-  sections: AccordionSection[];
-  /** Supply a stable id if you need to control this accordion from elsewhere. */
-  groupId?: string;
-  /** When provided, the matching section will be opened whenever it changes. */
-  activeSectionId?: string | null;
-  /** Show the “Open all/Close all” control. */
-  showToggleAll?: boolean;
+  items: AccordionItemConfig[];
+  flush?: boolean;
+  activeItemId?: string | null;
 };
 
-/**
- * QGDS accordion rendered in React while preserving the QGDS/Bootstrap classes and behaviours.
- */
 export const Accordion: React.FC<AccordionProps> = ({
-  sections,
-  groupId,
-  activeSectionId,
-  showToggleAll = true,
+  items,
+  flush = false,
+  activeItemId = null,
 }) => {
-  const fallbackId = useId();
-  const resolvedGroupId = groupId ?? `accordion-${fallbackId}`;
-
-  useEffect(() => {
-    const group = document.getElementById(resolvedGroupId);
-    if (!group) return;
-
-    const cleanups: Array<() => void> = [];
-
-    // "Open all / Close all" behaviour.
-    const toggleAllButton = group.parentElement?.querySelector<HTMLButtonElement>(
-      ".accordion-toggle-btn"
-    );
-    if (toggleAllButton) {
-      const toggleAllHandler = (event: Event) => {
-        event.preventDefault();
-        const collapses = Array.from(group.querySelectorAll<HTMLElement>(".accordion-collapse"));
-        const anyClosed = collapses.some((el) => !el.classList.contains("show"));
-
-        collapses.forEach((el) => {
-          const instance = Collapse.getOrCreateInstance(el, { toggle: false });
-          if (anyClosed) {
-            instance.show();
-          } else {
-            instance.hide();
-          }
-        });
-
-        toggleAllButton.classList.toggle("accordion-toggle-btn--open", anyClosed);
-        toggleAllButton.classList.toggle("accordion-toggle-btn--closed", !anyClosed);
-        toggleAllButton.textContent = anyClosed ? "Close all" : "Open all";
-      };
-      toggleAllButton.addEventListener("click", toggleAllHandler);
-      cleanups.push(() => toggleAllButton.removeEventListener("click", toggleAllHandler));
+  const [openItems, setOpenItems] = useState<Set<string>>(() => {
+    const initialOpen = new Set<string>();
+    items.forEach((item) => {
+      if (item.defaultOpen) {
+        initialOpen.add(item.id);
+      }
+    });
+    if (activeItemId) {
+      initialOpen.add(activeItemId);
     }
+    return initialOpen;
+  });
 
-    return () => cleanups.forEach((fn) => fn());
-  }, [resolvedGroupId]);
-
-  // Open a specific section when requested.
   useEffect(() => {
-    if (!activeSectionId) return;
-    const target = document.getElementById(`collapse-${activeSectionId}`);
-    if (!target) return;
-    const instance = Collapse.getOrCreateInstance(target, { toggle: false });
-    instance.show();
-    target.scrollIntoView({ behavior: "smooth", block: "center" });
-  }, [activeSectionId]);
+    if (!activeItemId) return;
+    setOpenItems((prev) => {
+      if (prev.has(activeItemId)) {
+        return prev;
+      }
+      const next = new Set(prev);
+      next.add(activeItemId);
+      return next;
+    });
+    const target = document.getElementById(`accordion-item-${activeItemId}`);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [activeItemId]);
+
+  const handleToggle = (key: string): void => {
+    setOpenItems((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(key)) {
+        newSet.delete(key);
+      } else {
+        newSet.add(key);
+      }
+      return newSet;
+    });
+  };
+
+  const expandAll = (): void => {
+    const allItems = new Set<string>();
+    items.forEach((item) => allItems.add(item.id));
+    setOpenItems(allItems);
+  };
+
+  const collapseAll = (): void => {
+    setOpenItems(new Set());
+  };
+
+  const allExpanded = openItems.size === items.length;
+
+  const accordionClass = ["accordion", flush && "accordion-flush"]
+    .filter(Boolean)
+    .join(" ");
 
   return (
-    <div className="accordion-group">
-      {showToggleAll && (
-        <div className="accordion-toggle">
-          <button
-            className="accordion-toggle-btn accordion-toggle-btn--closed"
-            type="button"
-          >
-            Open all
-          </button>
-        </div>
-      )}
+    <div>
+      <div className="d-flex justify-content-end mb-2">
+        <button
+          type="button"
+          className="btn btn-link text-decoration-none p-0"
+          onClick={allExpanded ? collapseAll : expandAll}
+          style={{ fontSize: "0.95rem" }}
+        >
+          {allExpanded ? (
+            <>
+              Collapse all
+              <FontAwesomeIcon icon={faAngleUp} />
+            </>
+          ) : (
+            <>
+              Expand All
+              <FontAwesomeIcon icon={faAngleDown} />
+            </>
+          )}
+        </button>
+      </div>
 
-      <div className="accordion" id={resolvedGroupId}>
-        {sections.map((section, index) => {
-          const headingId = `heading-${section.id}`;
-          const collapseId = `collapse-${section.id}`;
-          const isOpen = section.defaultOpen ?? index === 0;
+      <div className={accordionClass}>
+        {items.map((item) => {
+          const isActive = openItems.has(item.id);
 
           return (
-            <div className="accordion-item" key={section.id}>
-              <h2 className="accordion-header" id={headingId}>
-                <button
-                  className={`accordion-button ${isOpen ? "" : "collapsed"}`}
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#${collapseId}`}
-                  aria-expanded={isOpen}
-                  aria-controls={collapseId}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const target = document.getElementById(collapseId);
-                    if (!target) return;
-                    Collapse.getOrCreateInstance(target, { toggle: false }).toggle();
-                  }}
-                >
-                  {section.heading}
-                </button>
-              </h2>
-
-              <div
-                id={collapseId}
-                className={`accordion-collapse collapse ${isOpen ? "show" : ""}`}
-                aria-labelledby={headingId}
-                role="region"
-              >
-                <div className="accordion-body">{section.content}</div>
-              </div>
-            </div>
+            <AccordionItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              content={item.content}
+              isActive={isActive}
+              onToggle={() => handleToggle(item.id)}
+            />
           );
         })}
+      </div>
+    </div>
+  );
+};
+
+type AccordionItemProps = {
+  id: string;
+  title: React.ReactNode;
+  content: React.ReactNode;
+  isActive: boolean;
+  onToggle: () => void;
+};
+
+const AccordionItem = ({
+  id,
+  title,
+  content,
+  isActive,
+  onToggle,
+}: AccordionItemProps) => {
+  const itemId = `accordion-item-${id}`;
+  return (
+    <div className="accordion-item" id={itemId}>
+      <h2 className="accordion-header" id={`heading-${id}`}>
+        <button
+          className={`accordion-button ${!isActive ? "collapsed" : ""}`}
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isActive}
+          aria-controls={`collapse-${id}`}
+        >
+          {title}
+        </button>
+      </h2>
+      <div
+        id={`collapse-${id}`}
+        className={`accordion-collapse collapse ${isActive ? "show" : ""}`}
+        aria-labelledby={`heading-${id}`}
+      >
+        <div className="accordion-body">{content}</div>
       </div>
     </div>
   );

@@ -2,9 +2,9 @@ import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import {
-  TestAccordion,
+  Accordion,
   type AccordionItemConfig,
-} from "../../components/QGDSAccordion";
+} from "../../components/Accordion";
 
 type HelpGuideHandlers = {
   activeSectionId?: string | null;
@@ -592,7 +592,7 @@ export const InitialPage: React.FC<HelpGuideHandlers> = ({
       </a>
       <h3>Complex requirements</h3>
 
-      <TestAccordion items={sections} activeItemId={activeSectionId} />
+      <Accordion items={sections} activeItemId={activeSectionId} />
     </div>
   );
 };

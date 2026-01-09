@@ -2,9 +2,9 @@ import React from "react";
 import { faPrint } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  TestAccordion,
+  Accordion,
   type AccordionItemConfig,
-} from "../../components/QGDSAccordion";
+} from "../../components/Accordion";
 
 export type Section = {
   id: string;
@@ -345,12 +345,12 @@ export const DateMarkPage = ({ activeSectionId = null }: DateMarkPageProps) => {
         Print
       </a>
       <h2>General requirements</h2>
-      <TestAccordion
+      <Accordion
         items={generalRequirements}
         activeItemId={activeSectionId}
       />
       <h2 style={{ marginTop: "32px" }}>Food with extra requirements</h2>
-      <TestAccordion items={extraRequirements} activeItemId={activeSectionId} />
+      <Accordion items={extraRequirements} activeItemId={activeSectionId} />
       \
     </div>
   );
