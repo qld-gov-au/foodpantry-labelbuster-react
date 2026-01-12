@@ -38,7 +38,7 @@ type Page =
 const AppContent = () => {
   const [page, setPage] = useState<Page>("home");
   const [cancelOpen, setCancelOpen] = useState(false);
-  const { completeStep, resetProgress } = useFormData();
+  const { completeStep, resetProgress, startSession } = useFormData();
 
   const handleCancel = () => {
     setCancelOpen(true);
@@ -73,7 +73,12 @@ const AppContent = () => {
           onCancel={handleDismissCancel}
         />
         <div style={{ display: page === "home" ? "block" : "none" }}>
-          <Home onStart={() => setPage("terms")} />
+          <Home
+            onStart={() => {
+              startSession();
+              setPage("terms");
+            }}
+          />
         </div>
         <div style={{ display: page === "terms" ? "block" : "none" }}>
           <TermsOfUse

@@ -25,7 +25,6 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
   collapseId = "sideNavCollapse",
   ariaLabel = "Side Navigation",
 }) => {
-  
   const renderItems = (list: SideNavItem[], depth: number) => {
     const listClassName =
       depth === 1 ? "nav" : depth >= 3 ? "with-stalks" : undefined;
@@ -37,7 +36,11 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
             !!item.active && !(item.children && item.children.length > 0);
           const isDisabled = !!item.disabled && !isActive;
           const content = isDisabled ? (
-            <span className="nav-link disabled" aria-disabled="true">
+            <span
+              className="nav-link disabled text-muted pe-none"
+              aria-disabled="true"
+              tabIndex={-1}
+            >
               {item.label}
             </span>
           ) : item.onClick && !isActive ? (
@@ -82,16 +85,6 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
 
   return (
     <nav className="qld-side-navigation" aria-label={ariaLabel}>
-      <button
-        className="accordion-button collapsed d-lg-none"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target={`#${collapseId}`}
-        aria-expanded="false"
-        aria-controls={collapseId}
-      >
-        In this section
-      </button>
       <div className="nav-wrapper collapse d-lg-block" id={collapseId}>
         {title && (
           <h2 className="nav-title">

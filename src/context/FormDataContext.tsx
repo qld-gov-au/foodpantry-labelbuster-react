@@ -139,7 +139,9 @@ export type StepKey =
   | "statements"
   | "yourLabel";
 
-export type ProgressData = Record<StepKey, boolean>;
+export type ProgressData = {
+  started: boolean;
+} & Record<StepKey, boolean>;
 
 export type FormData = {
   foodName: FoodNameData;
@@ -159,6 +161,7 @@ type FormDataContextValue = {
   updateDateMarks: (updates: Partial<DateMarksData>) => void;
   updateStorageAndUse: (updates: Partial<StorageAndUseData>) => void;
   updateStatements: (updates: Partial<StatementsData>) => void;
+  startSession: () => void;
   completeStep: (step: StepKey) => void;
   resetProgress: () => void;
 };
@@ -167,6 +170,7 @@ const FormDataContext = createContext<FormDataContextValue | null>(null);
 const PROGRESS_STORAGE_KEY = "label-buster-progress";
 
 const getDefaultProgress = (): ProgressData => ({
+  started: false,
   terms: false,
   about: false,
   limitations: false,
@@ -363,6 +367,10 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const startSession = () => {
+    setProgress((prev) => ({ ...prev, started: true }));
+  };
+
   const completeStep = (step: StepKey) => {
     setProgress((prev) => {
       if (prev[step]) {
@@ -385,6 +393,7 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     updateDateMarks,
     updateStorageAndUse,
     updateStatements,
+    startSession,
     completeStep,
     resetProgress,
   };

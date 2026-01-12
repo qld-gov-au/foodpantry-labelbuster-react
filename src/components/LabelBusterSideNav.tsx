@@ -45,26 +45,29 @@ export const LabelBusterSideNav = ({
   ];
 
   const firstLockedIndex = steps.findIndex((step) => !progress[step]);
-  const maxEnabledIndex =
-    firstLockedIndex === -1 ? steps.length - 1 : firstLockedIndex;
+  const maxEnabledIndex = !progress.started
+    ? -1
+    : firstLockedIndex === -1
+    ? steps.length - 1
+    : firstLockedIndex;
   const isStepEnabled = (step: StepKey) =>
     steps.indexOf(step) <= maxEnabledIndex;
 
   const navItems: SideNavItem[] = [
     {
       label: "About food labels",
-      onClick: () => onNavigate("about"),
-      active: page === "about",
-      disabled: !isStepEnabled("about") && page !== "about",
+      href: "https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/about-food-labels",
+      target: "_blank",
     },
     {
       label: "Do I need a label?",
-      onClick: () => onNavigate("limitations"),
-      active: page === "limitations",
-      disabled: !isStepEnabled("limitations") && page !== "limitations",
+      href: "https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/do-I-need-a-label",
+      target: "_blank",
     },
     {
       label: "Label Buster",
+      onClick: () => onNavigate("home"),
+      active: page === "home",
       children: [
         {
           label: stepLabel(1, "Terms of use"),
@@ -131,13 +134,21 @@ export const LabelBusterSideNav = ({
     },
     {
       label: "Food product guides",
-      href: "#",
+      href: "https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-product-guides",
+      target: "_blank",
     },
     {
       label: "Kilojoule menu labelling",
-      href: "#",
+      href: "https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/kilojoule-menu-labelling",
+      target: "_blank",
     },
   ];
 
-  return <SideNavigation title="Food labelling" items={navItems} />;
+  return (
+    <SideNavigation
+      title="Food labelling"
+      titleHref="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling"
+      items={navItems}
+    />
+  );
 };
