@@ -38,10 +38,10 @@ export const Alert = ({
       aria-label={`${variant} alert`}
     >
       <h2 className="alert-heading">{alertHeading}</h2>
-      <p>
+      <div>
         {alertMessage}
         {alertLink && <a href={alertLink}>Find out more</a>}
-      </p>
+      </div>
     </div>
   );
 };

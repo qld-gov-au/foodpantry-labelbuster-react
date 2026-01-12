@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { createNavHandlers } from "./help";
 import { FoodNamePage } from "./helpGuide/FoodNamePage";
@@ -90,7 +90,7 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
             *
           </abbr>
         </p>
-        <p>
+        <div>
           <small>
             For example:
             <ul>
@@ -104,7 +104,7 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
               </li>
             </ul>
           </small>
-        </p>
+        </div>
 
         <div>
           <RadioGroup
@@ -142,7 +142,7 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
                 *
               </abbr>
             </p>
-            <p>
+            <div>
               <small>
                 For example:
                 <ul>
@@ -165,7 +165,7 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
                   </li>
                 </ul>
               </small>
-            </p>
+            </div>
           </div>
 
           <RadioGroup

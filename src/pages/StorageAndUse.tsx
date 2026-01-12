@@ -6,7 +6,7 @@ import {
   CheckboxWithInput,
   type CheckboxConfig,
 } from "../components/CheckboxWithInput";
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 import { Input } from "../components/Input";
 import { StorageAndUsePage } from "./helpGuide/StorageAndUsePage";
 import { useFormData } from "../context/FormDataContext";

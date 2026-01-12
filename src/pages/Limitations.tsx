@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { InitialPage } from "./helpGuide/InitialPage";
-import { SeekProAdvice } from "../components/GlobalWarnings";
+import { SeekProAdvice } from "../components/GlobalAlert";
 import { createNavHandlers } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
 

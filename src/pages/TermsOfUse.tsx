@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createNavHandlers } from "./help";
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 
 type TermsOfUseProps = {
   onBack?: () => void;

@@ -1,4 +1,4 @@
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 import { faCircleInfo, faClock } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

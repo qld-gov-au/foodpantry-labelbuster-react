@@ -1,4 +1,4 @@
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 import { createNavHandlers } from "./help";
 import {
   useFormData,

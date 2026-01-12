@@ -5,7 +5,7 @@ import { Input } from "../components/Input";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { DateMarkPage } from "./helpGuide/DateMarkPage";
 import { createNavHandlers } from "./help";
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 import { useFormData } from "../context/FormDataContext";
 
 type DateMarksProps = {
@@ -96,7 +96,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
             </abbr>
           </p>
 
-          <p>
+          <div>
             <small>
               The date will usually be in the{" "}
               <a
@@ -118,7 +118,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                 </li>
               </ul>
             </small>
-          </p>
+          </div>
 
           <Input
             type="text"
@@ -235,7 +235,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
               *
             </abbr>
           </p>
-          <p>
+          <div>
             <small>
               For example:
               <ul>
@@ -243,7 +243,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                 <li>Canned peaches</li>
               </ul>
             </small>
-          </p>
+          </div>
 
           <RadioGroup
             name="shelfLife2DaysChoice"
@@ -311,7 +311,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                   variant="info"
                   alertHeading="Best-before, baked-on or baked-for date"
                   alertMessage={
-                    <p>
+                    <div>
                       Bread with a shelf life of less than 7 days can be
                       labelled using either a:
                       <ul>
@@ -346,7 +346,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                           </a>
                         </li>
                       </ul>
-                    </p>
+                    </div>
                   }
                 />
                 {renderDateMarkBlock()}
@@ -369,7 +369,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                   *
                 </abbr>
               </p>
-              <p>
+              <div>
                 <small>
                   For example:
                   <ul>
@@ -384,7 +384,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                     </li>
                   </ul>
                 </small>
-              </p>
+              </div>
             </div>
 
             <RadioGroup

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { createNavHandlers, useGuideNavigation } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
-import { Alert } from "../components/GlobalWarnings";
+import { Alert } from "../components/GlobalAlert";
 import { Table } from "../components/Table";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faXmark } from "@fortawesome/free-solid-svg-icons";
