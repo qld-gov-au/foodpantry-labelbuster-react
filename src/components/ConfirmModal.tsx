@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 
 type ConfirmModalProps = {
   open: boolean;
@@ -19,16 +19,42 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
   onConfirm,
   onCancel,
 }) => {
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
+
   useEffect(() => {
     if (!open) return;
+
     const handleKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
+        event.preventDefault();
+
         onCancel();
       }
     };
     window.addEventListener("keydown", handleKey);
     return () => window.removeEventListener("keydown", handleKey);
   }, [open, onCancel]);
+
+  //Focus Management
+  useEffect(() => {
+    if (open) {
+      previousActiveElement.current = document.activeElement as HTMLElement;
+      dialogRef.current?.focus();
+    } else {
+      previousActiveElement.current?.focus();
+    }
+  }, [open]);
+
+  // Scroll Lock
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = "";
+      };
+    }
+  }, [open]);
 
   if (!open) return null;
 
@@ -53,11 +79,23 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
               />
             </div>
             <div className="modal-body">{message}</div>
-            <div className="modal-footer" style={{ display: "flex", gap: "12px" }}>
-              <button type="button" className="btn btn-tertiary" onClick={onCancel}>
+            <div
+              className="modal-footer"
+              style={{ display: "flex", gap: "12px" }}
+            >
+              <button
+                type="button"
+                className="btn btn-tertiary"
+                onClick={onCancel}
+                style={{ textDecoration: "none" }}
+              >
                 {cancelLabel}
               </button>
-              <button type="button" className="btn btn-primary" onClick={onConfirm}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={onConfirm}
+              >
                 {confirmLabel}
               </button>
             </div>
