@@ -1,10 +1,9 @@
-import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import {
   Accordion,
   type AccordionItemConfig,
 } from "../../components/Accordion";
+import { PrintButton } from "../../components/PrintButton";
 
 type HelpGuideHandlers = {
   activeSectionId?: string | null;
@@ -581,17 +580,13 @@ const sections: AccordionItemConfig[] = [
   },
 ];
 
-export const InitialPage: React.FC<HelpGuideHandlers> = ({
+export const LimitationPage: React.FC<HelpGuideHandlers> = ({
   activeSectionId = null,
 }) => {
   return (
     <div className="side-padding vertical-padding">
-      <a className="controls btn-print" role="button">
-        <FontAwesomeIcon icon={faPrint} />
-        Print
-      </a>
+      <PrintButton/>
       <h3>Complex requirements</h3>
-
       <Accordion items={sections} activeItemId={activeSectionId} />
     </div>
   );

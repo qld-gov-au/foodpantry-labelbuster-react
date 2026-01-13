@@ -1,9 +1,8 @@
-import { faPrint } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Accordion,
   type AccordionItemConfig,
 } from "../../components/Accordion";
+import { PrintButton } from "../../components/PrintButton";
 
 type StorageAndUsePageProps = {
   activeSectionId?: string | null;
@@ -248,17 +247,9 @@ export const StorageAndUsePage = ({
 }: StorageAndUsePageProps) => {
   return (
     <div className="side-padding vertical-padding">
-      <a className="controls btn-print" role="button">
-        <FontAwesomeIcon icon={faPrint} />
-        Print
-      </a>
-
+      <PrintButton />
       <h2>General requirements</h2>
-      <Accordion
-        items={generalRequirements}
-        activeItemId={activeSectionId}
-      />
-
+      <Accordion items={generalRequirements} activeItemId={activeSectionId} />
       <h2 style={{ marginTop: "32px" }}>Food with extra requirements</h2>
       <Accordion items={extraRequirements} activeItemId={activeSectionId} />
     </div>

@@ -18,13 +18,21 @@ const generalRequirements: AccordionItemConfig[] = [
         <i>Australia New Zealand Food Standards Code</i>
         <ul>
           <li>
-            <a href="http://www.comlaw.gov.au/Series/F2015L00386" target="_blank" rel="noopener">
+            <a
+              href="http://www.comlaw.gov.au/Series/F2015L00386"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.1
             </a>{" "}
             Requirements to have labels or otherwise provide information
           </li>
           <li>
-            <a href="http://www.comlaw.gov.au/Series/F2015L00389" target="_blank" rel="noopener">
+            <a
+              href="http://www.comlaw.gov.au/Series/F2015L00389"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.2
             </a>{" "}
             Information requirements - food identification
@@ -63,7 +71,11 @@ const extraRequirements: AccordionItemConfig[] = [
         <i>Australia New Zealand Food Standards Code</i>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00386" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00386"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.1
             </a>{" "}
             Requirements to have labels or otherwise provide information
@@ -93,7 +105,11 @@ const extraRequirements: AccordionItemConfig[] = [
         <i>Australia New Zealand Food Standards Code</i>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00386" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00386"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.1
             </a>{" "}
             Requirements to have labels or otherwise provide information
@@ -122,7 +138,11 @@ const extraRequirements: AccordionItemConfig[] = [
         <i>Australia New Zealand Food Standards Code</i>
         <ul>
           <li>
-            <a href="https://www.legislation.gov.au/Series/F2015L00386" target="_blank" rel="noopener">
+            <a
+              href="https://www.legislation.gov.au/Series/F2015L00386"
+              target="_blank"
+              rel="noopener"
+            >
               Standard 1.2.1
             </a>{" "}
             Requirements to have labels or otherwise provide information
@@ -142,18 +162,9 @@ export const BusinessDetailsPage = ({
 }: BusinessDetailsPageProps) => {
   return (
     <div className="side-padding vertical-padding">
-      {/* <a className="controls btn-print" role="button">
-        <FontAwesomeIcon icon={faPrint} />
-        Print
-      </a> */}
-      <PrintButton/>
-
+      <PrintButton />
       <h2>General requirements</h2>
-      <Accordion
-        items={generalRequirements}
-        activeItemId={activeSectionId}
-      />
-
+      <Accordion items={generalRequirements} activeItemId={activeSectionId} />
       <h2 style={{ marginTop: "32px" }}>Food with extra requirements</h2>
       <Accordion items={extraRequirements} activeItemId={activeSectionId} />
     </div>

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { HelpGuide } from "../components/helpGuides/HelpGuide";
-import { InitialPage } from "./helpGuide/InitialPage";
+import { LimitationPage } from "./helpGuide/InitialPage";
 import { SeekProAdvice } from "../components/GlobalAlert";
 import { createNavHandlers } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
@@ -399,7 +399,7 @@ export const Limitations = ({
       </div>
 
       <HelpGuide
-        content={<InitialPage activeSectionId={activeSectionId} />}
+        content={<LimitationPage activeSectionId={activeSectionId} />}
         initialOpen={false}
         open={guideOpen}
         onOpenChange={setGuideOpen}
