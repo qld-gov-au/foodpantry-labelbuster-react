@@ -25,6 +25,12 @@
   max-width: 720px;
 }
 
+.page-print-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 16px;
+}
+
 .side-nav-step {
   display: inline-flex;
   align-items: center;
@@ -57,6 +63,18 @@
 
   .app-sidenav {
     width: 100%;
+    max-width: none;
+  }
+}
+
+@media print {
+  body.print-page-only .app-sidenav,
+  body.print-page-only #help-guide,
+  body.print-page-only .page-print-button {
+    display: none !important;
+  }
+
+  body.print-page-only .app-content {
     max-width: none;
   }
 }
@@ -96,3 +114,4 @@
 .read-the-docs {
   color: #888;
 }
+

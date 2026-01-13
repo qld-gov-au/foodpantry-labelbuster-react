@@ -16,6 +16,7 @@ import { Statements } from "./pages/Statements";
 import { YourLabel } from "./pages/YourLabel";
 import { LabelBusterSideNav } from "./components/LabelBusterSideNav";
 import { ConfirmModal } from "./components/ConfirmModal";
+import { PagePrintButton } from "./components/PagePrintButton";
 import {
   FormDataProvider,
   useFormData,
@@ -65,6 +66,9 @@ const AppContent = () => {
         <LabelBusterSideNav page={page} onNavigate={setPage} />
       </aside>
       <main className="app-content">
+        <div className="page-print-button">
+          <PagePrintButton />
+        </div>
         <ConfirmModal
           open={cancelOpen}
           title="Are you sure you want to leave?"
@@ -144,7 +148,10 @@ const AppContent = () => {
           />
         </div>
         <div style={{ display: page === "yourLabel" ? "block" : "none" }}>
-          <YourLabel onBack={() => setPage("statements")} onCancel={handleCancel} />
+          <YourLabel
+            onBack={() => setPage("statements")}
+            onCancel={handleCancel}
+          />
         </div>
       </main>
     </div>

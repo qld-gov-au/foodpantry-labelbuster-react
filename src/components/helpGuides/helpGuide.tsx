@@ -1,5 +1,5 @@
-import React, { useState } from "react";
 import "./helpGuide.css";
+import React, { useState } from "react";
 import { faBook, faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
