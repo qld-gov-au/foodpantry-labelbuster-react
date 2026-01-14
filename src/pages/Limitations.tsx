@@ -38,7 +38,13 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
   const showGeneticBlock = showNovelBlock && serviceChoiceNovel === "2";
   const showIrradiatedBlock = showGeneticBlock && serviceChoiceGenetic === "2";
   const showClaimBlock = showIrradiatedBlock && serviceChoiceIrradiated === "2";
-  const allowNext = serviceChoiceClaim === "2";
+  const allowNext =
+    serviceChoice === "2" &&
+    serviceChoiceSpecial === "2" &&
+    serviceChoiceNovel === "2" &&
+    serviceChoiceGenetic === "2" &&
+    serviceChoiceIrradiated === "2" &&
+    serviceChoiceClaim === "2";
 
   const handleLinkClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
