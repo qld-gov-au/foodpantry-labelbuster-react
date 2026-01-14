@@ -4,6 +4,7 @@ import { LimitationPage } from "./helpGuide/InitialPage";
 import { SeekProAdvice } from "../components/GlobalAlert";
 import { createNavHandlers } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
+import { useFormData } from "../context/FormDataContext";
 
 type LimitationsProps = {
   onBack?: () => void;
@@ -19,22 +20,15 @@ const options: Option[] = [
 export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
-  const [serviceChoice, setServiceChoice] = useState<string | null>(null);
-  const [serviceChoiceSpecial, setServiceChoiceSpecial] = useState<
-    string | null
-  >(null);
-  const [serviceChoiceNovel, setServiceChoiceNovel] = useState<string | null>(
-    null
-  );
-  const [serviceChoiceGenetic, setServiceChoiceGenetic] = useState<
-    string | null
-  >(null);
-  const [serviceChoiceIrradiated, setServiceChoiceIrradiated] = useState<
-    string | null
-  >(null);
-  const [serviceChoiceClaim, setServiceChoiceClaim] = useState<string | null>(
-    null
-  );
+  const { formData, updateLimitations } = useFormData();
+  const {
+    serviceChoice,
+    serviceChoiceSpecial,
+    serviceChoiceNovel,
+    serviceChoiceGenetic,
+    serviceChoiceIrradiated,
+    serviceChoiceClaim,
+  } = formData.limitations;
 
   const { handleNextClick, handleBackClick, handleCancelClick } =
     createNavHandlers(onNext, onBack, onCancel);
@@ -143,7 +137,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
         name="alcoholicDrink"
         options={options}
         value={serviceChoice}
-        onChange={setServiceChoice}
+        onChange={(value) => updateLimitations({ serviceChoice: value })}
       />
 
       {serviceChoice === "1" && <SeekProAdvice />}
@@ -198,7 +192,9 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
             name="serviceChoiceSpecial"
             options={options}
             value={serviceChoiceSpecial}
-            onChange={setServiceChoiceSpecial}
+            onChange={(value) =>
+              updateLimitations({ serviceChoiceSpecial: value })
+            }
           />
           {serviceChoiceSpecial === "1" && <SeekProAdvice />}
         </div>
@@ -239,7 +235,9 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
             name="serviceChoiceNovel"
             options={options}
             value={serviceChoiceNovel}
-            onChange={setServiceChoiceNovel}
+            onChange={(value) =>
+              updateLimitations({ serviceChoiceNovel: value })
+            }
           />
           {serviceChoiceNovel === "1" && <SeekProAdvice />}
         </div>
@@ -248,7 +246,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
       {showGeneticBlock && (
         <div className="genetically-modified-food">
           <div
-            style={{ display: "flex", fontWeight: "bold", flexWrap: "wrap",}}
+            style={{ display: "flex", fontWeight: "bold", flexWrap: "wrap" }}
           >
             Does your food contain ingredients that are produced from gene
             technology, or is your food a
@@ -271,7 +269,9 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
             name="serviceChoiceGenetic"
             options={options}
             value={serviceChoiceGenetic}
-            onChange={setServiceChoiceGenetic}
+            onChange={(value) =>
+              updateLimitations({ serviceChoiceGenetic: value })
+            }
           />
           {serviceChoiceGenetic === "1" && <SeekProAdvice />}
         </div>
@@ -311,7 +311,9 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
             name="serviceChoiceIrradiated"
             options={options}
             value={serviceChoiceIrradiated}
-            onChange={setServiceChoiceIrradiated}
+            onChange={(value) =>
+              updateLimitations({ serviceChoiceIrradiated: value })
+            }
           />
           {serviceChoiceIrradiated === "1" && <SeekProAdvice />}
         </div>
@@ -320,7 +322,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
       {showClaimBlock && (
         <div className="claim-food">
           <div>
-            <p style={{ fontWeight: "bold", display: "flex", gap:"4px" }}>
+            <p style={{ fontWeight: "bold", display: "flex", gap: "4px" }}>
               Do you make a{" "}
               <a
                 className="link"
@@ -351,7 +353,9 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
             name="serviceChoiceClaim"
             options={options}
             value={serviceChoiceClaim}
-            onChange={setServiceChoiceClaim}
+            onChange={(value) =>
+              updateLimitations({ serviceChoiceClaim: value })
+            }
           />
           {serviceChoiceClaim === "1" && <SeekProAdvice />}
         </div>

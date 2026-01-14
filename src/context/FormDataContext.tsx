@@ -26,6 +26,15 @@ export type IngredientsFormState = {
   exemptIngredients: "1" | "2" | null;
 };
 
+export type LimitationsData = {
+  serviceChoice: string | null;
+  serviceChoiceSpecial: string | null;
+  serviceChoiceNovel: string | null;
+  serviceChoiceGenetic: string | null;
+  serviceChoiceIrradiated: string | null;
+  serviceChoiceClaim: string | null;
+};
+
 export type IngredientsData = {
   ingredientRows: string[][];
   form: IngredientsFormState;
@@ -144,21 +153,23 @@ export type ProgressData = {
 } & Record<StepKey, boolean>;
 
 export type FormData = {
+  limitations: LimitationsData;
   foodName: FoodNameData;
   businessDetails: BusinessDetailsData;
-  ingredients: IngredientsData;
   dateMarks: DateMarksData;
   storageAndUse: StorageAndUseData;
+  ingredients: IngredientsData;
   statements: StatementsData;
 };
 
 type FormDataContextValue = {
   formData: FormData;
   progress: ProgressData;
+  updateLimitations: (updates: Partial<LimitationsData>) => void;
   updateFoodName: (updates: Partial<FoodNameData>) => void;
   updateBusinessDetails: (updates: Partial<BusinessDetailsData>) => void;
-  updateIngredients: (updates: Partial<IngredientsData>) => void;
   updateDateMarks: (updates: Partial<DateMarksData>) => void;
+  updateIngredients: (updates: Partial<IngredientsData>) => void;
   updateStorageAndUse: (updates: Partial<StorageAndUseData>) => void;
   updateStatements: (updates: Partial<StatementsData>) => void;
   startSession: () => void;
@@ -168,6 +179,7 @@ type FormDataContextValue = {
 
 const FormDataContext = createContext<FormDataContextValue | null>(null);
 const PROGRESS_STORAGE_KEY = "label-buster-progress";
+const FORM_DATA_STORAGE_KEY = "label-buster-form-data";
 
 const getDefaultProgress = (): ProgressData => ({
   started: false,
@@ -184,6 +196,14 @@ const getDefaultProgress = (): ProgressData => ({
 });
 
 const initialFormData: FormData = {
+  limitations: {
+    serviceChoice: null,
+    serviceChoiceSpecial: null,
+    serviceChoiceNovel: null,
+    serviceChoiceGenetic: null,
+    serviceChoiceIrradiated: null,
+    serviceChoiceClaim: null,
+  },
   foodName: {
     foodName: "",
     productDescription: "",
@@ -199,6 +219,14 @@ const initialFormData: FormData = {
     stateValue: "",
     postcode: "",
   },
+  dateMarks: {
+    shelfLife2DaysChoice: null,
+    shelfLife7DaysChoice: null,
+    shelfLifeCertainDaysChoice: null,
+    dateMarkType: null,
+    dateValue: "",
+    lotIdentification: "",
+  },
   ingredients: {
     ingredientRows: [[""]],
     form: {
@@ -209,14 +237,6 @@ const initialFormData: FormData = {
       foodAdditives: null,
       exemptIngredients: null,
     },
-  },
-  dateMarks: {
-    shelfLife2DaysChoice: null,
-    shelfLife7DaysChoice: null,
-    shelfLifeCertainDaysChoice: null,
-    dateMarkType: null,
-    dateValue: "",
-    lotIdentification: "",
   },
   storageAndUse: {
     coolDryConditions: false,
@@ -306,7 +326,51 @@ const initialFormData: FormData = {
 export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<FormData>(() => {
+    try {
+      const stored = localStorage.getItem(FORM_DATA_STORAGE_KEY);
+      if (!stored) {
+        return initialFormData;
+      }
+      const parsed = JSON.parse(stored) as Partial<FormData>;
+      return {
+        ...initialFormData,
+        ...parsed,
+        foodName: { ...initialFormData.foodName, ...parsed.foodName },
+        businessDetails: {
+          ...initialFormData.businessDetails,
+          ...parsed.businessDetails,
+        },
+        limitations: {
+          ...initialFormData.limitations,
+          ...parsed.limitations,
+        },
+        ingredients: {
+          ...initialFormData.ingredients,
+          ...parsed.ingredients,
+          form: {
+            ...initialFormData.ingredients.form,
+            ...parsed.ingredients?.form,
+          },
+        },
+        dateMarks: { ...initialFormData.dateMarks, ...parsed.dateMarks },
+        storageAndUse: {
+          ...initialFormData.storageAndUse,
+          ...parsed.storageAndUse,
+        },
+        statements: {
+          ...initialFormData.statements,
+          ...parsed.statements,
+          form: {
+            ...initialFormData.statements.form,
+            ...parsed.statements?.form,
+          },
+        },
+      };
+    } catch {
+      return initialFormData;
+    }
+  });
   const [progress, setProgress] = useState<ProgressData>(() => {
     const fallback = getDefaultProgress();
     try {
@@ -325,6 +389,10 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progress));
   }, [progress]);
 
+  useEffect(() => {
+    localStorage.setItem(FORM_DATA_STORAGE_KEY, JSON.stringify(formData));
+  }, [formData]);
+
   const updateFoodName = (updates: Partial<FoodNameData>) => {
     setFormData((prev) => ({
       ...prev,
@@ -332,17 +400,17 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }));
   };
 
+  const updateLimitations = (updates: Partial<LimitationsData>) => {
+    setFormData((prev) => ({
+      ...prev,
+      limitations: { ...prev.limitations, ...updates },
+    }));
+  };
+
   const updateBusinessDetails = (updates: Partial<BusinessDetailsData>) => {
     setFormData((prev) => ({
       ...prev,
       businessDetails: { ...prev.businessDetails, ...updates },
-    }));
-  };
-
-  const updateIngredients = (updates: Partial<IngredientsData>) => {
-    setFormData((prev) => ({
-      ...prev,
-      ingredients: { ...prev.ingredients, ...updates },
     }));
   };
 
@@ -357,6 +425,13 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     setFormData((prev) => ({
       ...prev,
       storageAndUse: { ...prev.storageAndUse, ...updates },
+    }));
+  };
+
+  const updateIngredients = (updates: Partial<IngredientsData>) => {
+    setFormData((prev) => ({
+      ...prev,
+      ingredients: { ...prev.ingredients, ...updates },
     }));
   };
 
@@ -384,15 +459,17 @@ export const FormDataProvider: React.FC<{ children: React.ReactNode }> = ({
     setProgress(getDefaultProgress());
     setFormData(initialFormData);
     localStorage.removeItem(PROGRESS_STORAGE_KEY);
+    localStorage.removeItem(FORM_DATA_STORAGE_KEY);
   };
 
   const value: FormDataContextValue = {
     formData,
     progress,
+    updateLimitations,
     updateFoodName,
     updateBusinessDetails,
-    updateIngredients,
     updateDateMarks,
+    updateIngredients,
     updateStorageAndUse,
     updateStatements,
     startSession,
