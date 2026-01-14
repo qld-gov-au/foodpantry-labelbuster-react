@@ -18,7 +18,7 @@ export const RadioGroup = ({
   const containerClassName = inline ? "d-flex flex-wrap gap-4" : "";
 
   return (
-    <div className={containerClassName}>
+    <div className={`${containerClassName} mt-3`}>
       {options.map((opt) => {
         const id = opt.id ?? `${name}-${opt.value}`;
         return (
