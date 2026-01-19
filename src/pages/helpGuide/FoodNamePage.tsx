@@ -837,7 +837,6 @@ export const FoodNamePage = ({ activeSectionId = null }: FoodNamePageProps) => {
       <PrintButton />
       <h3>General requirements</h3>
       <Accordion items={generalRequirements} activeItemId={activeSectionId} />
-
       <h3>Food with extra requirements</h3>
       <Accordion items={extraRequirements} activeItemId={activeSectionId} />
     </div>

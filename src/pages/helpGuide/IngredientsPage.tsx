@@ -1960,10 +1960,9 @@ export const IngredientsPage = ({
   return (
     <div className="side-padding vertical-padding">
       <PrintButton />
-      <h2>General requirements</h2>
+      <h3>General requirements</h3>
       <Accordion items={generalRequirements} activeItemId={activeSectionId} />
-
-      <h2 className="mt-4">Food with extra requirements</h2>
+      <h3 className="mt-4">Food with extra requirements</h3>
       <Accordion items={extraRequirements} activeItemId={activeSectionId} />
     </div>
   );

@@ -242,7 +242,7 @@ export const StatementsPage = ({
   return (
     <div className="side-padding vertical-padding">
       <PrintButton />
-      <h2>General requirements</h2>
+      <h3>General requirements</h3>
       <Accordion items={generalRequirements} activeItemId={activeSectionId} />
     </div>
   );
