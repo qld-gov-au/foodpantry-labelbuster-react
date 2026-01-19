@@ -72,7 +72,7 @@ export const BusinessDetails = ({
       <form ref={formRef} onSubmit={handleSubmit} noValidate>
         <div>
           <h1>Business details</h1>
-          <figure style={{ display: "flex" }} className="">
+          <figure className="d-flex flex-column flex-lg-row gap-3 align-items-start">
             <figcaption>
               Food labels must include the business details (name and address)
               of the supplier on the label. <br /> A supplier is a business
@@ -87,20 +87,14 @@ export const BusinessDetails = ({
               to contact in the event of a complaint or food recall.
             </figcaption>
             <img
-              className="image-ratio-2x3  position-x-center position-y-center"
+              className="image-ratio-2x3 position-x-center position-y-center img-fluid"
               src="https://www.qld.gov.au/?a=145919"
               alt="Example food label with the business name and the street address of the food business."
             ></img>
           </figure>
         </div>
 
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "2rem",
-          }}
-        >
+        <div className="d-flex flex-column gap-4">
           <div className="business-name">
             <label className="qld-text-input-label field-required ">
               Business name
@@ -271,10 +265,7 @@ export const BusinessDetails = ({
           </div>
         </div>
 
-        <div
-          className="page-navigation-block"
-          style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-        >
+        <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
           <button
             className="btn btn-primary"
             type="button"
@@ -287,11 +278,7 @@ export const BusinessDetails = ({
             className="btn btn-primary"
             type="submit"
             aria-disabled={!isValid}
-            style={
-              !isValid
-                ? { pointerEvents: "none", opacity: 0.65, color: "white" }
-                : undefined
-            }
+            disabled={!isValid}
           >
             <span className="btn-label-default">Next</span>
           </button>

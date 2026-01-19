@@ -67,19 +67,15 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
         </p>
 
         <div>
-          <p style={{ display: "flex", fontWeight: "bold" }}>
+          <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
             Is your food:
-            <abbr
-              className="required"
-              title="(required)"
-              style={{ color: "red" }}
-            >
+            <abbr className="required text-danger" title="(required)">
               *
             </abbr>
           </p>
           <ul>
             <li>
-              <span style={{ display: "flex", gap: "4px" }}>
+              <span className="d-inline-flex gap-1">
                 an
                 <a
                   className="link"
@@ -91,7 +87,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
               </span>
             </li>
             <li>
-              <span style={{ display: "flex", gap: "4px" }}>
+              <span className="d-inline-flex gap-1">
                 a
                 <a
                   className="link"
@@ -103,7 +99,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
               </span>
             </li>
             <li>
-              <span style={{ display: "flex", gap: "4px" }}>
+              <span className="d-inline-flex gap-1">
                 an
                 <a
                   className="link"
@@ -151,7 +147,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
       {serviceChoice === "2" && (
         <div className="special-food">
           <div>
-            <div style={{ display: "flex", fontWeight: "bold", gap: "4px" }}>
+            <div className="d-flex flex-wrap align-items-center gap-1 fw-bold">
               Is your food a
               <a
                 className="link"
@@ -161,11 +157,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
                 special purpose food
               </a>
               ?
-              <abbr
-                className="required"
-                title="(required)"
-                style={{ color: "red" }}
-              >
+              <abbr className="required text-danger" title="(required)">
                 *
               </abbr>
             </div>
@@ -209,7 +201,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
       {showNovelBlock && (
         <div className="novel-food">
           <div>
-            <div style={{ display: "flex", fontWeight: "bold", gap: "4px" }}>
+            <div className="d-flex flex-wrap align-items-center gap-1 fw-bold">
               Is your food a
               <a
                 className="link"
@@ -219,11 +211,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
                 novel food
               </a>
               or does it contain an ingredient that is a novel food?
-              <abbr
-                className="required"
-                title="(required)"
-                style={{ color: "red" }}
-              >
+              <abbr className="required text-danger" title="(required)">
                 *
               </abbr>
             </div>
@@ -251,9 +239,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
 
       {showGeneticBlock && (
         <div className="genetically-modified-food">
-          <div
-            style={{ display: "flex", fontWeight: "bold", flexWrap: "wrap" }}
-          >
+          <div className="d-flex flex-wrap align-items-center gap-1 fw-bold">
             Does your food contain ingredients that are produced from gene
             technology, or is your food a
             <a
@@ -263,11 +249,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
             >
               genetically modified food?
             </a>
-            <abbr
-              className="required"
-              title="(required)"
-              style={{ color: "red" }}
-            >
+            <abbr className="required text-danger" title="(required)">
               *
             </abbr>
           </div>
@@ -286,7 +268,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
       {showIrradiatedBlock && (
         <div className="irradiated-food">
           <div>
-            <p style={{ fontWeight: "bold", display: "flex", gap: "5px" }}>
+            <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
               Is your food an{" "}
               <a
                 className="link"
@@ -296,11 +278,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
                 irradiated food
               </a>
               ?
-              <abbr
-                className="required"
-                title="(required)"
-                style={{ color: "red" }}
-              >
+              <abbr className="required text-danger" title="(required)">
                 *
               </abbr>
             </p>
@@ -328,7 +306,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
       {showClaimBlock && (
         <div className="claim-food">
           <div>
-            <p style={{ fontWeight: "bold", display: "flex", gap: "4px" }}>
+            <p className="fw-bold">
               Do you make a{" "}
               <a
                 className="link"
@@ -338,11 +316,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
                 claim
               </a>{" "}
               about your food?
-              <abbr
-                className="required"
-                title="(required)"
-                style={{ color: "red" }}
-              >
+              <abbr className="required text-danger" title="(required)">
                 *
               </abbr>
             </p>
@@ -367,21 +341,16 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
         </div>
       )}
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+      <div className="d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
 
         <a
-          className="btn btn-primary"
+          className={`btn btn-primary${!allowNext ? " disabled pe-none" : ""}`}
           role="button"
           onClick={handleNextClick}
           aria-disabled={!allowNext}
-          style={
-            !allowNext
-              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
-              : undefined
-          }
         >
           <span className="btn-label-default">Next</span>
         </a>

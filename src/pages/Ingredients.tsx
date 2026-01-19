@@ -56,7 +56,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
       <div className="main-content">
         <div className="title-image">
           <h1>Ingredients</h1>
-          <figure style={{ display: "flex" }} className="">
+          <figure className="d-flex flex-column flex-lg-row gap-3 align-items-start">
             <figcaption>
               A food label must contain a list of ingredients that have been
               used to make the food. <br /> This is also known as the statement
@@ -65,6 +65,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
             <img
               src="https://www.qld.gov.au/?a=145922"
               alt="Example food label with a list of ingredients."
+              className="img-fluid"
             />
           </figure>
         </div>
@@ -72,7 +73,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
         <div className="">
           <div className="">
             <div>
-              <p style={{ fontWeight: "bold" }}>
+              <p className="fw-bold">
                 Do you mention an ingredient, category of ingredients or a part
                 of the food in the name on the label
                 <a
@@ -84,11 +85,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                   characterising ingredients{" "}
                 </a>
                 ?
-                <abbr
-                  className="required"
-                  title="(required)"
-                  style={{ color: "red" }}
-                >
+                <abbr className="required text-danger" title="(required)">
                   *
                 </abbr>
               </p>
@@ -138,7 +135,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
 
             {form.ingredientInName && (
               <div>
-                <p style={{ fontWeight: "bold" }}>
+                <p className="fw-bold">
                   Do you use any
                   <a
                     className="text-decoration-none"
@@ -149,11 +146,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                     compound ingredients{" "}
                   </a>
                   ? to make your food?
-                  <abbr
-                    className="required"
-                    title="(required)"
-                    style={{ color: "red" }}
-                  >
+                  <abbr className="required text-danger" title="(required)">
                     *
                   </abbr>
                 </p>
@@ -210,7 +203,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
 
             {form.ingredientMakeFood && (
               <div>
-                <p style={{ fontWeight: "bold" }}>
+                <p className="fw-bold">
                   Do you sometimes replace an ingredient with an
                   <a
                     className="text-decoration-none"
@@ -221,11 +214,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                     alternative ingredient{" "}
                   </a>
                   to make your food?
-                  <abbr
-                    className="required"
-                    title="(required)"
-                    style={{ color: "red" }}
-                  >
+                  <abbr className="required text-danger" title="(required)">
                     *
                   </abbr>
                 </p>
@@ -273,7 +262,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
 
             {form.ingredientAlternative && (
               <>
-                <p style={{ fontWeight: "bold" }}>
+                <p className="fw-bold">
                   Do you want to list an ingredient with a{" "}
                   <a
                     className="text-decoration-none"
@@ -284,11 +273,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                     generic name{" "}
                   </a>
                   ?
-                  <abbr
-                    className="required"
-                    title="(required)"
-                    style={{ color: "red" }}
-                  >
+                  <abbr className="required text-danger" title="(required)">
                     *
                   </abbr>
                 </p>
@@ -399,7 +384,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
 
             {form.ingredientGenericName && (
               <>
-                <p style={{ fontWeight: "bold" }}>
+                <p className="fw-bold">
                   Does your food contain any{" "}
                   <a
                     className="text-decoration-none"
@@ -410,11 +395,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                     food additives{" "}
                   </a>
                   ?
-                  <abbr
-                    className="required"
-                    title="(required)"
-                    style={{ color: "red" }}
-                  >
+                  <abbr className="required text-danger" title="(required)">
                     *
                   </abbr>
                 </p>
@@ -471,7 +452,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
 
             {form.foodAdditives && (
               <>
-                <p style={{ fontWeight: "bold" }}>
+                <p className="fw-bold">
                   Does your food contain any{" "}
                   <a
                     className="text-decoration-none"
@@ -482,11 +463,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                     exempt ingredients{" "}
                   </a>
                   that do not need to be included in a statement of ingredients?
-                  <abbr
-                    className="required"
-                    title="(required)"
-                    style={{ color: "red" }}
-                  >
+                  <abbr className="required text-danger" title="(required)">
                     *
                   </abbr>
                 </p>
@@ -536,13 +513,9 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
 
             {form.exemptIngredients && (
               <>
-                <p style={{ fontWeight: "bold", display: "flex" }}>
+                <p className="d-flex align-items-center gap-1 fw-bold">
                   Ingredients
-                  <abbr
-                    className="required"
-                    title="(required)"
-                    style={{ color: "red" }}
-                  >
+                  <abbr className="required text-danger" title="(required)">
                     *
                   </abbr>
                 </p>
@@ -561,11 +534,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                   allowReorder
                   addRowLabel={
                     <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                      }}
+                      className="d-inline-flex align-items-center gap-1"
                     >
                       <FontAwesomeIcon icon={faPlus} />
                       <span>
@@ -575,11 +544,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                   }
                   deleteRowLabel={
                     <div
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "5px",
-                      }}
+                      className="d-inline-flex align-items-center gap-1"
                     >
                       <FontAwesomeIcon icon={faXmark} />
                       <span>
@@ -604,16 +569,13 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
         </div>
       </div>
 
-      <div
-        className="page-navigation-block"
-        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-      >
+      <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
 
         <a
-          className={`btn btn-primary${nextDisabled ? " disabled" : ""}`}
+          className={`btn btn-primary${nextDisabled ? " disabled pe-none" : ""}`}
           role="button"
           onClick={(event) => {
             if (nextDisabled) {

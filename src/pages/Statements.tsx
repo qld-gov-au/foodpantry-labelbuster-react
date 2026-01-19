@@ -343,7 +343,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox("bee-pollen", "Bee pollen", hint)}
             {renderStatementCheckbox("propolis", "Propolis")}
             {renderStatementCheckbox("royal-jelly", "Royal jelly")}
@@ -357,7 +357,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "kava-root",
               "Dried or raw kava root",
@@ -377,7 +377,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "milk-soy-beverage",
               "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat.",
@@ -397,7 +397,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "raw-meat-formed",
               "Raw meat that has been formed to look like of a cut of meat, whether coated or not, using a binding system without the application of heat.",
@@ -417,7 +417,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "unpasteurised-milk",
               "Unpasteurised milk",
@@ -445,7 +445,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "cola-beverage-with-caffeine",
               "A cola beverage that contains added caffeine",
@@ -469,7 +469,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "edible-oil-conditions",
               "Edible oil where",
@@ -496,7 +496,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
 
       renderChildren: () => {
         return (
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div className="d-flex flex-column">
             {renderStatementCheckbox(
               "reduced-sodium-salt-mixtures",
               "Reduced sodium salt mixtures and salt substitutes",
@@ -589,7 +589,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
       <div className="main-content">
         <div className="title-image">
           <h1>Statements</h1>
-          <figure style={{ display: "flex" }} className="">
+          <figure className="d-flex flex-column flex-lg-row gap-3 align-items-start">
             <figcaption>
               Some foods or ingredients may be harmful to some people who are
               allergic or sensitive. <br />
@@ -599,6 +599,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             <img
               src="https://www.qld.gov.au/?a=145923"
               alt="Example food label with advisory statements, warning statements and declarations."
+              className="img-fluid"
             />
           </figure>
         </div>
@@ -800,7 +801,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 }
                 children={
                   config.renderChildren ? (
-                    <div style={{ padding: "5px 20px" }}>
+                    <div className="px-3 py-1">
                       {config.renderChildren()}
                     </div>
                   ) : null
@@ -808,9 +809,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
               />
             ))}
 
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-            >
+            <div className="d-flex flex-column gap-3">
               <Textarea
                 label="Enter the sodium and potassium content expressed per 100g. You may also include a declaration of the percentage reduction of sodium in the food, relative to salt."
                 required={true}
@@ -841,25 +840,22 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
         </div>
       </div>
 
-      <div
-        className="page-navigation-block"
-        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-      >
+      <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
 
         <a
-          className="btn btn-primary"
+          className={`btn btn-primary${
+            statementData.sodiumPotassiumContent.trim() === ""
+              ? " disabled pe-none"
+              : ""
+          }`}
           role="button"
           onClick={(event) => {
             handleNextClick(event);
           }}
-          style={
-            statementData.sodiumPotassiumContent.trim() === ""
-              ? { pointerEvents: "none", opacity: 0.5, color: "white" }
-              : {}
-          }
+          aria-disabled={statementData.sodiumPotassiumContent.trim() === ""}
         >
           <span className="btn-label-default">Next</span>
         </a>

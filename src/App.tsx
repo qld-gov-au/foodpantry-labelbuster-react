@@ -63,99 +63,101 @@ const AppContent = () => {
   };
 
   return (
-    <div className="app-layout">
-      <aside className="app-sidenav">
-        <LabelBusterSideNav page={page} onNavigate={setPage} />
-      </aside>
-      <main className="app-content" key={sessionKey}>
-        <div className="page-print-button">
-          <PagePrintButton />
-        </div>
-        <ConfirmModal
-          open={cancelOpen}
-          title="Are you sure you want to leave?"
-          message="Your progress will not be saved."
-          onConfirm={handleConfirmCancel}
-          onCancel={handleDismissCancel}
-        />
-        <div style={{ display: page === "home" ? "block" : "none" }}>
-          <Home
-            onStart={() => {
-              startSession();
-              setPage("terms");
-            }}
+    <div className="container-xxl py-4">
+      <div className="app-layout row g-4">
+        <aside className="app-sidenav col-12 col-lg-3 col-xl-2">
+          <LabelBusterSideNav page={page} onNavigate={setPage} />
+        </aside>
+        <main className="app-content col-12 col-lg-9 col-xl-10" key={sessionKey}>
+          <div className="page-print-button">
+            <PagePrintButton />
+          </div>
+          <ConfirmModal
+            open={cancelOpen}
+            title="Are you sure you want to leave?"
+            message="Your progress will not be saved."
+            onConfirm={handleConfirmCancel}
+            onCancel={handleDismissCancel}
           />
-        </div>
-        <div style={{ display: page === "terms" ? "block" : "none" }}>
-          <TermsOfUse
-            onBack={() => setPage("home")}
-            onAccept={goNext("terms", "about")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "about" ? "block" : "none" }}>
-          <AboutFoodLabels
-            onBack={() => setPage("terms")}
-            onNext={goNext("about", "limitations")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "limitations" ? "block" : "none" }}>
-          <Limitations
-            onBack={() => setPage("about")}
-            onNext={goNext("limitations", "foodName")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "foodName" ? "block" : "none" }}>
-          <FoodName
-            onBack={() => setPage("limitations")}
-            onNext={goNext("foodName", "businessDetails")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "businessDetails" ? "block" : "none" }}>
-          <BusinessDetails
-            onBack={() => setPage("foodName")}
-            onNext={goNext("businessDetails", "dateMarks")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "dateMarks" ? "block" : "none" }}>
-          <DateMarks
-            onBack={() => setPage("businessDetails")}
-            onNext={goNext("dateMarks", "storageUse")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "storageUse" ? "block" : "none" }}>
-          <StorageAndUse
-            onBack={() => setPage("dateMarks")}
-            onNext={goNext("storageUse", "ingredients")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "ingredients" ? "block" : "none" }}>
-          <Ingredients
-            onBack={() => setPage("storageUse")}
-            onNext={goNext("ingredients", "statements")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "statements" ? "block" : "none" }}>
-          <Statements
-            onBack={() => setPage("ingredients")}
-            onNext={goNext("statements", "yourLabel")}
-            onCancel={handleCancel}
-          />
-        </div>
-        <div style={{ display: page === "yourLabel" ? "block" : "none" }}>
-          <YourLabel
-            onBack={() => setPage("statements")}
-            onCancel={handleCancel}
-          />
-        </div>
-      </main>
+          <div className={`page-section ${page === "home" ? "is-active" : ""}`}>
+            <Home
+              onStart={() => {
+                startSession();
+                setPage("terms");
+              }}
+            />
+          </div>
+          <div className={`page-section ${page === "terms" ? "is-active" : ""}`}>
+            <TermsOfUse
+              onBack={() => setPage("home")}
+              onAccept={goNext("terms", "about")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "about" ? "is-active" : ""}`}>
+            <AboutFoodLabels
+              onBack={() => setPage("terms")}
+              onNext={goNext("about", "limitations")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "limitations" ? "is-active" : ""}`}>
+            <Limitations
+              onBack={() => setPage("about")}
+              onNext={goNext("limitations", "foodName")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "foodName" ? "is-active" : ""}`}>
+            <FoodName
+              onBack={() => setPage("limitations")}
+              onNext={goNext("foodName", "businessDetails")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "businessDetails" ? "is-active" : ""}`}>
+            <BusinessDetails
+              onBack={() => setPage("foodName")}
+              onNext={goNext("businessDetails", "dateMarks")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "dateMarks" ? "is-active" : ""}`}>
+            <DateMarks
+              onBack={() => setPage("businessDetails")}
+              onNext={goNext("dateMarks", "storageUse")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "storageUse" ? "is-active" : ""}`}>
+            <StorageAndUse
+              onBack={() => setPage("dateMarks")}
+              onNext={goNext("storageUse", "ingredients")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "ingredients" ? "is-active" : ""}`}>
+            <Ingredients
+              onBack={() => setPage("storageUse")}
+              onNext={goNext("ingredients", "statements")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "statements" ? "is-active" : ""}`}>
+            <Statements
+              onBack={() => setPage("ingredients")}
+              onNext={goNext("statements", "yourLabel")}
+              onCancel={handleCancel}
+            />
+          </div>
+          <div className={`page-section ${page === "yourLabel" ? "is-active" : ""}`}>
+            <YourLabel
+              onBack={() => setPage("statements")}
+              onCancel={handleCancel}
+            />
+          </div>
+        </main>
+      </div>
     </div>
   );
 };

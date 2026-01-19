@@ -85,6 +85,16 @@ export const SideNavigation: React.FC<SideNavigationProps> = ({
 
   return (
     <nav className="qld-side-navigation" aria-label={ariaLabel}>
+      <button
+        className="accordion-button collapsed d-lg-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target={`#${collapseId}`}
+        aria-expanded="false"
+        aria-controls={collapseId}
+      >
+        In this section
+      </button>
       <div className="nav-wrapper collapse d-lg-block" id={collapseId}>
         {title && (
           <h2 className="nav-title">

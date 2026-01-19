@@ -63,9 +63,9 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
 
   const renderDateMarkBlock = () => (
     <div className="food-date-mark-select">
-      <p style={{ fontWeight: "bold", display: "flex" }}>
+      <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
         What type of date mark do you need for your food?{" "}
-        <abbr className="required" title="(required)" style={{ color: "red" }}>
+        <abbr className="required text-danger" title="(required)">
           *
         </abbr>
       </p>
@@ -85,13 +85,9 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
 
       {dateMarkType && dateMarkType !== "none-mark" && (
         <div className="food-date-input-block">
-          <p style={{ fontWeight: "bold", display: "flex" }}>
+          <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
             What is the date for the food?{" "}
-            <abbr
-              className="required"
-              title="(required)"
-              style={{ color: "red" }}
-            >
+            <abbr className="required text-danger" title="(required)">
               *
             </abbr>
           </p>
@@ -196,7 +192,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
     <>
       <div>
         <h1>Date marks</h1>
-        <figure style={{ display: "flex" }} className="">
+        <figure className="d-flex flex-column flex-lg-row gap-3 align-items-start">
           <figcaption>
             Foods that should be eaten before a certain date for health and
             safety reasons must be labelled with a{" "}
@@ -216,7 +212,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
             .
           </figcaption>
           <img
-            className="image-ratio-2x3  position-x-center position-y-center"
+            className="image-ratio-2x3 position-x-center position-y-center img-fluid"
             src="https://www.qld.gov.au/?a=145668"
             alt="Example food label with the business name and the street address of the food business."
           ></img>
@@ -225,13 +221,9 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
 
       <div>
         <div className="shelf-life-2days-block">
-          <p style={{ fontWeight: "bold", display: "flex" }}>
+          <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
             Does your food have a shelf life of more than 2 years?
-            <abbr
-              className="required"
-              title="(required)"
-              style={{ color: "red" }}
-            >
+            <abbr className="required text-danger" title="(required)">
               *
             </abbr>
           </p>
@@ -284,13 +276,9 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
 
         {shelfLife2DaysChoice === "2" && (
           <div className="shelf-life-7days-block">
-            <p style={{ fontWeight: "bold", display: "flex" }}>
+            <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
               Is your food bread, with a shelf life of less than 7 days?
-              <abbr
-                className="required"
-                title="(required)"
-                style={{ color: "red" }}
-              >
+              <abbr className="required text-danger" title="(required)">
                 *
               </abbr>
             </p>
@@ -358,14 +346,10 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
         {shelfLife7DaysChoice === "2" && (
           <>
             <div>
-              <p style={{ fontWeight: "bold", display: "flex" }}>
+              <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
                 Does your food need to be eaten before a certain date because of
                 health and safety?
-                <abbr
-                  className="required"
-                  title="(required)"
-                  style={{ color: "red" }}
-                >
+                <abbr className="required text-danger" title="(required)">
                   *
                 </abbr>
               </p>
@@ -446,24 +430,16 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
         )}
       </div>
 
-      <div
-        className="page-navigation-block"
-        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-      >
+      <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
 
         <a
-          className="btn btn-primary"
+          className={`btn btn-primary${!isValid ? " disabled pe-none" : ""}`}
           role="button"
           onClick={handleNextClick}
           aria-disabled={!isValid}
-          style={
-            !isValid
-              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
-              : undefined
-          }
         >
           <span className="btn-label-default">Next</span>
         </a>

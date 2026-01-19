@@ -70,12 +70,12 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
         </label>
       </div>
 
-      {hint && <small style={{ color: "#6f777b" }}>{hint}</small>}
+      {hint && <small className="text-muted">{hint}</small>}
 
       {checked && (inputConfig || children) && (
-        <div style={{ display: "flex", gap: "20px", marginTop: "5px" }}>
+        <div className="d-flex flex-column flex-md-row gap-3 mt-2">
           {inputConfig && !inputConfig.textAreaInput && (
-            <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+            <div className="d-flex flex-column flex-md-row align-items-md-center gap-3">
               <Input
                 id={inputConfig.inputKey}
                 type={inputConfig.type || "text"}
@@ -92,7 +92,7 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
           )}
 
           {inputConfig && inputConfig.textAreaInput && (
-            <div style={{ flex: 1 }}>
+            <div className="flex-grow-1">
               <Textarea
                 id={inputConfig.inputKey}
                 label={undefined}
@@ -107,7 +107,7 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
             </div>
           )}
 
-          {children && <div>{children}</div>}
+          {children && <div className="flex-grow-1">{children}</div>}
         </div>
       )}
     </div>

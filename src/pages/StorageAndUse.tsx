@@ -224,7 +224,7 @@ export const StorageAndUse = ({
       },
       requiredFields: ["refrigeratedDegreeFrom", "refrigeratedDegreeTo"],
       renderChildren: (data, handleChange) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <div className="d-flex flex-wrap align-items-center gap-3">
           <span>to</span>
           <Input
             type="number"
@@ -384,7 +384,7 @@ export const StorageAndUse = ({
       },
       requiredFields: ["microwavePower", "microwaveMinutes"],
       renderChildren: (data, handleChange) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <div className="d-flex flex-wrap align-items-center gap-3">
           <span>for</span>
           <Input
             type="number"
@@ -413,7 +413,7 @@ export const StorageAndUse = ({
       },
       requiredFields: ["useMinutes", "cookForAt"],
       renderChildren: (data, handleChange) => (
-        <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
+        <div className="d-flex flex-wrap align-items-center gap-3">
           <span>at</span>
           <Input
             type="number"
@@ -526,7 +526,7 @@ export const StorageAndUse = ({
       <div>
         <div className="title-image">
           <h1>Date marks</h1>
-          <figure style={{ display: "flex" }} className="">
+          <figure className="d-flex flex-column flex-lg-row gap-3 align-items-start">
             <figcaption>
               Storage conditions describe how to keep food until its best-before
               or use-by date. <br /> Directions for use are instructions for how
@@ -535,14 +535,12 @@ export const StorageAndUse = ({
             <img
               src="https://www.qld.gov.au/?a=145924"
               alt="Example food label with storage conditions and directions for use."
+              className="img-fluid"
             />
           </figure>
         </div>
 
-        <div
-          style={{ marginBottom: "20px" }}
-          className="storage-condition-block"
-        >
+        <div className="storage-condition-block mb-3">
           <h3>Storage conditions</h3>
           <section>
             <article>
@@ -671,24 +669,16 @@ export const StorageAndUse = ({
         </div>
       </div>
 
-      <div
-        className="page-navigation-block"
-        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-      >
+      <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
 
         <a
-          className="btn btn-primary"
+          className={`btn btn-primary${!isValid ? " disabled pe-none" : ""}`}
           role="button"
           onClick={handleNextClick}
           aria-disabled={!isValid}
-          style={
-            !isValid
-              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
-              : undefined
-          }
         >
           <span className="btn-label-default">Next</span>
         </a>

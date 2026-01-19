@@ -62,8 +62,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     <>
       <div className="modal-backdrop fade show" />
       <div
-        className="modal fade show"
-        style={{ display: "block" }}
+        className="modal fade show d-block"
         role="dialog"
         aria-modal="true"
       >
@@ -79,15 +78,11 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
               />
             </div>
             <div className="modal-body">{message}</div>
-            <div
-              className="modal-footer"
-              style={{ display: "flex", gap: "12px" }}
-            >
+            <div className="modal-footer d-flex gap-3">
               <button
                 type="button"
                 className="btn btn-tertiary"
                 onClick={onCancel}
-                style={{ textDecoration: "none" }}
               >
                 {cancelLabel}
               </button>

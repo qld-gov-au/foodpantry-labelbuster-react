@@ -81,10 +81,7 @@ export const Table: React.FC<TableProps> = ({
         <thead>
           <tr>
             {isEditable && allowReorder && (
-              <th
-                scope="col"
-                style={{ width: "1%", whiteSpace: "nowrap" }}
-              ></th>
+              <th scope="col" className="text-nowrap w-auto"></th>
             )}
             {headers.map((header, index) => (
               <th scope="col" key={index}>
@@ -92,7 +89,7 @@ export const Table: React.FC<TableProps> = ({
               </th>
             ))}
             {isEditable && (
-              <th scope="col" style={{ width: "1%", whiteSpace: "nowrap" }}>
+              <th scope="col" className="text-nowrap w-auto">
                 Actions
               </th>
             )}
@@ -120,7 +117,7 @@ export const Table: React.FC<TableProps> = ({
                   }}
                 >
                   {isEditable && allowReorder && (
-                    <td style={{ width: "1%", whiteSpace: "nowrap" }}>
+                    <td className="text-nowrap w-auto">
                       <button
                         type="button"
                         className="btn btn-outline-secondary btn-sm"
@@ -153,7 +150,7 @@ export const Table: React.FC<TableProps> = ({
                       />
                     </td>
                   ))}
-                  <td style={{ width: "1%", whiteSpace: "nowrap" }}>
+                  <td className="text-nowrap w-auto">
                     <button
                       type="button"
                       className="btn btn-outline-secondary btn-sm"
@@ -186,13 +183,7 @@ export const Table: React.FC<TableProps> = ({
         )}
       </table>
       {isEditable && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            margin: "10px 0 10px 0",
-          }}
-        >
+        <div className="d-flex justify-content-start my-2">
           <button
             type="button"
             className="btn btn-outline-secondary"

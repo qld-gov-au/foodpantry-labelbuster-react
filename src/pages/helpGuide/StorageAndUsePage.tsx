@@ -250,7 +250,7 @@ export const StorageAndUsePage = ({
       <PrintButton />
       <h2>General requirements</h2>
       <Accordion items={generalRequirements} activeItemId={activeSectionId} />
-      <h2 style={{ marginTop: "32px" }}>Food with extra requirements</h2>
+      <h2 className="mt-4">Food with extra requirements</h2>
       <Accordion items={extraRequirements} activeItemId={activeSectionId} />
     </div>
   );

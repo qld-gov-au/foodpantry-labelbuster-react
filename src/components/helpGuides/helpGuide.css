@@ -85,6 +85,11 @@
   color: #fff;
 }
 
+.help-guide-content img {
+  max-width: 100%;
+  height: auto;
+}
+
 .side-padding {
   padding: 0 16px 0 16px;
 }

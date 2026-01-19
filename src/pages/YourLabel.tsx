@@ -464,7 +464,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
             }
           />
           <p>
-            <strong style={{ color: "#d60000" }}>**Don’t forget</strong> to
+            <strong className="text-danger">**Don't forget</strong> to
             refer to the
             <a href="https://www.health.qld.gov.au/__data/assets/pdf_file/0030/1126947/allergen-labelling.pdf">
               Allergen labelling
@@ -513,7 +513,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
           </ul>
 
           {/* Download PDF Button */}
-          <div style={{ marginTop: "20px", marginBottom: "20px" }}>
+          <div className="my-3">
             <button
               className="btn btn-primary"
               onClick={handleDownloadPDF}
@@ -535,7 +535,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
           </div>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+        <div className="d-flex flex-column gap-3">
           <div className="product-sheet">
             <h2>Product Sheet</h2>
             <p>
@@ -803,7 +803,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                   <img
                     src="https://www.qld.gov.au/?a=148984"
                     alt="example food label"
-                    className="src"
+                    className="src img-fluid"
                   />
                 </div>
               </div>
@@ -906,10 +906,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
         </div>
       </div>
 
-      <div
-        className="page-navigation-block"
-        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-      >
+      <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>

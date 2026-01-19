@@ -39,6 +39,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145669"
               alt="Example food label with a food name and description."
+              className="img-fluid"
             />
           </figure>
           <p>
@@ -71,6 +72,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145666"
               alt="Example food label with the business name and the street address of the food business."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -107,6 +109,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145675"
               alt="Example food label with the weight of the food."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -137,6 +140,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145668"
               alt="Example food label with a date mark such as a use by date, best before date, baked on, or baked for date."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -159,6 +163,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145672"
               alt="Example food label with the lot identification."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -184,6 +189,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145674"
               alt="Example food label with storage conditions and directions for use."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -204,6 +210,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145670"
               alt="Example food label with a list of ingredients."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -224,6 +231,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145670"
               alt="Example food label with a list of ingredients."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -250,6 +258,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145671"
               alt="Example food label with nutrition information panel."
+              className="img-fluid"
             />
           </figure>
           <p>
@@ -282,6 +291,7 @@ export const AboutFoodLabels = ({
             <img
               src="https://www.qld.gov.au/?a=145667"
               alt="Example food label with nutrition or health claims."
+              className="img-fluid"
             />
           </figure>
         </>
@@ -299,7 +309,7 @@ export const AboutFoodLabels = ({
             Select on the food label sections below to learn about labels.
           </figcaption>
           <img
-            className="image-ratio-3x2  position-x-center position-y-center"
+            className="image-ratio-3x2 position-x-center position-y-center w-100 h-auto"
             src="https://www.qld.gov.au/?a=148648"
             alt="An example label for strawberry yoghurt"
           />
@@ -307,7 +317,7 @@ export const AboutFoodLabels = ({
         <Accordion items={aboutFoodAccordionItems} />
       </div>
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+      <div className="d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>

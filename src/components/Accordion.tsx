@@ -82,9 +82,8 @@ export const Accordion: React.FC<AccordionProps> = ({
       <div className="d-flex justify-content-end mb-2">
         <button
           type="button"
-          className="btn btn-link text-decoration-none p-0"
+          className="btn btn-link text-decoration-none p-0 small"
           onClick={allExpanded ? collapseAll : expandAll}
-          style={{ fontSize: "0.95rem" }}
         >
           {allExpanded ? (
             <>

@@ -56,9 +56,9 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
     <>
       <div>
         <h1>Food name and description</h1>
-        <figure className="">
+        <figure>
           <img
-            className="image-ratio-2x3  position-x-center position-y-bottom"
+            className="image-ratio-2x3 position-x-center position-y-bottom img-fluid"
             src="https://www.qld.gov.au/?a=145669"
             alt=""
           />
@@ -80,12 +80,11 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
       </div>
 
       <div className="highlight-ingredient-block">
-        <p style={{ fontWeight: "bold", display: "flex" }}>
+        <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
           Does your food name, or label, highlight an ingredient?
           <abbr
             className="required"
             title="(required)"
-            style={{ color: "red" }}
           >
             *
           </abbr>
@@ -132,12 +131,11 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
       {showFollowingFoodBlock && (
         <div className="following-food-block">
           <div>
-            <p style={{ fontWeight: "bold", display: "flex" }}>
+            <p className="d-flex flex-wrap align-items-center gap-1 fw-bold">
               Is your food one of the following:
               <abbr
                 className="required"
                 title="(required)"
-                style={{ color: "red" }}
               >
                 *
               </abbr>
@@ -242,7 +240,7 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
                 aria-required="true"
               />
               {showError && (
-                <div className="text-danger small" style={{ marginTop: "4px" }}>
+                <div className="text-danger small mt-1">
                   Food name is required
                 </div>
               )}
@@ -269,24 +267,16 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
         </div>
       )}
 
-      <div
-        className="page-navigation-block"
-        style={{ display: "flex", gap: "20px", marginTop: "20px" }}
-      >
+      <div className="page-navigation-block d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
 
         <a
-          className="btn btn-primary"
+          className={`btn btn-primary${!isValid ? " disabled pe-none" : ""}`}
           role="button"
           onClick={handleNext}
           aria-disabled={!isValid}
-          style={
-            !isValid
-              ? { pointerEvents: "none", opacity: 0.65, color: "white" }
-              : undefined
-          }
         >
           <span className="btn-label-default">Next</span>
         </a>

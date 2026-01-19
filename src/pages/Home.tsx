@@ -15,6 +15,7 @@ export const Home = ({ onStart }: HomeProps) => {
           <img
             src="https://www.qld.gov.au/?a=147455"
             alt="Example small business selling food that needs a food label."
+            className="img-fluid"
           />
         </figure>
         <p>
@@ -104,7 +105,7 @@ export const Home = ({ onStart }: HomeProps) => {
           of the Australia New Zealand Food Standards Code that came into effect
           on 25 February 2024.
         </p>
-        <div style={{ color: "#13578b" }}>
+        <div className="text-primary">
           <p>
             <em>
               <strong>IMPORTANT:</strong> After you have completed Label Buster,
@@ -191,9 +192,9 @@ export const Home = ({ onStart }: HomeProps) => {
         />
       </div>
 
-      <div style={{ marginTop: "60px" }}>
+      <div className="mt-5">
         <a
-          className="btn btn-primary "
+          className="btn btn-primary"
           role="button"
           href="#"
           onClick={(event) => {

@@ -170,16 +170,12 @@ export const TermsOfUse = ({
         </label>
       </div>
       {showError && (
-        <div
-          id="terms-error"
-          className="invalid-feedback"
-          style={{ display: "block" }}
-        >
+        <div id="terms-error" className="invalid-feedback d-block">
           Please accept the terms of use to continue.
         </div>
       )}
 
-      <div style={{ display: "flex", gap: "20px", marginTop: "20px" }}>
+      <div className="d-flex flex-wrap gap-3 mt-3">
         <a className="btn btn-primary" role="button" onClick={handleBackClick}>
           <span className="btn-label-default">Back</span>
         </a>
