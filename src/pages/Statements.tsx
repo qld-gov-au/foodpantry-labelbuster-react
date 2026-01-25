@@ -20,6 +20,437 @@ type StatementsProps = {
   onCancel?: () => void;
 };
 
+type StatementChildBlock = {
+  kind: "checkbox";
+  id: string;
+  label: string;
+  hint?: React.ReactNode | "warning";
+  notes?: string[];
+};
+
+type FoodAndIngredientsConfig = {
+  label: string;
+  key: keyof StatementsFormData;
+  children: StatementChildBlock[];
+};
+
+const CEREALS_AND_GRAINS_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Cereals containing gluten",
+    key: "cerealsContainingGluten",
+    hint: "For example: wheat, barley, oats and rye and their hybridised strains of the cereal, other than when present in beer or spirits.",
+  },
+  {
+    label: "Wheat",
+    key: "wheat",
+    hint: (
+      <>
+        <p>
+          Wheat, including its hybridised strain, irrespective of whether it
+          contains gluten. Except for:
+        </p>
+        <ul>
+          <li>
+            the wheat or its hybridised strain that is present in beer or
+            spirits
+          </li>
+          <li>
+            glucose syrups made from wheat starch and that:
+            <ul>
+              <li>
+                have been subject to a refining process that has removed gluten
+                protein content to the lowest level that is reasonably
+                achievable; and
+              </li>
+              <li>
+                have a gluten protein content that does not exceed 20 mg/kg
+              </li>
+            </ul>
+          </li>
+          <li>alcohol distilled from wheat</li>
+        </ul>
+      </>
+    ),
+  },
+];
+
+const EGG_AND_EGG_PRODUCTS_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Egg",
+    key: "egg",
+  },
+];
+
+const FISH_CRUSTACEA_SEAFOOD_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Crustacea Cereals",
+    key: "crustaceaCereals",
+    hint: "For example: crab, crayfish, lobster, prawns",
+  },
+  {
+    label: "Fish",
+    key: "fish",
+    hint: "Except for isinglass derived from swim bladders and used as a clarifying agent in beer or wine",
+  },
+  {
+    label: "Mollusc",
+    key: "mollusc",
+    hint: "This includes only marine molluscs. For example: oysters, clams, mussels, octopus, squid, calamari.",
+  },
+];
+
+const FOOD_ADDITIVES_FLAVOUR_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Added sulphites in concentrations of 10mg/kg or more",
+    key: "addedSulphites",
+  },
+];
+
+const LEGUMES_AND_PULSES_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Lupin",
+    key: "lupin",
+  },
+  {
+    label: "Soybeans",
+    key: "soybeans",
+    hint: (
+      <>
+        Other than:
+        <ul>
+          <li>
+            soybean oil that has been degummed, neutralised, bleached and
+            deodorised
+          </li>
+          <li>soybean derivatives that are a tocopherol or a phytosterol</li>
+        </ul>
+      </>
+    ),
+  },
+];
+
+const MILK_AND_DAIRY_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Milk",
+    key: "milk",
+    hint: "Other than alcohol distilled from whey",
+  },
+];
+
+const NUTS_AND_SEEDS_CHECKBOX_CONFIGS: CheckboxConfig[] = [
+  {
+    label: "Almond",
+    key: "almond",
+  },
+  {
+    label: "Brazil nut",
+    key: "brazilNut",
+  },
+  {
+    label: "Cashew",
+    key: "cashew",
+  },
+  {
+    label: "Hazelnut",
+    key: "hazelnut",
+  },
+  {
+    label: "Macadamia",
+    key: "macadamia",
+  },
+  {
+    label: "Peanuts",
+    key: "peanuts",
+  },
+  {
+    label: "Pecan",
+    key: "pecan",
+  },
+  {
+    label: "Pine nut",
+    key: "pineNut",
+  },
+  {
+    label: "Pistachio",
+    key: "pistachio",
+  },
+  {
+    label: "Sesame seed",
+    key: "sesameSeed",
+  },
+  {
+    label: "Walnut",
+    key: "walnut",
+  },
+];
+
+const ALL_CHECKBOX_CONFIGS = [
+  ...CEREALS_AND_GRAINS_CHECKBOX_CONFIGS,
+  ...EGG_AND_EGG_PRODUCTS_CHECKBOX_CONFIGS,
+  ...FISH_CRUSTACEA_SEAFOOD_CHECKBOX_CONFIGS,
+  ...FOOD_ADDITIVES_FLAVOUR_CHECKBOX_CONFIGS,
+  ...LEGUMES_AND_PULSES_CHECKBOX_CONFIGS,
+  ...MILK_AND_DAIRY_CHECKBOX_CONFIGS,
+  ...NUTS_AND_SEEDS_CHECKBOX_CONFIGS,
+];
+
+const FOOD_AND_INGREDIENTS_CONFIGS: FoodAndIngredientsConfig[] = [
+  {
+    label: "Egg and egg products",
+    key: "eggAndEggProducts",
+    children: [
+      {
+        kind: "checkbox",
+        id: "unpasteurised-egg-products",
+        label: "Unpasteurised egg products",
+        hint: "warning",
+      },
+    ],
+  },
+  {
+    label: "Fish, crustacea and seafood",
+    key: "fishCrustaceaSeafood",
+    children: [
+      {
+        kind: "checkbox",
+        id: "raw-fish-binding-system",
+        label:
+          "Raw fish that has been joined to look like a cut or fillet of fish using a binding system, without the application of heat, whether coated or not.",
+        hint: "warning",
+      },
+    ],
+  },
+  {
+    label: "Food additives and flavours",
+    key: "foodAdditivesAndFlavours",
+    children: [
+      {
+        kind: "checkbox",
+        id: "substances-excess-10g",
+        label:
+          "Contains one or more of the following substances, either alone or in combination, at a level of, or in excess of 10 g/100 g",
+        hint: "warning",
+        notes: [
+          "lactitol",
+          "maltitol",
+          "maltitol syrup",
+          "mannitol",
+          "xylitol",
+        ],
+      },
+      {
+        kind: "checkbox",
+        id: "substances-excess-25g",
+        label:
+          "Contains one or more of the following substances, either alone, or in combination, at a level or in excess of 25 g/100 g",
+        notes: ["erythritol", "isomalt", "polydextrose", "sorbitol"],
+      },
+      {
+        kind: "checkbox",
+        id: "substances-combination-10g",
+        label:
+          "Contains one or more of the following substances in combination at a level of or in excess of 10 g/100 g",
+        notes: [
+          "erythritol",
+          "isomalt",
+          "lactitol",
+          "maltitol",
+          "maltitol syrup",
+          "mannitol",
+          "polydextrose",
+          "sorbitol",
+          "xylitol",
+        ],
+      },
+      {
+        kind: "checkbox",
+        id: "aspartame-acesulphame",
+        label: "Aspartame or aspartame-acesulphame salt",
+      },
+      {
+        kind: "checkbox",
+        id: "phytosterols-phytostanols",
+        label: "Added phytosterols, phytostanols or their esters.",
+      },
+      {
+        kind: "checkbox",
+        id: "quinine",
+        label: "Quinine",
+      },
+      {
+        kind: "checkbox",
+        id: "guarana-extracts",
+        label: "Guarana or extracts of guarana",
+      },
+    ],
+  },
+  {
+    label: "Food containing alcohol",
+    key: "foodContainingAlcohol",
+    children: [
+      {
+        kind: "checkbox",
+        id: "food-more-than-1.15-alcohol",
+        label: "A food that contains more than 1.15% alcohol by volume",
+        hint: "warning",
+      },
+    ],
+  },
+  {
+    label: "Honey and bee products",
+    key: "honeyAndBeeProducts",
+    children: [
+      {
+        kind: "checkbox",
+        id: "bee-pollen",
+        label: "Bee pollen",
+        hint: "warning",
+      },
+      { kind: "checkbox", id: "propolis", label: "Propolis" },
+      { kind: "checkbox", id: "royal-jelly", label: "Royal jelly" },
+    ],
+  },
+  {
+    label: "Kava and kava root",
+    key: "kavaAndKavaRoot",
+    children: [
+      {
+        kind: "checkbox",
+        id: "kava-root",
+        label: "Dried or raw kava root",
+        hint: "warning",
+      },
+      {
+        kind: "checkbox",
+        id: "kava-beverage",
+        label:
+          "A beverage obtained by the aqueous suspension of kava root using cold water only, and not using any organic solvent",
+      },
+    ],
+  },
+  {
+    label: "Legumes and pulses",
+    key: "legumesAndPulses",
+    children: [
+      {
+        kind: "checkbox",
+        id: "milk-soy-beverage",
+        label:
+          "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat.",
+        hint: "warning",
+      },
+      {
+        kind: "checkbox",
+        id: "evaporated-dried-soy-beverage",
+        label:
+          "Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat.",
+      },
+    ],
+  },
+  {
+    label: "Meat and meat products",
+    key: "meatAndMeatProducts",
+    children: [
+      {
+        kind: "checkbox",
+        id: "raw-meat-formed",
+        label:
+          "Raw meat that has been formed to look like of a cut of meat, whether coated or not, using a binding system without the application of heat.",
+        hint: "warning",
+      },
+      {
+        kind: "checkbox",
+        id: "raw-meat-joined",
+        label:
+          "Raw meat that has been joined to look like of a cut of meat, whether coated or not, using a binding system without the application of heat.",
+      },
+    ],
+  },
+  {
+    label: "Milk, dairy and dairy alternatives",
+    key: "milkDairyAndDairyAlternatives",
+    children: [
+      {
+        kind: "checkbox",
+        id: "unpasteurised-milk",
+        label: "Unpasteurised milk",
+        hint: "warning",
+      },
+      {
+        kind: "checkbox",
+        id: "unpasteurised-liquid-milk-products",
+        label: "Unpasteurised liquid milk products",
+      },
+      {
+        kind: "checkbox",
+        id: "milk-soy-beverage",
+        label:
+          "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat.",
+      },
+      {
+        kind: "checkbox",
+        id: "evaporated-dried-soy-beverage-2.5%",
+        label:
+          "Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat.",
+      },
+    ],
+  },
+  {
+    label: "Non-alcoholic drinks",
+    key: "nonAlcoholicDrinks",
+    children: [
+      {
+        kind: "checkbox",
+        id: "cola-beverage-with-caffeine",
+        label: "A cola beverage that contains added caffeine",
+        hint: "warning",
+      },
+      {
+        kind: "checkbox",
+        id: "food-with-cola-beverage-containing-caffeine",
+        label:
+          "A food that contains a cola beverage that also contains added caffeine as an ingredient.",
+      },
+      {
+        kind: "checkbox",
+        id: "bottled-water-with-fluoride",
+        label: "Bottled water presented that contains added fluoride",
+      },
+    ],
+  },
+  {
+    label: "Oils and margarine",
+    key: "oilsAndMargarine",
+    children: [
+      {
+        kind: "checkbox",
+        id: "edible-oil-conditions",
+        label: "Edible oil where",
+        hint: "warning",
+        notes: [
+          "the label lists the specific source name of the oil, and",
+          "the oil has undergone a process that has altered its fatty acid composition (e.g.: hydrogenation)",
+        ],
+      },
+    ],
+  },
+  {
+    label: "Salt and salt substitutes",
+    key: "saltAndSaltSubstitutes",
+    children: [
+      {
+        kind: "checkbox",
+        id: "reduced-sodium-salt-mixtures",
+        label: "Reduced sodium salt mixtures and salt substitutes",
+        hint: "warning",
+      },
+    ],
+  },
+];
+
+const WARNING_HINT =
+  "Please select any warning and advisory statements that apply.";
+
 export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
@@ -47,7 +478,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
   const renderStatementCheckbox = (
     id: string,
     label: string,
-    hint?: React.ReactNode
+    hint?: React.ReactNode,
   ) => (
     <Checkbox
       id={id}
@@ -65,456 +496,41 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
     }
   };
 
-  const CerealsAndGrainsCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Cereals containing gluten",
-      key: "cerealsContainingGluten",
-      hint: "For example: wheat, barley, oats and rye and their hybridised strains of the cereal, other than when present in beer or spirits.",
-    },
-    {
-      label: "Wheat",
-      key: "wheat",
-      hint: (
-        <>
-          <p>
-            Wheat, including its hybridised strain, irrespective of whether it
-            contains gluten. Except for:
-          </p>
-          <ul>
-            <li>
-              the wheat or its hybridised strain that is present in beer or
-              spirits
-            </li>
-            <li>
-              glucose syrups made from wheat starch and that:
-              <ul>
-                <li>
-                  have been subject to a refining process that has removed
-                  gluten protein content to the lowest level that is reasonably
-                  achievable; and
-                </li>
-                <li>
-                  have a gluten protein content that does not exceed 20 mg/kg
-                </li>
-              </ul>
-            </li>
-            <li>alcohol distilled from wheat</li>
-          </ul>
-        </>
-      ),
-    },
-  ];
+  const resolveHint = (hint?: React.ReactNode | "warning") =>
+    hint === "warning" ? WARNING_HINT : hint;
 
-  const EggAndEggProductsCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Egg",
-      key: "egg",
-    },
-  ];
+  const renderChildBlock = (block: StatementChildBlock) => {
+    const checkbox = renderStatementCheckbox(
+      block.id,
+      block.label,
+      resolveHint(block.hint),
+    );
 
-  const FishCrustaceaSeafoodCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Crustacea Cereals",
-      key: "crustaceaCereals",
-      hint: "For example: crab, crayfish, lobster, prawns",
-    },
-    {
-      label: "Fish",
-      key: "fish",
-      hint: "Except for isinglass derived from swim bladders and used as a clarifying agent in beer or wine",
-    },
-    {
-      label: "Mollusc",
-      key: "mollusc",
-      hint: "This includes only marine molluscs. For example: oysters, clams, mussels, octopus, squid, calamari.",
-    },
-  ];
-
-  const FoodAdditivesFlavourCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Added sulphites in concentrations of 10mg/kg or more",
-      key: "addedSulphites",
-    },
-  ];
-
-  const LegumesAndPulsesCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Lupin",
-      key: "lupin",
-    },
-    {
-      label: "Soybeans",
-      key: "soybeans",
-      hint: (
-        <>
-          Other than:
-          <ul>
-            <li>
-              soybean oil that has been degummed, neutralised, bleached and
-              deodorised
-            </li>
-            <li>soybean derivatives that are a tocopherol or a phytosterol</li>
-          </ul>
-        </>
-      ),
-    },
-  ];
-
-  const MilkAndDiaryCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Milk",
-      key: "milk",
-      hint: "Other than alcohol distilled from whey",
-    },
-  ];
-
-  const NutsAndSeedsCheckboxConfigs: CheckboxConfig[] = [
-    {
-      label: "Almond",
-      key: "almond",
-    },
-    {
-      label: "Brazil nut",
-      key: "brazilNut",
-    },
-    {
-      label: "Cashew",
-      key: "cashew",
-    },
-    {
-      label: "Hazelnut",
-      key: "hazelnut",
-    },
-    {
-      label: "Macadamia",
-      key: "macadamia",
-    },
-    {
-      label: "Peanuts",
-      key: "peanuts",
-    },
-    {
-      label: "Pecan",
-      key: "pecan",
-    },
-    {
-      label: "Pine nut",
-      key: "pineNut",
-    },
-    {
-      label: "Pistachio",
-      key: "pistachio",
-    },
-    {
-      label: "Sesame seed",
-      key: "sesameSeed",
-    },
-    {
-      label: "Walnut",
-      key: "walnut",
-    },
-  ];
-
-  const allCheckboxConfigs = [
-    ...CerealsAndGrainsCheckboxConfigs,
-    ...EggAndEggProductsCheckboxConfigs,
-    ...FishCrustaceaSeafoodCheckboxConfigs,
-    ...FoodAdditivesFlavourCheckboxConfigs,
-    ...LegumesAndPulsesCheckboxConfigs,
-    ...MilkAndDiaryCheckboxConfigs,
-    ...NutsAndSeedsCheckboxConfigs,
-  ];
-
-  const hint = "Please select any warning and advisory statements that apply.";
-  const FoodAndIngredientsConfigs: CheckboxConfig[] = [
-    {
-      label: "Egg and egg products",
-      key: "eggAndEggProducts",
-      renderChildren: () => {
-        return renderStatementCheckbox(
-          "unpasteurised-egg-products",
-          "Unpasteurised egg products",
-          hint
-        );
-      },
-    },
-    {
-      label: "Fish, crustacea and seafood",
-      key: "fishCrustaceaSeafood",
-      renderChildren: () => {
-        return renderStatementCheckbox(
-          "raw-fish-binding-system",
-          "Raw fish that has been joined to look like a cut or fillet of fish using a binding system, without the application of heat, whether coated or not.",
-          hint
-        );
-      },
-    },
-    {
-      label: "Food additives and flavours",
-      key: "foodAdditivesAndFlavours",
-      renderChildren: () => {
-        return (
-          <>
-            <div>
-              {renderStatementCheckbox(
-                "substances-excess-10g",
-                "Contains one or more of the following substances, either alone or in combination, at a level of, or in excess of 10 g/100 g",
-                hint
-              )}
-              <small>
-                <ul>
-                  <li>lactitol</li>
-                  <li>maltitol</li>
-                  <li>maltitol syrup</li>
-                  <li>mannitol</li>
-                  <li>xylitol</li>
-                </ul>
-              </small>
-            </div>
-
-            <div>
-              {renderStatementCheckbox(
-                "substances-excess-25g",
-                "Contains one or more of the following substances, either alone, or in combination, at a level or in excess of 25 g/100 g"
-              )}
-              <small>
-                <ul>
-                  <li>erythritol</li>
-                  <li>isomalt</li>
-                  <li>polydextrose</li>
-                  <li>sorbitol</li>
-                </ul>
-              </small>
-            </div>
-
-            <div>
-              {renderStatementCheckbox(
-                "substances-combination-10g",
-                "Contains one or more of the following substances in combination at a level of or in excess of 10 g/100 g"
-              )}
-              <small>
-                <ul>
-                  <li>erythritol</li>
-                  <li>isomalt</li>
-                  <li>lactitol</li>
-                  <li>maltitol</li>
-                  <li>maltitol syrup</li>
-                  <li>mannitol</li>
-                  <li>polydextrose</li>
-                  <li>sorbitol</li>
-                  <li>xylitol</li>
-                </ul>
-              </small>
-            </div>
-
-            {renderStatementCheckbox(
-              "aspartame-acesulphame",
-              "Aspartame or aspartame-acesulphame salt"
-            )}
-            {renderStatementCheckbox(
-              "phytosterols-phytostanols",
-              "Added phytosterols, phytostanols or their esters."
-            )}
-            {renderStatementCheckbox("quinine", "Quinine")}
-            {renderStatementCheckbox(
-              "guarana-extracts",
-              "Guarana or extracts of guarana"
-            )}
-          </>
-        );
-      },
-    },
-
-    {
-      label: "Food containing alcohol",
-      key: "foodContainingAlcohol",
-
-      renderChildren: () => {
-        return renderStatementCheckbox(
-          "food-more-than-1.15-alcohol",
-          "A food that contains more than 1.15% alcohol by volume",
-          hint
-        );
-      },
-    },
-    {
-      label: "Honey and bee products",
-      key: "honeyAndBeeProducts",
-
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox("bee-pollen", "Bee pollen", hint)}
-            {renderStatementCheckbox("propolis", "Propolis")}
-            {renderStatementCheckbox("royal-jelly", "Royal jelly")}
+    if (block.notes?.length) {
+      return (
+        <div key={block.id}>
+          {checkbox}
+          <div className="small">
+            <ul>
+              {block.notes.map((note) => (
+                <li key={note}>{note}</li>
+              ))}
+            </ul>
           </div>
-        );
-      },
-    },
-    {
-      label: "Kava and kava root",
-      key: "kavaAndKavaRoot",
+        </div>
+      );
+    }
 
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "kava-root",
-              "Dried or raw kava root",
-              hint
-            )}
-            {renderStatementCheckbox(
-              "kava-beverage",
-              "A beverage obtained by the aqueous suspension of kava root using cold water only, and not using any organic solvent"
-            )}
-          </div>
-        );
-      },
-    },
-    {
-      label: "Legumes and pulses",
-      key: "legumesAndPulses",
+    return <div key={block.id}>{checkbox}</div>;
+  };
 
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "milk-soy-beverage",
-              "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat.",
-              hint
-            )}
-            {renderStatementCheckbox(
-              "evaporated-dried-soy-beverage",
-              "Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat."
-            )}
-          </div>
-        );
-      },
-    },
-    {
-      label: "Meat and meat products",
-      key: "meatAndMeatProducts",
-
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "raw-meat-formed",
-              "Raw meat that has been formed to look like of a cut of meat, whether coated or not, using a binding system without the application of heat.",
-              hint
-            )}
-            {renderStatementCheckbox(
-              "raw-meat-joined",
-              "Raw meat that has been joined to look like of a cut of meat, whether coated or not, using a binding system without the application of heat."
-            )}
-          </div>
-        );
-      },
-    },
-    {
-      label: "Milk, dairy and dairy alternatives",
-      key: "milkDairyAndDairyAlternatives",
-
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "unpasteurised-milk",
-              "Unpasteurised milk",
-              hint
-            )}
-            {renderStatementCheckbox(
-              "unpasteurised-liquid-milk-products",
-              "Unpasteurised liquid milk products"
-            )}
-            {renderStatementCheckbox(
-              "milk-soy-beverage",
-              "Milk, or an equivalent beverage made from soy, that contains no more than 2.5% m/m fat."
-            )}
-            {renderStatementCheckbox(
-              "evaporated-dried-soy-beverage-2.5%",
-              "Evaporated milk, dried milk, or an equivalent product made from soy, that, when reconstituted as a beverage according to directions for direct consumption, contains no more than 2.5% m/m fat."
-            )}
-          </div>
-        );
-      },
-    },
-    {
-      label: "Non-alcoholic drinks",
-      key: "nonAlcoholicDrinks",
-
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "cola-beverage-with-caffeine",
-              "A cola beverage that contains added caffeine",
-              hint
-            )}
-            {renderStatementCheckbox(
-              "food-with-cola-beverage-containing-caffeine",
-              "A food that contains a cola beverage that also contains added caffeine as an ingredient."
-            )}
-            {renderStatementCheckbox(
-              "bottled-water-with-fluoride",
-              "Bottled water presented that contains added fluoride"
-            )}
-          </div>
-        );
-      },
-    },
-    {
-      label: "Oils and margarine",
-      key: "oilsAndMargarine",
-
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "edible-oil-conditions",
-              "Edible oil where",
-              hint
-            )}
-            <small>
-              <ul>
-                <li>
-                  the label lists the specific source name of the oil, and
-                </li>
-                <li>
-                  the oil has undergone a process that has altered its fatty
-                  acid composition (e.g.: hydrogenation)
-                </li>
-              </ul>
-            </small>
-          </div>
-        );
-      },
-    },
-    {
-      label: "Salt and salt substitutes",
-      key: "saltAndSaltSubstitutes",
-
-      renderChildren: () => {
-        return (
-          <div className="d-flex flex-column">
-            {renderStatementCheckbox(
-              "reduced-sodium-salt-mixtures",
-              "Reduced sodium salt mixtures and salt substitutes",
-              hint
-            )}
-          </div>
-        );
-      },
-    },
-  ];
-
-  const selectedLabels = allCheckboxConfigs
-    .filter((config) => form[config.key as keyof StatementsFormData])
-    .map((config) => config.label);
+  const selectedLabels = ALL_CHECKBOX_CONFIGS.filter(
+    (config) => form[config.key as keyof StatementsFormData],
+  ).map((config) => config.label);
 
   const handleCheckboxChange = (
     key: keyof StatementsFormData,
-    checked: boolean
+    checked: boolean,
   ) => {
     updateStatements({
       form: {
@@ -544,7 +560,9 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
       : null,
     statementData.statementSelections["guarana-extracts"] ||
     statementData.statementSelections["cola-beverage-with-caffeine"] ||
-    statementData.statementSelections["food-with-cola-beverage-containing-caffeine"]
+    statementData.statementSelections[
+      "food-with-cola-beverage-containing-caffeine"
+    ]
       ? "The product contains caffeine."
       : null,
     statementData.statementSelections["bee-pollen"]
@@ -608,25 +626,27 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           <h3>Allergen declarations</h3>
           <section>
             <article>
-              <b>
-                Select any food or ingredient in your food from the{" "}
-                <a
-                  href="#alt-declaration"
-                  onClick={handleGuideLink("alt-declaration")}
-                >
-                  {" "}
-                  allergen declaration{" "}
-                </a>
-                list below.
-              </b>
+              <p>
+                <strong>
+                  Select any food or ingredient in your food from the{" "}
+                  <button
+                    type="button"
+                    className="btn btn-link p-0 m-0 align-baseline d-inline"
+                    onClick={handleGuideLink("alt-declaration")}
+                  >
+                    allergen declaration
+                  </button>{" "}
+                  list below.
+                </strong>
+              </p>
             </article>
           </section>
         </div>
 
         <div>
           <div className="cereals-block">
-            <p>Cereals and grains</p>
-            {CerealsAndGrainsCheckboxConfigs.map((config) => (
+            <h4>Cereals and grains</h4>
+            {CEREALS_AND_GRAINS_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -635,7 +655,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -643,8 +663,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </div>
 
           <div className="egg-block">
-            <p> Egg and egg products</p>
-            {EggAndEggProductsCheckboxConfigs.map((config) => (
+            <h4>Egg and egg products</h4>
+            {EGG_AND_EGG_PRODUCTS_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -652,7 +672,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -660,8 +680,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </div>
 
           <div className="fish-seafood-block">
-            <p>Fish, crustacea and seafood</p>
-            {FishCrustaceaSeafoodCheckboxConfigs.map((config) => (
+            <h4>Fish, crustacea and seafood</h4>
+            {FISH_CRUSTACEA_SEAFOOD_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -670,7 +690,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -678,8 +698,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </div>
 
           <div className="food-additives-flavour-block">
-            <p>Food additives and flavouring</p>
-            {FoodAdditivesFlavourCheckboxConfigs.map((config) => (
+            <h4>Food additives and flavouring</h4>
+            {FOOD_ADDITIVES_FLAVOUR_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -687,7 +707,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -695,8 +715,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </div>
 
           <div className="legumes-and-pulses-block">
-            <p>Legumes and pulses</p>
-            {LegumesAndPulsesCheckboxConfigs.map((config) => (
+            <h4>Legumes and pulses</h4>
+            {LEGUMES_AND_PULSES_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -705,7 +725,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -713,8 +733,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </div>
 
           <div className="milk-and-diary-block">
-            <p>Milk and diary products</p>
-            {MilkAndDiaryCheckboxConfigs.map((config) => (
+            <h4>Milk and diary products</h4>
+            {MILK_AND_DAIRY_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -723,7 +743,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -731,8 +751,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </div>
 
           <div className="nuts-and-seeds-block">
-            <p>Nuts and seeds</p>
-            {NutsAndSeedsCheckboxConfigs.map((config) => (
+            <h4>Nuts and seeds</h4>
+            {NUTS_AND_SEEDS_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
@@ -741,7 +761,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
               />
@@ -753,7 +773,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             alertMessage={
               <>
                 <p>
-                  <b>Contains</b>
+                  <strong>Contains</strong>
                   {selectedLabels.length > 0
                     ? ` ${selectedLabels.join(", ")}`
                     : " "}
@@ -785,24 +805,25 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
           </article>
 
           <div>
-            {FoodAndIngredientsConfigs.map((config) => (
+            {FOOD_AND_INGREDIENTS_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
                 key={config.key}
                 checked={!!form[config.key as keyof StatementsFormData]}
-                hint={
-                  form[config.key as keyof StatementsFormData] ? config.hint : null
-                }
                 onChange={(checked) =>
                   handleCheckboxChange(
                     config.key as keyof StatementsFormData,
-                    checked
+                    checked,
                   )
                 }
                 children={
-                  config.renderChildren ? (
-                    <div className="px-3 py-1">
-                      {config.renderChildren()}
+                  config.children.length ? (
+                    <div
+                      className="px-3 py-1 d-flex flex-column gap-2"
+                      role="group"
+                      aria-label={`Options for ${config.label}`}
+                    >
+                      {config.children.map(renderChildBlock)}
                     </div>
                   ) : null
                 }

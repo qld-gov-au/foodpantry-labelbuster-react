@@ -38,7 +38,7 @@ export const useGuideNavigation = ({
   setActiveSectionId,
 }: UseGuideNavigationOptions) => {
   const handleGuideLink =
-    (sectionId: string) => (event: MouseEvent<HTMLAnchorElement>) => {
+    (sectionId: string) => (event: MouseEvent<HTMLElement>) => {
       event.preventDefault();
       setActiveSectionId(sectionId);
       setGuideOpen(true);
