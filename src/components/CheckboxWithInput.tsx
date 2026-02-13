@@ -1,8 +1,8 @@
 import { Input } from "./Input";
 import { Textarea } from "./Textarea";
 
-export interface InputConfig {
-  inputKey: string;
+export interface InputConfig<T = Record<string, unknown>> {
+  inputKey: keyof T;
   type?: "text" | "number" | "email" | "tel" | "url";
   placeholder?: string;
   suffix?: string;
@@ -10,30 +10,30 @@ export interface InputConfig {
   invalidMessage?: string;
 }
 
-export interface CheckboxConfig {
-  key: string;
+export interface CheckboxConfig<T = Record<string, unknown>> {
+  key: keyof T;
   label: string;
   hint?: React.ReactNode;
-  inputConfig?: InputConfig;
+  inputConfig?: InputConfig<T>;
   renderChildren?: (
-    data?: FormData,
-    handleChange?: (field: keyof FormData, value: string) => void
+    data: T,
+    handleChange: (field: keyof T, value: string) => void
   ) => React.ReactNode;
-  requiredFields?: (keyof FormData)[];
+  requiredFields?: (keyof T)[];
 }
 
-interface CheckboxWithInputProps {
+interface CheckboxWithInputProps<T = Record<string, unknown>> {
   label: string;
   checked: boolean;
   hint?: React.ReactNode;
   onChange: (checked: boolean) => void;
-  inputConfig?: InputConfig | null;
+  inputConfig?: InputConfig<T> | null;
   inputValue?: string;
   onInputChange?: ((value: string) => void) | null;
   children?: React.ReactNode;
 }
 
-export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
+export const CheckboxWithInput = <T = Record<string, unknown>>({
   label,
   checked,
   onChange,
@@ -42,7 +42,7 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
   inputValue = "",
   onInputChange = null,
   children = null,
-}) => {
+}: CheckboxWithInputProps<T>) => {
   const id = label.replace(/[^a-zA-Z0-9]/g, "-").toLowerCase();
   const invalidMessage =
     inputConfig?.invalidMessage ?? "This field is required";
@@ -77,7 +77,7 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
           {inputConfig && !inputConfig.textAreaInput && (
             <div className="d-flex flex-column flex-md-row align-items-md-center gap-3">
               <Input
-                id={inputConfig.inputKey}
+                id={String(inputConfig.inputKey)}
                 type={inputConfig.type || "text"}
                 value={inputValue}
                 onChange={(e) => onInputChange && onInputChange(e.target.value)}
@@ -94,7 +94,7 @@ export const CheckboxWithInput: React.FC<CheckboxWithInputProps> = ({
           {inputConfig && inputConfig.textAreaInput && (
             <div className="flex-grow-1">
               <Textarea
-                id={inputConfig.inputKey}
+                id={String(inputConfig.inputKey)}
                 label={undefined}
                 value={inputValue}
                 onChange={(e) => onInputChange && onInputChange(e.target.value)}

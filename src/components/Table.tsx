@@ -135,7 +135,7 @@ export const Table: React.FC<TableProps> = ({
                       </button>
                     </td>
                   )}
-                  {row.map((cell, cellIndex) => (
+                  {row.map((_cell, cellIndex) => (
                     <td key={cellIndex}>
                       <input
                         className="form-control"

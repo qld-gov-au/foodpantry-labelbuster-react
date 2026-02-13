@@ -200,7 +200,7 @@ export const StorageAndUse = ({
     }
   };
 
-  const StorageConditionsCheckboxConfigs: CheckboxConfig[] = [
+  const StorageConditionsCheckboxConfigs: CheckboxConfig<StorageAndUseData>[] = [
     {
       key: "coolDryConditions",
       label: "Store in cool dry conditions.",
@@ -291,7 +291,7 @@ export const StorageAndUse = ({
     },
   ];
 
-  const DirectionForUseConfigs: CheckboxConfig[] = [
+  const DirectionForUseConfigs: CheckboxConfig<StorageAndUseData>[] = [
     {
       label: "Wash before use.",
       key: "washBeforeUse",
@@ -569,21 +569,21 @@ export const StorageAndUse = ({
 
           <div>
             {StorageConditionsCheckboxConfigs.map((config) => (
-              <CheckboxWithInput
-                key={config.key}
+              <CheckboxWithInput<StorageAndUseData>
+                key={config.key as string}
                 label={config.label}
-                checked={storageData[config.key]}
+                checked={Boolean(storageData[config.key])}
                 onChange={(val) => handleCheckboxChange(config.key, val)}
                 inputConfig={config.inputConfig}
                 inputValue={
                   config.inputConfig
-                    ? storageData[config.inputConfig.inputKey]
+                    ? String(storageData[config.inputConfig.inputKey] ?? "")
                     : ""
                 }
                 onInputChange={
                   config.inputConfig
                     ? (val) =>
-                        handleInputChange(config.inputConfig?.inputKey, val)
+                        handleInputChange(config.inputConfig!.inputKey, val)
                     : null
                 }
               >
@@ -634,21 +634,21 @@ export const StorageAndUse = ({
           </div>
 
           {DirectionForUseConfigs.map((config) => (
-            <CheckboxWithInput
-              key={config.key}
+            <CheckboxWithInput<StorageAndUseData>
+              key={config.key as string}
               label={config.label}
-              checked={storageData[config.key]}
+              checked={Boolean(storageData[config.key])}
               onChange={(val) => handleCheckboxChange(config.key, val)}
               inputConfig={config.inputConfig}
               inputValue={
                 config.inputConfig
-                  ? storageData[config.inputConfig.inputKey]
+                  ? String(storageData[config.inputConfig.inputKey] ?? "")
                   : ""
               }
               onInputChange={
                 config.inputConfig
                   ? (val) =>
-                      handleInputChange(config.inputConfig?.inputKey, val)
+                      handleInputChange(config.inputConfig!.inputKey, val)
                   : null
               }
             >
