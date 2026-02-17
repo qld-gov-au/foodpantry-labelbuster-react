@@ -1,8 +1,8 @@
 import React, { useRef, useState } from "react";
 import { createNavHandlers } from "./help";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { BusinessDetailsPage } from "./helpGuide/BusinessDetailsPage";
 import { useFormData } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type BusinessDetailsProps = {
   onBack?: () => void;
@@ -294,7 +294,7 @@ export const BusinessDetails = ({
         </div>
       </form>
 
-      <HelpGuide
+      <HelpGuides
         initialOpen={false}
         content={<BusinessDetailsPage activeSectionId={activeSectionId} />}
         onOpenChange={setGuideOpen}

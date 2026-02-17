@@ -10,7 +10,7 @@ type HelpGuideProps = {
   onOpenChange?: (open: boolean) => void;
 };
 
-export const HelpGuide: React.FC<HelpGuideProps> = ({
+export const HelpGuides: React.FC<HelpGuideProps> = ({
   content,
   initialOpen = false,
   open,

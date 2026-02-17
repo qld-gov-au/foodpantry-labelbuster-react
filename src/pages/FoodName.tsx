@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Alert } from "../components/GlobalAlert";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { createNavHandlers } from "./help";
 import { FoodNamePage } from "./helpGuide/FoodNamePage";
 import { RadioGroup } from "../components/RadioGroup";
 import { useFormData } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type FoodNameProps = {
   onBack?: () => void;
@@ -291,7 +291,7 @@ export const FoodName = ({ onBack, onNext, onCancel }: FoodNameProps) => {
         </a>
       </div>
 
-      <HelpGuide
+      <HelpGuides
         initialOpen={false}
         content={<FoodNamePage activeSectionId={activeSectionId} />}
         onOpenChange={setGuideOpen}

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { createNavHandlers, useGuideNavigation } from "./help";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { StatementsPage } from "./helpGuide/StatementsPage";
 import {
   CheckboxWithInput,
@@ -13,6 +12,7 @@ import {
   useFormData,
   type StatementsFormData,
 } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type StatementsProps = {
   onBack?: () => void;
@@ -891,7 +891,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
         </a>
       </div>
 
-      <HelpGuide
+      <HelpGuides
         initialOpen={guideOpen}
         onOpenChange={setGuideOpen}
         open={guideOpen}

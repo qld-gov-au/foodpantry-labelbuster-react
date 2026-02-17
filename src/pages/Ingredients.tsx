@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { createNavHandlers, useGuideNavigation } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
 import { Alert } from "../components/GlobalAlert";
@@ -11,6 +10,7 @@ import {
   useFormData,
   type IngredientsFormState,
 } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type IngredientsProps = {
   onBack?: () => void;
@@ -606,7 +606,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
         </a>
       </div>
 
-      <HelpGuide
+      <HelpGuides
         initialOpen={guideOpen}
         onOpenChange={setGuideOpen}
         open={guideOpen}

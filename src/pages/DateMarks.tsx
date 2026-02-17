@@ -2,11 +2,11 @@ import { useState } from "react";
 import type { MouseEvent } from "react";
 import { RadioGroup } from "../components/RadioGroup";
 import { Input } from "../components/Input";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { DateMarkPage } from "./helpGuide/DateMarkPage";
 import { createNavHandlers } from "./help";
 import { Alert } from "../components/GlobalAlert";
 import { useFormData } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type DateMarksProps = {
   onBack?: () => void;
@@ -454,7 +454,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
         </a>
       </div>
 
-      <HelpGuide
+      <HelpGuides
         initialOpen={false}
         open={guideOpen}
         onOpenChange={setGuideOpen}

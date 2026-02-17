@@ -1,7 +1,6 @@
 import { useState } from "react";
 import type { MouseEvent } from "react";
 import { createNavHandlers } from "./help";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import {
   CheckboxWithInput,
   type CheckboxConfig,
@@ -11,6 +10,7 @@ import { Input } from "../components/Input";
 import { StorageAndUsePage } from "./helpGuide/StorageAndUsePage";
 import { useFormData } from "../context/FormDataContext";
 import type { StorageAndUseData } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type StorageAndUseProps = {
   onBack?: () => void;
@@ -693,7 +693,7 @@ export const StorageAndUse = ({
         </a>
       </div>
 
-      <HelpGuide
+      <HelpGuides
         initialOpen={guideOpen}
         onOpenChange={setGuideOpen}
         open={guideOpen}

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { HelpGuide } from "../components/helpGuides/HelpGuide";
 import { LimitationPage } from "./helpGuide/InitialPage";
 import { SeekProAdvice } from "../components/GlobalAlert";
 import { createNavHandlers } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
 import { useFormData } from "../context/FormDataContext";
+import { HelpGuides } from "../components/helpGuides/HelpGuides";
 
 type LimitationsProps = {
   onBack?: () => void;
@@ -365,7 +365,7 @@ export const Limitations = ({ onBack, onNext, onCancel }: LimitationsProps) => {
         </a>
       </div>
 
-      <HelpGuide
+      <HelpGuides
         content={<LimitationPage activeSectionId={activeSectionId} />}
         initialOpen={false}
         open={guideOpen}
