@@ -12,7 +12,7 @@ import {
   useFormData,
   type StatementsFormData,
 } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type StatementsProps = {
   onBack?: () => void;

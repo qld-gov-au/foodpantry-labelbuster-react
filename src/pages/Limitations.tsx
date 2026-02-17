@@ -4,7 +4,7 @@ import { SeekProAdvice } from "../components/GlobalAlert";
 import { createNavHandlers } from "./help";
 import { RadioGroup, type Option } from "../components/RadioGroup";
 import { useFormData } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type LimitationsProps = {
   onBack?: () => void;
