@@ -4,7 +4,7 @@ import { createNavHandlers } from "./help";
 import { FoodNamePage } from "./helpGuide/FoodNamePage";
 import { RadioGroup } from "../components/RadioGroup";
 import { useFormData } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type FoodNameProps = {
   onBack?: () => void;

@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { createNavHandlers } from "./help";
 import { BusinessDetailsPage } from "./helpGuide/BusinessDetailsPage";
 import { useFormData } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type BusinessDetailsProps = {
   onBack?: () => void;

@@ -10,7 +10,7 @@ import { Input } from "../components/Input";
 import { StorageAndUsePage } from "./helpGuide/StorageAndUsePage";
 import { useFormData } from "../context/FormDataContext";
 import type { StorageAndUseData } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type StorageAndUseProps = {
   onBack?: () => void;

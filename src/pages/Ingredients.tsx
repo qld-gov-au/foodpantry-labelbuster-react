@@ -10,7 +10,7 @@ import {
   useFormData,
   type IngredientsFormState,
 } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type IngredientsProps = {
   onBack?: () => void;

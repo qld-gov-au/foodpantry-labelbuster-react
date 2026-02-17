@@ -6,7 +6,7 @@ import { DateMarkPage } from "./helpGuide/DateMarkPage";
 import { createNavHandlers } from "./help";
 import { Alert } from "../components/GlobalAlert";
 import { useFormData } from "../context/FormDataContext";
-import { HelpGuides } from "../components/helpGuides/HelpGuides";
+import { HelpGuides } from "../components/helpGuides/Helpguides";
 
 type DateMarksProps = {
   onBack?: () => void;
