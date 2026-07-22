@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { createNavHandlers, useGuideNavigation } from "./help";
 import { StatementsPage } from "./helpGuide/StatementsPage";
 import {
@@ -285,7 +285,7 @@ const FOOD_AND_INGREDIENTS_CONFIGS: FoodAndIngredientsConfig[] = [
     ],
   },
   {
-    label: "Food containing alcohol",
+    label: "Food containing alcohol (not including alcoholic beverages)",
     key: "foodContainingAlcohol",
     children: [
       {
@@ -454,9 +454,47 @@ const WARNING_HINT =
 export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
   const [guideOpen, setGuideOpen] = useState(false);
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
   const { formData, updateStatements } = useFormData();
   const statementData = formData.statements;
   const form = statementData.form;
+  const showSodiumPotassiumInput = Boolean(
+    form.saltAndSaltSubstitutes &&
+      statementData.statementSelections["reduced-sodium-salt-mixtures"],
+  );
+  const showAlcoholContentInput = Boolean(
+    statementData.statementSelections["food-more-than-1.15-alcohol"],
+  );
+  const showOilsMargarineInput = Boolean(
+    form.oilsAndMargarine &&
+    statementData.statementSelections["edible-oil-conditions"],
+  );
+
+  useEffect(() => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollIntoView({ behavior: "auto", block: "start" });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!showSodiumPotassiumInput && statementData.sodiumPotassiumContent.trim()) {
+      updateStatements({ sodiumPotassiumContent: "" });
+    }
+  }, [showSodiumPotassiumInput, statementData.sodiumPotassiumContent, updateStatements]);
+
+  useEffect(() => {
+    if (!showAlcoholContentInput && statementData.alcoholContent.trim()) {
+      updateStatements({ alcoholContent: "" });
+    }
+  }, [showAlcoholContentInput, statementData.alcoholContent, updateStatements]);
+
+  useEffect(() => {
+    if (!showOilsMargarineInput && statementData.oilsAndMargarineProcess.trim()) {
+      updateStatements({ oilsAndMargarineProcess: "" });
+    }
+  }, [showOilsMargarineInput, statementData.oilsAndMargarineProcess, updateStatements]);
 
   const { handleBackClick, handleNextClick, handleCancelClick } =
     createNavHandlers(onNext, onBack, onCancel);
@@ -597,14 +635,24 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
     statementData.statementSelections["bottled-water-with-fluoride"]
       ? "The product contains added fluoride."
       : null,
-    statementData.sodiumPotassiumContent.trim() !== ""
+    showSodiumPotassiumInput && statementData.sodiumPotassiumContent.trim() !== ""
       ? `Sodium and potassium content: ${statementData.sodiumPotassiumContent.trim()}.`
+      : null,
+    showAlcoholContentInput && statementData.alcoholContent.trim() !== ""
+      ? `Alcohol content: ${statementData.alcoholContent.trim()}.`
+      : null,
+    showOilsMargarineInput && statementData.oilsAndMargarineProcess.trim() !== ""
+      ? `${statementData.oilsAndMargarineProcess.trim()}.`
       : null,
   ].filter(Boolean) as string[];
 
+  const isNextDisabled =
+    showSodiumPotassiumInput &&
+    statementData.sodiumPotassiumContent.trim() === "";
+
   return (
     <>
-      <div className="main-content">
+      <div className="main-content" ref={mainContentRef}>
         <div className="title-image">
           <h1>Statements</h1>
           <figure className="d-flex flex-column flex-lg-row gap-3 align-items-start">
@@ -732,8 +780,8 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             ))}
           </div>
 
-          <div className="milk-and-diary-block">
-            <h4>Milk and diary products</h4>
+          <div className="milk-and-dairy-block">
+            <h4>Milk and dairy products</h4>
             {MILK_AND_DAIRY_CHECKBOX_CONFIGS.map((config) => (
               <CheckboxWithInput
                 label={config.label}
@@ -773,10 +821,12 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             alertMessage={
               <>
                 <p>
-                  <strong>Contains</strong>
+                  <strong>Contains:</strong>
+                  <b>
                   {selectedLabels.length > 0
                     ? ` ${selectedLabels.join(", ")}`
                     : " "}
+                  </b>
                 </p>
               </>
             }
@@ -831,20 +881,53 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             ))}
 
             <div className="d-flex flex-column gap-3">
-              <Textarea
-                label="Enter the sodium and potassium content expressed per 100g. You may also include a declaration of the percentage reduction of sodium in the food, relative to salt."
-                required={true}
-                id="sodium-potassim-content"
-                value={statementData.sodiumPotassiumContent}
-                onChange={(event) =>
-                  updateStatements({
-                    sodiumPotassiumContent: event.target.value,
-                  })
-                }
-                onInput={(event) => toggleInvalidState(event.currentTarget)}
-                onBlur={(event) => toggleInvalidState(event.currentTarget)}
-                invalidMessage="The sodium and potassium content must be entered for reduced sodium salt mixtures and salt substitutes."
-              />
+              
+              {showAlcoholContentInput && (
+                <Textarea
+                  label="Alcohol content must be expressed in mL/100 g, mL/100 mL or as the percentage of alcohol by volume."
+                  required={true}
+                  id="alcohol-content"
+                  value={statementData.alcoholContent}
+                  onChange={(event) =>
+                    updateStatements({ alcoholContent: event.target.value })
+                  }
+                  onInput={(event) => toggleInvalidState(event.currentTarget)}
+                  onBlur={(event) => toggleInvalidState(event.currentTarget)}
+                  invalidMessage="Alcohol content must be entered when this statement is selected."
+                />
+              )}
+
+              {showOilsMargarineInput && (
+                <Textarea
+                  label="Describe the nature of the process"
+                  required={true}
+                  id="oils-margarine-content"
+                  value={statementData.oilsAndMargarineProcess}
+                  onChange={(event) =>
+                    updateStatements({ oilsAndMargarineProcess: event.target.value })
+                  }
+                  onInput={(event) => toggleInvalidState(event.currentTarget)}
+                  onBlur={(event) => toggleInvalidState(event.currentTarget)}
+                  invalidMessage="The process for making edible oil must be entered for food that is an edible oil."
+                />
+              )}
+
+              {showSodiumPotassiumInput && (
+                <Textarea
+                  label="Enter the sodium and potassium content expressed per 100g. You may also include a declaration of the percentage reduction of sodium in the food, relative to salt."
+                  required={true}
+                  id="sodium-potassim-content"
+                  value={statementData.sodiumPotassiumContent}
+                  onChange={(event) =>
+                    updateStatements({
+                      sodiumPotassiumContent: event.target.value,
+                    })
+                  }
+                  onInput={(event) => toggleInvalidState(event.currentTarget)}
+                  onBlur={(event) => toggleInvalidState(event.currentTarget)}
+                  invalidMessage="The sodium and potassium content must be entered for reduced sodium salt mixtures and salt substitutes."
+                />
+              )}
 
               <Alert
                 alertHeading="The statements should be shown on the food label as:"
@@ -867,16 +950,12 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
         </a>
 
         <a
-          className={`btn btn-primary${
-            statementData.sodiumPotassiumContent.trim() === ""
-              ? " disabled pe-none"
-              : ""
-          }`}
+          className={`btn btn-primary${isNextDisabled ? " disabled pe-none" : ""}`}
           role="button"
           onClick={(event) => {
             handleNextClick(event);
           }}
-          aria-disabled={statementData.sodiumPotassiumContent.trim() === ""}
+          aria-disabled={isNextDisabled}
         >
           <span className="btn-label-default">Next</span>
         </a>

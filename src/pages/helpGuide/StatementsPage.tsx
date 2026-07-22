@@ -30,7 +30,7 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="https://www.legislation.gov.au/Details/F2017C00418"
+              href="https://www.legislation.gov.au/F2015L00397/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -41,25 +41,13 @@ const generalRequirements: AccordionItemConfig[] = [
           </li>
           <li>
             <a
-              href="https://www.legislation.gov.au/Details/F2016C00827"
+              href="https://www.legislation.gov.au/F2015L00479/latest/text"
               target="_blank"
               rel="noopener"
             >
               Schedule 9
             </a>{" "}
             Mandatory advisory statements and declarations
-          </li>
-        </ul>
-        <p>Food Standards Australia and New Zealand</p>
-        <ul>
-          <li>
-            <a
-              href="https://www.foodstandards.gov.au/code/userguide/Documents/Guide%20to%201.2.3%20-%20Warning%20and%20Advisory%20Statements.pdf"
-              target="_blank"
-              rel="noopener"
-            >
-              User Guide - Warning and Advisory Statements and Declarations
-            </a>
           </li>
         </ul>
       </>
@@ -117,7 +105,7 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="https://www.legislation.gov.au/Series/F2015L00386"
+              href="https://www.legislation.gov.au/F2015L00386/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -146,13 +134,22 @@ const generalRequirements: AccordionItemConfig[] = [
           </li>
           <li>
             <a
-              href="https://www.legislation.gov.au/Details/F2016C00827"
+              href="https://www.legislation.gov.au/F2015L00479/latest/text"
               target="_blank"
               rel="noopener"
             >
               Schedule 9
             </a>{" "}
             Mandatory advisory statements and declarations
+          </li>
+          <li>
+            <a
+              href="https://www.foodstandards.gov.au/consumer/foodallergies/food-allergen-portal/allergenInfoForindustry"
+              target="_blank"
+              rel="noopener"
+            >
+              Allergy information for food manufacturers, retailers and importers
+            </a>{" "}
           </li>
         </ul>
         <p>
@@ -184,7 +181,7 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="https://www.legislation.gov.au/Series/F2015L00386"
+              href="https://www.legislation.gov.au/F2015L00386/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -199,7 +196,7 @@ const generalRequirements: AccordionItemConfig[] = [
           </li>
           <li>
             <a
-              href="https://www.legislation.gov.au/Details/F2017C00418"
+              href="https://www.legislation.gov.au/F2015L00397/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -229,6 +226,40 @@ const generalRequirements: AccordionItemConfig[] = [
             >
               User Guide - Warning and Advisory Statements and Declarations
             </a>
+          </li>
+        </ul>
+      </>
+    ),
+  },
+  {
+    id: "kava",
+    title: "Kava and kava root",
+    content: (
+      <>
+        <p>
+          Dried or raw kava root, or a kava beverage permitted under 
+          Standard 2.6.3–3, must include the following statements:
+        </p>
+        <ul>
+          <li>'Use in moderation'; and</li>
+          <li>'May cause drowsiness'</li>
+        </ul>
+        <p>
+          If sold unpackaged, the statements must accompany the food or
+          be displayed in connection with the display of the food.  
+        </p>
+        <h4>Further reading</h4>
+        <i>Australia New Zealand Food Standards Code</i>
+        <ul>
+          <li>
+            <a
+              href="https://www.legislation.gov.au/F2015L00466/latest/text"
+              target="_blank"
+              rel="noopener"
+            >
+              Standard 2.6.3
+            </a>{" "}
+            Kava
           </li>
         </ul>
       </>

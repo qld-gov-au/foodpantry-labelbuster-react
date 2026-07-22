@@ -23,26 +23,53 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>Individual portion packs</li>
           <li>
-            <a data-accordion-item="food-package" className="accordion-btn">
+              <a
+              href="food-package"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-food-package");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               Foods in small packages
             </a>
           </li>
           <li>
-            <a data-accordion-item="one-ingredient" className="accordion-btn">
+            <a
+              href="one-ingredient"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-one-ingredient");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               Foods with one ingredient
             </a>
           </li>
           <li>
             Water that is packaged and labelled in accordance with{" "}
             <a
-              href="https://www.legislation.gov.au/Series/F2015L00465"
+              href="https://www.legislation.gov.au/F2015L00465/latest/text"
               target="_blank"
               rel="noopener"
             >
               Standard 2.6.2
             </a>{" "}
             of the Food Standards Code. See{" "}
-            <a data-accordion-item="non-alcoholic" className="accordion-btn">
+            <a
+              href="non-alcoholic"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-non-alcoholic");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               non-alcoholic drinks
             </a>{" "}
             in food with extra requirements for more information.
@@ -58,14 +85,32 @@ const generalRequirements: AccordionItemConfig[] = [
           <li>a name that describes the true nature of the ingredient</li>
           <li>
             a{" "}
-            <a data-accordion-item="generic-name" className="accordion-btn">
+            <a
+              href="generic-name"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-generic-name");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               generic name
             </a>{" "}
             specified in the Food Standards Code
           </li>
           <li>
             a{" "}
-            <a data-accordion-item="required-names" className="accordion-btn">
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               required name
             </a>{" "}
             if the ingredient is, or contains, an allergen
@@ -80,62 +125,189 @@ const generalRequirements: AccordionItemConfig[] = [
         <p>
           Ingredients that contain allergens must be identified in the
           ingredient list using a{" "}
-          <a data-accordion-item="required-names" className="accordion-btn">
-            required name
-          </a>
+          <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required name
+            </a>
           . Allergens include:{" "}
-          <a data-accordion-item="bcr" className="accordion-btn">
-            cereals
-          </a>{" "}
+          <a
+              href="bcr"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-bcr");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              cereals
+            </a>{" "}
           such as barley, oats and rye that contain gluten,{" "}
-          <a data-accordion-item="bcr" className="accordion-btn">
-            wheat
-          </a>
+          
+          <a
+              href="bcr"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-bcr");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              wheat
+            </a>
           ,{" "}
-          <a data-accordion-item="milk-dairy" className="accordion-btn">
-            milk
-          </a>
+          <a
+              href="milk-dairy"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-milk-dairy");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              milk
+            </a>
           ,{" "}
-          <a data-accordion-item="required-names" className="accordion-btn">
-            egg
-          </a>
+          <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              egg
+            </a>
           ,{" "}
-          <a data-accordion-item="nuts-seeds" className="accordion-btn">
-            peanuts
-          </a>
+          <a
+              href="nuts-seeds"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-nuts-seeds");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              peanuts
+            </a>
           ,{" "}
-          <a data-accordion-item="nuts-seeds" className="accordion-btn">
-            tree nuts
-          </a>{" "}
+          <a
+              href="nuts-seeds"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-nuts-seeds");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              tree nuts
+            </a>{" "}
           (i.e.: almond, Brazil nut, cashew, hazelnut, macadamia, pecan, pine
           nut, pistachio, walnut),{" "}
-          <a data-accordion-item="fish-seafood" className="accordion-btn">
-            fish
-          </a>
+          <a
+              href="fish-seafood"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-fish-seafood");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              fish
+            </a>
           ,{" "}
-          <a data-accordion-item="fish-seafood" className="accordion-btn">
-            crustacea
-          </a>
+          <a
+              href="fish-seafood"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-fish-seafood");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              crustacea
+            </a>
           ,{" "}
-          <a data-accordion-item="fish-seafood" className="accordion-btn">
-            mollusc
-          </a>
+          <a
+              href="fish-seafood"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-fish-seafood");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              mollusc
+            </a>
           ,{" "}
-          <a data-accordion-item="required-names" className="accordion-btn">
-            sesame seed
-          </a>
+          <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              sesame seed
+            </a>
           ,{" "}
-          <a data-accordion-item="legumes-pulses" className="accordion-btn">
-            soybeans
-          </a>
+          <a
+              href="legumes-pulses"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-legumes-pulses");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              soybeans
+            </a>
           ,{" "}
-          <a data-accordion-item="legumes-pulses" className="accordion-btn">
-            lupin
-          </a>{" "}
+          <a
+              href="legumes-pulses"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-legumes-pulses");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              lupin
+            </a>{" "}
           and{" "}
-          <a data-accordion-item="required-names" className="accordion-btn">
-            sulphites
-          </a>
+          <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              sulphites
+            </a>
           .
         </p>
         <p>
@@ -146,7 +318,16 @@ const generalRequirements: AccordionItemConfig[] = [
           <li>List ingredients in descending order of ingoing weight</li>
           <li>
             Declare all of the ingredients that make up a{" "}
-            <a data-accordion-item="comp-ingredient" className="accordion-btn">
+            <a
+              href="comp-ingredient"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-comp-ingredient");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               compound ingredient
             </a>
             , if it contributes 5% or more to the final food
@@ -158,24 +339,51 @@ const generalRequirements: AccordionItemConfig[] = [
           </li>
           <li>
             Declare where{" "}
-            <a data-accordion-item="alt-ingredient" className="accordion-btn">
+            <a
+              href="alt-ingredient"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-alt-ingredient");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               alternative ingredients
             </a>{" "}
             are sometimes used to make the food
           </li>
           <li>
             Declare allergens using the{" "}
-            <a data-accordion-item="required-names" className="accordion-btn">
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
               required names
             </a>{" "}
-            and format the required name in bold text
+            and format the required name in <b>bold</b> text
           </li>
         </ul>
         <p>
           Some ingredients are{" "}
-          <a data-accordion-item="exempt-ingredient" className="accordion-btn">
-            exempt ingredients
-          </a>{" "}
+          <a
+              href="exempt-ingredient"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-exempt-ingredient");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              exempt ingredients
+            </a>{" "}
           that do not need to be included in the ingredient list.
         </p>
         <section>
@@ -184,7 +392,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00386"
+                href="https://www.legislation.gov.au/F2015L00386/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -205,7 +413,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -215,7 +423,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00398"
+                href="https://www.legislation.gov.au/F2015L00398/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -226,7 +434,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00402"
+                href="https://www.legislation.gov.au/F2015L00402/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -236,7 +444,17 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00477"
+                href="https://www.legislation.gov.au/F2015L00465/latest/text"
+                target="_blank"
+                rel="noopener"
+              >
+                Standard 2.6.2
+              </a>{" "}
+              Non-alchoholic beverages and brewed soft drinks
+            </li>
+            <li>
+              <a
+                href="https://www.legislation.gov.au/F2015L00477/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -246,7 +464,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00478"
+                href="https://www.legislation.gov.au/F2015L00478/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -267,7 +485,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00480"
+                href="https://www.legislation.gov.au/F2015L00480/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -277,25 +495,13 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00442"
+                href="https://www.legislation.gov.au/F2015L00442/latest/text"
                 target="_blank"
                 rel="noopener"
               >
                 Schedule 16
               </a>{" "}
               Types of substances that may be used as food additives
-            </li>
-          </ul>
-          <p>Food Standards Australia New Zealand</p>
-          <ul>
-            <li>
-              <a
-                href="https://www.foodstandards.gov.au/code/userguide/pages/overviewoffoodlabell1267.aspx"
-                target="_blank"
-                rel="noopener"
-              >
-                User Guides - Overview of Food Labelling
-              </a>
             </li>
           </ul>
         </section>
@@ -347,9 +553,9 @@ const generalRequirements: AccordionItemConfig[] = [
           </li>
         </ul>
         <p>
-          The amount of the characterising ingredients in the food must be
-          written on the label as a percentage or, if declared in the nutrition
-          information panel, as the average quantity per serving and per unit
+          The amount of the characterising ingredients in the food must be written 
+          in the ingredient list as a percentage or, if declared in the nutrition 
+          information panel, as the average quantity per serving and per unit 
           quantity. For example, strawberry yoghurt ingredients must state{" "}
           <b>Strawberries (23%).</b>
         </p>
@@ -358,7 +564,7 @@ const generalRequirements: AccordionItemConfig[] = [
           the proportion must be given to the nearest 0.5 decimal place, e.g.
           Banana (4.5%)
         </p>
-        <p>The percentage information is not required for the following:</p>
+        <p>The percentage information is not required for the following foods:</p>
         <ul>
           <li>prepared filled rolls, sandwiches, bagels or similar products</li>
           <li>
@@ -369,7 +575,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <li>cured and/or dried meat flesh in whole cuts or pieces</li>
           <li>foods with one ingredient</li>
           <li>
-            ingredient or category of ingredients that is used in small
+            an ingredient or category of ingredients that is used in small
             quantities for the purpose of flavouring, for example, herb and
             garlic bread
           </li>
@@ -382,7 +588,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00385"
+                href="https://www.legislation.gov.au/F2015L00385/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -398,7 +604,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00386"
+                href="https://www.legislation.gov.au/F2015L00385/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -414,7 +620,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00398"
+                href="https://www.legislation.gov.au/F2015L00398/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -423,17 +629,14 @@ const generalRequirements: AccordionItemConfig[] = [
               Information requirements - characterising ingredients and
               components of food.
             </li>
-          </ul>
-          <p>Food Standards Australia New Zealand</p>
-          <ul>
             <li>
               <a
-                href="https://www.foodstandards.gov.au/code/userguide/pages/percentagelabelling.aspx"
+                href="https://www.foodstandards.gov.au/consumer/labelling/ingredients"
                 target="_blank"
                 rel="noopener"
               >
-                User Guide - Percentage labelling of food
-              </a>
+                Ingredient lists and percentage labelling
+              </a>{" "}
             </li>
           </ul>
         </section>
@@ -525,7 +728,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00386"
+                href="https://www.legislation.gov.au/F2015L00386/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -535,7 +738,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -545,7 +748,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00402"
+                href="https://www.legislation.gov.au/F2015L00402/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -618,7 +821,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00385"
+                href="https://www.legislation.gov.au/F2015L00385/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -642,7 +845,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -661,7 +864,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00398"
+                href="https://www.legislation.gov.au/F2015L00398/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -672,7 +875,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00396"
+                href="https://www.legislation.gov.au/F2015L00396/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -682,7 +885,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00477"
+                href="https://www.legislation.gov.au/F2015L00477/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -692,7 +895,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00478"
+                href="https://www.legislation.gov.au/F2015L00478/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -713,7 +916,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00442"
+                href="https://www.legislation.gov.au/F2015L00442/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -723,7 +926,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00449"
+                href="https://www.legislation.gov.au/F2015L00449/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -779,8 +982,8 @@ const generalRequirements: AccordionItemConfig[] = [
             </a>
           </li>
           <li>
-            <a data-accordion-item="fish-seafood" className="accordion-btn">
-              fish
+            <a data-accordion-item="milk-dairy" className="accordion-btn">
+              milk solids
             </a>
           </li>
           <li>
@@ -807,7 +1010,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -823,7 +1026,7 @@ const generalRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00480"
+                href="https://www.legislation.gov.au/F2015L00480/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -863,7 +1066,7 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -891,7 +1094,16 @@ const generalRequirements: AccordionItemConfig[] = [
           A processing aid is a food or substance that is used during
           manufacture. For example, an antifoaming or clarifying agent. A
           processing aid is often an{" "}
-          <a data-accordion-item="exempt-ingredient" className="accordion-btn">
+          <a
+            href="exempt-ingredient"
+            onClick={(e) => {
+              e.preventDefault();
+              const item = document.getElementById("accordion-item-exempt-ingredient");
+              const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+              if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+              item?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }}
+          >
             exempt ingredient
           </a>
           , which does not have to be included in the ingredient list.
@@ -899,10 +1111,29 @@ const generalRequirements: AccordionItemConfig[] = [
         <p>
           However, if it contains an allergen, it must be included in the
           ingredient list using the words "processing aid" followed by the{" "}
-          <a data-accordion-item="required-names" className="accordion-btn">
+          <a
+            href="required-names"
+            onClick={(e) => {
+              e.preventDefault();
+              const item = document.getElementById("accordion-item-required-names");
+              const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+              if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+              item?.scrollIntoView({ behavior: "smooth", block: "center" });
+            }}
+          >
             required name
           </a>{" "}
           of the allergen.
+        </p>
+        <p>
+          Generally permitted processing aids are listed in{" "}
+          <a
+            href="https://www.legislation.gov.au/F2015L00452/latest/text"
+            target="_blank"
+            rel="noopener"
+          >
+            Schedule 18
+          </a>
         </p>
         <p>For example:</p>
         <ul>
@@ -917,11 +1148,11 @@ const generalRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/F2015L00397/latest/text"
+                href="https://www.legislation.gov.au/F2015L00402/latest/text"
                 target="_blank"
                 rel="noopener"
               >
-                Standard 1.2.3
+                Standard 1.3.3
               </a>
             </li>
             <li>
@@ -934,30 +1165,15 @@ const generalRequirements: AccordionItemConfig[] = [
               </a>{" "}
               Mandatory advisory statements and declarations
             </li>
-          </ul>
-          <p>Australian Standard Fish Names</p>
-          <ul>
             <li>
-              A searchable database of Australian Standard Fish Names is
-              available at{" "}
               <a
-                href="http://www.fishnames.com.au"
+                href="https://www.legislation.gov.au/F2015L00452/latest/text"
                 target="_blank"
                 rel="noopener"
               >
-                http://www.fishnames.com.au
-              </a>
-            </li>
-            <li>
-              Hard copies of the Australian Fish Names Standard (AS 5300) are
-              available from FRDC&apos;s Online Shop at{" "}
-              <a
-                href="https://infostore.saiglobal.com/en-au/Standards/AS-5300-2019-111200_SAIG_AS_AS_2741382/"
-                target="_blank"
-                rel="noopener"
-              >
-                https://infostore.saiglobal.com/en-au/Standards/AS-5300-2019-111200_SAIG_AS_AS_2741382/
-              </a>
+                Schedule 18
+              </a>{" "}
+              Processing aids
             </li>
           </ul>
         </section>
@@ -976,41 +1192,41 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             Fish, crustacea and molluscs must be separately declared in both the
-            ingredient list and summary statement, using "fish", "crustacean"
-            and "mollusc" as required names.
+            ingredient list and summary statement, using "<b>fish</b>", "<b>crustacean</b>"
+            and "<b>mollusc</b>" as required names.
           </li>
           <li>
             The following tree nuts must be declared separately in the
             ingredient list and summary statement using the required name -
-            "almond", "Brazil nut", "cashew", "hazelnut", "macadamia", "pecan",
-            "pine nut", "pistachio", "walnut".
+            "<b>almond</b>", "<b>Brazil nut</b>", "<b>cashew</b>", "<b>hazelnut</b>", "<b>macadamia</b>", "<b>pecan</b>",
+            "<b>pine nut</b>", "<b>pistachio</b>", "<b>walnut</b>".
           </li>
           <li>
-            "Wheat" must be used as the required name in the ingredient list and
+            "<b>Wheat</b>" must be used as the required name in the ingredient list and
             summary statement when wheat (or its hybrids) is present. If gluten
-            is present, then "gluten" must also be included in the summary
+            is present, then "<b>gluten</b>" must also be included in the summary
             statement.
           </li>
           <li>
-            "Rye", "barley" and "oats" (if they contain gluten) must be used as
+            "<b>Rye</b>", "<b>barley</b>" and "<b>oats</b>" (if they contain gluten) must be used as
             the required names in the ingredient list when these cereals (or
             their hybrids) are present. However, they must be declared as
-            "gluten" in the summary statement.
+            "<b>gluten</b>" in the summary statement.
           </li>
           <li>
-            Soybean must be declared in the ingredient list as either "soy",
-            "soya" or "soybean" and in the summary statement as "soy".
+            Soybean must be declared in the ingredient list as either "<b>soy</b>",
+            "<b>soya</b>" or "<b>soybean</b>" and in the summary statement as "<b>soy</b>".
           </li>
           <li>
             The required names for other allergens for use in the ingredient
-            list and summary statement are "sulphites" (when added in
-            concentrations of 10 mg/kg or more), "milk", "egg", "sesame",
-            "lupin" and "peanut".
+            list and summary statement are "<b>sulphites</b>" (when added in
+            concentrations of 10 mg/kg or more), "<b>milk</b>", "<b>egg</b>", "<b>sesame</b>",
+            "<b>lupin</b>" and "<b>peanut</b>".
           </li>
           <li>
-            The term "processing aid" (or its plural) must be listed in the
+            The term "<b>processing aid</b>" (or its plural) must be listed in the
             ingredient list in association with the allergen(s) it contains or
-            is derived from, e.g. processing aids (wheat, egg).
+            is derived from, e.g. processing aids (<b>wheat</b>, <b>egg</b>).
           </li>
         </ul>
         <p>
@@ -1056,28 +1272,26 @@ const generalRequirements: AccordionItemConfig[] = [
               Mandatory advisory statements and declarations
             </li>
           </ul>
-          <p>Australian Standard Fish Names</p>
+          <p>
+            <i>Fisheries Research and Development Corporation</i>
+          </p>
           <ul>
             <li>
-              A searchable database of Australian Standard Fish Names is
-              available at{" "}
               <a
-                href="http://www.fishnames.com.au"
+                href="https://www.frdc.com.au/sites/default/files/2023-02/as_5300-2019-final_approved_pdf_download_version.pdf"
                 target="_blank"
                 rel="noopener"
               >
-                http://www.fishnames.com.au
+                Australian Fish Names Standard
               </a>
             </li>
             <li>
-              Hard copies of the Australian Fish Names Standard (AS 5300) are
-              available from FRDC&apos;s Online Shop at{" "}
               <a
-                href="https://infostore.saiglobal.com/en-au/Standards/AS-5300-2019-111200_SAIG_AS_AS_2741382/"
+                href="https://www.frdc.com.au/knowledge-hub/standards-search?f%5B0%5D=standard%3Afishnames"
                 target="_blank"
                 rel="noopener"
               >
-                https://infostore.saiglobal.com/en-au/Standards/AS-5300-2019-111200_SAIG_AS_AS_2741382/
+                Search the Fish Names Database
               </a>
             </li>
           </ul>
@@ -1160,7 +1374,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1176,7 +1390,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/F2015L00479/latest/text"
+                href="http://www.legislation.gov.au/F2015L00479/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1186,7 +1400,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00480"
+                href="https://www.legislation.gov.au/F2015L00480/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1283,7 +1497,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00397"
+                href="https://www.legislation.gov.au/F2015L00397/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1310,7 +1524,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00480"
+                href="https://www.legislation.gov.au/F2015L00480/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1319,28 +1533,27 @@ const extraRequirements: AccordionItemConfig[] = [
               Generic names of ingredients and conditions for their use
             </li>
           </ul>
-          <p>Australian Standard Fish Names</p>
+          <p>
+            <i>Fisheries Research and Development Corporation</i>
+          
+          </p>
           <ul>
             <li>
-              A searchable database of Australian Standard Fish Names is
-              available at{" "}
               <a
-                href="http://www.fishnames.com.au"
+                href="https://www.frdc.com.au/sites/default/files/2023-02/as_5300-2019-final_approved_pdf_download_version.pdf"
                 target="_blank"
                 rel="noopener"
               >
-                http://www.fishnames.com.au
+                Australian Fish Names Standard
               </a>
             </li>
             <li>
-              Hard copies of the Australian Fish Names Standard (AS 5300) are
-              available from FRDC&apos;s Online Shop at{" "}
               <a
-                href="https://infostore.saiglobal.com/en-au/Standards/AS-5300-2019-111200_SAIG_AS_AS_2741382/"
+                href="https://www.frdc.com.au/knowledge-hub/standards-search?f%5B0%5D=standard%3Afishnames"
                 target="_blank"
                 rel="noopener"
               >
-                https://infostore.saiglobal.com/en-au/Standards/AS-5300-2019-111200_SAIG_AS_AS_2741382/
+                Search the Fish Names Database
               </a>
             </li>
           </ul>
@@ -1379,7 +1592,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00426"
+                href="https://www.legislation.gov.au/F2015L00426/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1487,7 +1700,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1575,7 +1788,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1591,7 +1804,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00480"
+                href="https://www.legislation.gov.au/F2015L00480/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1606,7 +1819,7 @@ const extraRequirements: AccordionItemConfig[] = [
   },
   {
     id: "non-alcoholic",
-    title: "Non-alcoholic drinks",
+    title: "Non-alcoholic drinks and brewed soft drinks",
     content: (
       <>
         <p>
@@ -1615,31 +1828,14 @@ const extraRequirements: AccordionItemConfig[] = [
           The ingredients list is not required for a water that is packaged and
           labelled to the requirements of{" "}
           <a
-            href="https://www.legislation.gov.au/Series/F2015L00465"
+            href="https://www.legislation.gov.au/F2015L00465/latest/text"
             target="_blank"
             rel="noopener"
           >
             Standard 2.6.2.
           </a>
         </p>
-        <p>
-          <b>If the food is a juice blend:</b>
-          <br />
-          The name and percentage of the juice in the blend must be included in
-          the ingredients. For example: Tropical juice (Pineapple 50%, mango
-          20%, oranges 10%, apple 10%, passionfruit 5%, peach puree 5%)
-        </p>
-        <p>
-          <b>If the food is an orange juice blend:</b>
-          <br />
-          Where an orange juice blend has less than 10% in total of:
-        </p>
-        <ul>
-          <li>mandarin juice; or</li>
-          <li>tangelo juice; or</li>
-          <li>mandarin and tangelo juice</li>
-        </ul>
-        <p>the orange juice is not required to be labelled as a juice blend</p>
+       
         <section>
           <h4>Further reading</h4>
           <p>
@@ -1648,7 +1844,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1663,17 +1859,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00426"
-                target="_blank"
-                rel="noopener"
-              >
-                Standard 2.6.1
-              </a>{" "}
-              Fruit juice and vegetable juice
-            </li>
-            <li>
-              <a
-                href="https://www.legislation.gov.au/Series/F2015L00465"
+                href="https://www.legislation.gov.au/F2015L00465/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1717,7 +1903,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/F2015L00397/latest/text"
+                href="http://www.legislation.gov.au/F2015L00397/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1731,7 +1917,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/F2015L00479/latest/text"
+                href="http://www.legislation.gov.au/F2015L00479/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1770,7 +1956,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/F2015L00461/latest/text"
+                href="http://www.legislation.gov.au/F2015L00461/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1843,7 +2029,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1859,7 +2045,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00480"
+                href="https://www.legislation.gov.au/F2015L00480/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1896,7 +2082,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -1934,7 +2120,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00392"
+                href="https://www.legislation.gov.au/F2015L00392/latest/text"
                 target="_blank"
                 rel="noopener"
               >
