@@ -31,7 +31,7 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="http://www.comlaw.gov.au/Series/F2015L00393"
+              href="https://www.legislation.gov.au/F2015L00393/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -62,7 +62,7 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="http://www.comlaw.gov.au/Series/F2015L00393"
+              href="https://www.legislation.gov.au/F2015L00393/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -96,7 +96,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00393"
+                href="https://www.legislation.gov.au/F2015L00393/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -128,7 +128,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00393"
+                href="https://www.legislation.gov.au/F2015L00393/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -143,13 +143,13 @@ const extraRequirements: AccordionItemConfig[] = [
   },
   {
     id: "fish-seafood",
-    title: "Fish, crustacea and seafood",
+    title: "Fish and shellfish",
     content: (
       <>
         <p>
           <b>
-            If the food is raw fish which has been moulded or combined to look
-            like a cut or fillet of fish:
+            If the food is raw fish (includes shellfish) which has been 
+            moulded or combined to look like a cut or fillet of fish:
           </b>
           <br />
           The label must say that the food is either formed or joined and give
@@ -163,7 +163,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00393"
+                href="https://www.legislation.gov.au/F2015L00393/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -173,7 +173,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00429"
+                href="https://www.legislation.gov.au/F2015L00429/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -183,6 +183,20 @@ const extraRequirements: AccordionItemConfig[] = [
               <ul>
                 <li>See section 2.2.3—3 Labelling of formed or joined fish</li>
               </ul>
+            </li>
+          </ul>
+          <p>
+            <i>Queensland Health</i>
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-product-guides/fish-and-fish-products"
+                target="_blank"
+                rel="noopener"
+              >
+                Fish and fish products
+              </a>{" "}
             </li>
           </ul>
         </section>
@@ -211,7 +225,7 @@ const extraRequirements: AccordionItemConfig[] = [
           <ul>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00393"
+                href="https://www.legislation.gov.au/F2015L00393/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -221,7 +235,7 @@ const extraRequirements: AccordionItemConfig[] = [
             </li>
             <li>
               <a
-                href="https://www.legislation.gov.au/Series/F2015L00427"
+                href="https://www.legislation.gov.au/F2015L00427/latest/text"
                 target="_blank"
                 rel="noopener"
               >
@@ -234,6 +248,20 @@ const extraRequirements: AccordionItemConfig[] = [
                   formed into the semblance of a cut of meat
                 </li>
               </ul>
+            </li>
+          </ul>
+          <p>
+            <i>Queensland Health</i>
+          </p>
+          <ul>
+            <li>
+              <a
+                href="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/food-product-guides/meat-and-meat-products"
+                target="_blank"
+                rel="noopener"
+              >
+                Meat and meat products
+              </a>{" "}
             </li>
           </ul>
         </section>

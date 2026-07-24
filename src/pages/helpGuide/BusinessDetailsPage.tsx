@@ -19,7 +19,7 @@ const generalRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="http://www.comlaw.gov.au/Series/F2015L00386"
+              href="https://www.legislation.gov.au/F2015L00386/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -29,7 +29,7 @@ const generalRequirements: AccordionItemConfig[] = [
           </li>
           <li>
             <a
-              href="http://www.comlaw.gov.au/Series/F2015L00389"
+              href="https://www.legislation.gov.au/F2015L00389/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -72,7 +72,7 @@ const extraRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="https://www.legislation.gov.au/Series/F2015L00386"
+              href="https://www.legislation.gov.au/F2015L00386/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -106,7 +106,7 @@ const extraRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="https://www.legislation.gov.au/Series/F2015L00386"
+              href="https://www.legislation.gov.au/F2015L00386/latest/text"
               target="_blank"
               rel="noopener"
             >
@@ -139,7 +139,7 @@ const extraRequirements: AccordionItemConfig[] = [
         <ul>
           <li>
             <a
-              href="https://www.legislation.gov.au/Series/F2015L00386"
+              href="https://www.legislation.gov.au/F2015L00386/latest/text"
               target="_blank"
               rel="noopener"
             >

@@ -125,7 +125,7 @@ export const LabelBusterSideNav = ({
           disabled: !isStepEnabled("statements") && page !== "statements",
         },
         {
-          label: stepLabel(10, "Your Label"),
+          label: stepLabel(10, "Your label"),
           onClick: () => onNavigate("yourLabel"),
           active: page === "yourLabel",
           disabled: !isStepEnabled("yourLabel") && page !== "yourLabel",

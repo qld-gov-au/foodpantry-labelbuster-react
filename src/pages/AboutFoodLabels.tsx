@@ -193,14 +193,15 @@ type AboutFoodLabelsProps = {
       content: (
         <>
           <p>
-            A food label must contain a list of ingredients. The Food Standards
-            Code has rules that describe how each ingredient must be listed, how
-            it is named, extra requirements if an ingredient contains allergens,
+            A food label must contain a list of ingredients. The Food Standards 
+            Code has rules that describe how each ingredient must be listed, how 
+            it is named, extra requirements if an ingredient contains allergens, 
             and how the list is formatted.
           </p>
           <figure>
             <img
-              src="https://www.qld.gov.au/?a=145670"
+            //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
+              src="src\assets\about-food-labels-page-7ingredients.png"
               alt="Example food label with a list of ingredients."
               className="img-fluid"
             />
@@ -221,7 +222,8 @@ type AboutFoodLabelsProps = {
           </p>
           <figure>
             <img
-              src="https://www.qld.gov.au/?a=145670"
+            //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
+              src="src\assets\about-food-labels-page-8advisorystatements.png"
               alt="Example food label with a list of ingredients."
               className="img-fluid"
             />
@@ -311,7 +313,8 @@ export const AboutFoodLabels = ({
           </figcaption>
           <img
             className="image-ratio-3x2 position-x-center position-y-center w-100 h-auto"
-            src="https://www.qld.gov.au/?a=148648"
+            //@todo make sure to upload this asset to the correct location in the build folder and reference it correctly when publishing the app.
+            src="src\assets\About food main image.png"
             alt="An example label for strawberry yoghurt"
           />
         </figure>

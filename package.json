@@ -16,7 +16,9 @@
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
     "@qld-gov-au/qgds-bootstrap5": "^2.0.6",
+    "@react-pdf/renderer": "^4.5.1",
     "bootstrap": "^5.3.8",
+    "html2canvas": "^1.4.1",
     "jspdf": "^4.0.0",
     "jspdf-autotable": "^5.0.7",
     "react": "^19.2.0",
@@ -35,6 +37,7 @@
     "globals": "^16.5.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
-    "vite": "^7.2.4"
+    "vite": "^7.2.4",
+    "vite-plugin-singlefile": "^2.3.3"
   }
 }

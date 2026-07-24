@@ -24,6 +24,7 @@ export type IngredientsFormState = {
   ingredientGenericName: "1" | "2" | null;
   foodAdditives: "1" | "2" | null;
   exemptIngredients: "1" | "2" | null;
+  allergens: "1" | "2" | null;
 };
 
 export type LimitationsData = {
@@ -134,6 +135,8 @@ export type StatementsData = {
   form: StatementsFormData;
   statementSelections: Record<string, boolean>;
   sodiumPotassiumContent: string;
+  alcoholContent: string;
+  oilsAndMargarineProcess: string;
 };
 
 export type StepKey =
@@ -236,6 +239,7 @@ const initialFormData: FormData = {
       ingredientGenericName: null,
       foodAdditives: null,
       exemptIngredients: null,
+      allergens: null,
     },
   },
   storageAndUse: {
@@ -320,6 +324,8 @@ const initialFormData: FormData = {
     },
     statementSelections: {},
     sodiumPotassiumContent: "",
+    alcoholContent: "",
+    oilsAndMargarineProcess: "",
   },
 };
 
