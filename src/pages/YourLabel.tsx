@@ -5,7 +5,11 @@ import {
   type StatementsFormData,
   type StorageAndUseData,
 } from "../context/FormDataContext";
-import type { ProductSheetData } from "../components/ProductSheetPdf";
+import { pdf } from "@react-pdf/renderer";
+import {
+  ProductSheetDocument,
+  type ProductSheetData,
+} from "../components/ProductSheetPdf";
 import { useCallback, useMemo, useState } from "react";
 
 type Rule<T> = {
@@ -460,11 +464,9 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
   const handleDownloadPDF = useCallback(async () => {
     setIsGenerating(true);
     try {
-      const [{ pdf }, { ProductSheetDocument }] = await Promise.all([
-        import("@react-pdf/renderer"),
-        import("../components/ProductSheetPdf"),
-      ]);
-      const blob = await pdf(<ProductSheetDocument data={sheetData} />).toBlob();
+      const blob = await pdf(
+        <ProductSheetDocument data={sheetData} />,
+      ).toBlob();
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
@@ -639,7 +641,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                           ? statementMessages.join(" ")
                           : ""}
                       </p>
-                      <p>
+                      <div>
                         {containsList.length ? (
                           <>
                             <p>
@@ -664,7 +666,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                         ) : (
                           <p>No data provided</p>
                         )}
-                      </p>
+                      </div>
                     </td>
                   </tr>
                   <tr>
