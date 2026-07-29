@@ -9,7 +9,7 @@ export default defineConfig({
     plugins: [react()],
     experimental: {
         renderBuiltUrl(filename) {
-            return `?a=904377:dist/${filename}`
+            return `?a=904377:${filename}`
         },
     },
 })
