@@ -5,7 +5,7 @@ name: Publish
 
 on:
   push:
-    branches: ['main', 'develop', 'uat']
+    branches: ["master", 'main', 'develop', 'uat']
     tags: ['*.*.*']
 
 jobs:
