@@ -1,5 +1,6 @@
 import { Document, Page, StyleSheet, Text, View, Image, Link } from "@react-pdf/renderer";
 import type { ReactNode } from "react";
+import { assetUrl } from '../config/assets'
 
 export type ProductSheetData = {
   foodName: string;
@@ -361,7 +362,7 @@ export const ProductSheetDocument = ({ data }: { data: ProductSheetData }) => {
 
         {/* @todo Example NIP image (static, full width). Replace with real uploaded asset */}
         <Image
-          src="src\assets\NIP-example.png"
+          src={assetUrl('NIP-example.png')}
           style={{
             width: 280.06,
             height: 310.67,
