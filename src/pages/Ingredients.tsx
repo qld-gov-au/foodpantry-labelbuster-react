@@ -11,6 +11,7 @@ import {
   type IngredientsFormState,
 } from "../context/FormDataContext";
 import { HelpGuides } from "../components/helpGuides/Helpguides";
+import { assetUrl } from '../config/assets'
 
 type IngredientsProps = {
   onBack?: () => void;
@@ -169,7 +170,7 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
             </figcaption>
             {/* @todo replace image asset with uploaded image on franchise */}
             <img
-              src="src\assets\ingredients-page-smallfluids.png"
+              src={assetUrl('ingredients-page-smallfluids.png')}
               alt="Example food label with a list of ingredients."
               className="img-fluid"
             />

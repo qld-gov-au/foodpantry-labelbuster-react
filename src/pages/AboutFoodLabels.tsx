@@ -3,6 +3,7 @@ import {
   Accordion,
   type AccordionItemConfig,
 } from "../components/Accordion";
+import { assetUrl } from '../config/assets'
 
 type AboutFoodLabelsProps = {
   onBack?: () => void;
@@ -211,7 +212,7 @@ type AboutFoodLabelsProps = {
           <figure>
             <img
             //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
-              src="src\assets\about-food-labels-page-7ingredients.png"
+              src={assetUrl('about-food-labels-page-7ingredients.png')}
               alt="Example food label with a list of ingredients."
               className="img-fluid"
             />
@@ -238,7 +239,7 @@ type AboutFoodLabelsProps = {
           <figure>
             <img
             //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
-              src="src\assets\about-food-labels-page-8advisorystatements.png"
+              src={assetUrl('about-food-labels-page-8advisorystatements.png')}
               alt="Example food label with a list of ingredients."
               className="img-fluid"
             />
@@ -261,7 +262,7 @@ type AboutFoodLabelsProps = {
           <figure>
             <img
             //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
-              src="src\assets\exampleNIPformat.png"
+              src={assetUrl('exampleNIPformat.png')}
               alt="Example of nutrition information panel format"
               className="img-fluid"
             />
@@ -327,7 +328,7 @@ export const AboutFoodLabels = ({
           <img
             className="image-ratio-3x2 position-x-center position-y-center w-100 h-auto"
             //@todo make sure to upload this asset to the correct location in the build folder and reference it correctly when publishing the app.
-            src="src\assets\About food main image.png"
+            src={assetUrl('About food main image.png')}
             alt="An example label for strawberry yoghurt"
           />
         </figure>

@@ -13,6 +13,7 @@ import {
   type StatementsFormData,
 } from "../context/FormDataContext";
 import { HelpGuides } from "../components/helpGuides/Helpguides";
+import { assetUrl } from '../config/assets'
 
 type StatementsProps = {
   onBack?: () => void;
@@ -664,7 +665,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             </figcaption>
             {/* @todo replace image asset with uploaded image on franchise */}
             <img
-              src="src\assets\contains-statement.png"
+              src={assetUrl('contains-statement.png')}
               alt="Example food label with advisory statements, warning statements and declarations."
               className="img-fluid"
             />
