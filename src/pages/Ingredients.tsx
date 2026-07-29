@@ -589,8 +589,8 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                       substance or as an ingredient of a flavouring substance-
                       <p>
                         `L-glutamic acid, monosodium glutamate, monopotassium L-glutamate, calcium 
-                        di-L-glutamate, monoammonium L-glutamate, magnesium di-L-glutamate, disodium 
-                        guanylate, disodium inosinate, disodium-5′-ribonucleotides.
+                        di-L-glutamate, monoammonium L-glutamate, magnesium di-L-glutamate, disodium 
+                        guanylate, disodium inosinate, disodium-5'-ribonucleotides.
                       </p>
                       </li>
 

@@ -204,7 +204,7 @@ const generalRequirements: AccordionItemConfig[] = [
     content: (
       <>
         <p>
-          The Food Standards Code has requirements for the format of the date mark (how it appears on the label).
+          The Food Standards Code has requirements for the format of the date mark (how it appears on the label).
         </p>
         <p>The date format depends on the shelf life of the food:</p>
         <ul>
