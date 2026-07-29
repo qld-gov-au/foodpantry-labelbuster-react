@@ -1314,7 +1314,19 @@ const extraRequirements: AccordionItemConfig[] = [
           </b>
           <br />
           The name of the cereal ingredient must be declared in the ingredient
-          list using the required name "barley", "oats", "rye" when:
+          list using the{" "}
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required names
+            </a>{" "} "barley", "oats", "rye" when:
         </p>
         <ul>
           <li>
@@ -1421,8 +1433,20 @@ const extraRequirements: AccordionItemConfig[] = [
         <p>
           <b>If the food is, or contains eggs:</b>
           <br />
-          Egg must be declared in the ingredient list using the required name of
-          "egg" or "eggs". For example: The ingredients list for egg noodles is
+          Egg must be declared in the ingredient list using the{" "}
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required names
+            </a>{" "}
+          of "egg" or "eggs". For example: The ingredients list for egg noodles is
           described as - <b>wheat</b> flour, water, <b>eggs</b>, salt.
         </p>
         <section>
@@ -1468,7 +1492,19 @@ const extraRequirements: AccordionItemConfig[] = [
         <p>
           <b>If the food is, or contains crustacea:</b>
           <br />
-          The name of the crustacea, followed by the required name "crustacean"
+          The name of the crustacea, followed by the{" "}
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required names
+            </a>{" "} "crustacean"
           must be declared in the ingredient list.
           <br />
           e.g. crab (<b>crustacean</b>), crayfish (<b>crustacean</b>).
@@ -1613,7 +1649,19 @@ const extraRequirements: AccordionItemConfig[] = [
         <p>
           <b>If the food is, or contains soy:</b>
           <br />
-          Soy must be declared in the ingredient list using the required name of
+          Soy must be declared in the ingredient list using the{" "}
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required names
+            </a>{" "} of
           either "soy", "soya", or "soybean", except for:
         </p>
         <ul>
@@ -1626,7 +1674,19 @@ const extraRequirements: AccordionItemConfig[] = [
         <p>
           <b>If the food is, or contains lupin:</b>
           <br />
-          Lupin must be declared in the ingredient list using the required name
+          Lupin must be declared in the ingredient list using the{" "}
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required names
+            </a>{" "}
           of "lupin".
         </p>
         <section>
@@ -1881,7 +1941,19 @@ const extraRequirements: AccordionItemConfig[] = [
           <b>If the food is, or contains nuts:</b>
           <br />
           The name of the nut must be declared in the ingredient list using the
-          required name for the nut:
+          {" "}
+            <a
+              href="required-names"
+              onClick={(e) => {
+                e.preventDefault();
+                const item = document.getElementById("accordion-item-required-names");
+                const btn = item?.querySelector<HTMLButtonElement>(".accordion-button");
+                if (btn && btn.getAttribute("aria-expanded") === "false") btn.click();
+                item?.scrollIntoView({ behavior: "smooth", block: "center" });
+              }}
+            >
+              required name
+            </a>{" "} for the nut:
         </p>
         <ul>
           <li>almond</li>

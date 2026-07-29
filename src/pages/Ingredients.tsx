@@ -73,10 +73,21 @@ const allergenKeywords = [
   "walnut",
 ];
 
-const isAllergenIngredient = (ingredient: string) => {
+const getAllergenKeywordInIngredient = (ingredient: string): string | null => {
   const normalizedIngredient = ingredient.trim().toLowerCase();
 
-  return allergenKeywords.some((keyword) => normalizedIngredient.includes(keyword));
+  for (const keyword of allergenKeywords) {
+    const pluralForm = keyword.endsWith('s') ? keyword : keyword + 's';
+    
+    // Check plural form first (longer match priority)
+    if (normalizedIngredient.includes(pluralForm)) {
+      return pluralForm;
+    }
+    if (normalizedIngredient.includes(keyword)) {
+      return keyword;
+    }
+  }
+  return null;
 };
 
 const renderIngredientPreview = (ingredientText: string) => {
@@ -85,12 +96,32 @@ const renderIngredientPreview = (ingredientText: string) => {
     .map((ingredient) => ingredient.trim())
     .filter(Boolean);
 
-  return items.map((ingredient, index) => (
-    <span key={`${ingredient}-${index}`}>
-      {index > 0 ? ", " : ""}
-      {isAllergenIngredient(ingredient) ? <strong>{ingredient}</strong> : ingredient}
-    </span>
-  ));
+  return items.map((ingredient, index) => {
+    const allergenKeyword = getAllergenKeywordInIngredient(ingredient);
+    
+    if (allergenKeyword) {
+      const parts = ingredient.split(new RegExp(`(${allergenKeyword})`, 'i'));
+      return (
+        <span key={`${ingredient}-${index}`}>
+          {index > 0 ? ", " : ""}
+          {parts.map((part, i) =>
+            part.toLowerCase() === allergenKeyword ? (
+              <strong key={i}>{part}</strong>
+            ) : (
+              part
+            )
+          )}
+        </span>
+      );
+    }
+
+    return (
+      <span key={`${ingredient}-${index}`}>
+        {index > 0 ? ", " : ""}
+        {ingredient}
+      </span>
+    );
+  });
 };
 
 export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
@@ -558,8 +589,8 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                       substance or as an ingredient of a flavouring substance-
                       <p>
                         `L-glutamic acid, monosodium glutamate, monopotassium L-glutamate, calcium 
-                        di-L-glutamate, monoammonium L-glutamate, magnesium di-L-glutamate, disodium 
-                        guanylate, disodium inosinate, disodium-5′-ribonucleotides.
+                        di-L-glutamate, monoammonium L-glutamate, magnesium di-L-glutamate, disodium 
+                        guanylate, disodium inosinate, disodium-5'-ribonucleotides.
                       </p>
                       </li>
 
@@ -662,9 +693,12 @@ export const Ingredients = ({ onBack, onNext, onCancel }: IngredientsProps) => {
                   </abbr>
                 </p>
                 <small className="small mb-3">
-                  To change the order of your ingredients:
+                  <p>
+                    The ingredients list must be in descending order of ingoing weight. 
+                  </p>
+                  <p>To reorder your ingredients:</p>
                   <ul>
-                    <li>Drag and drop your ingredient</li>
+                    <li>Drag and drop your ingredient using the blue boxes on the left</li>
                   </ul>
                 </small>
 

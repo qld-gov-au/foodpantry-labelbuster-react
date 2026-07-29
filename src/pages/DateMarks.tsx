@@ -105,11 +105,11 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
               of:
               <ul>
                 <li>
-                  dd/mm/yyyy (e.g.: 15/3/2020) for food with a shelf life of 3
+                  dd/mm/yyyy (e.g. 15/3/2026) for food with a shelf life of 3
                   months or less, or
                 </li>
                 <li>
-                  mmm/yyyy (e.g.: Apr 2021) for food with a shelf life of more
+                  mmm/yyyy (e.g. Apr 2027) for food with a shelf life of more
                   than 3 months.
                 </li>
               </ul>
@@ -120,7 +120,7 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
             type="text"
             id="food-date"
             label="Food date"
-            hint="Leave this question blank if the food is not packaged or does not need a date mark."
+            hint=""
             value={dateValue}
             onChange={(e) => updateDateMarks({ dateValue: e.target.value })}
             onInput={(e) => toggleInvalidState(e.currentTarget)}
@@ -359,11 +359,11 @@ export const DateMarks = ({ onBack, onNext, onCancel }: DateMarksProps) => {
                   <ul>
                     <li>
                       Food that may contain bacteria that will grow at fridge
-                      temperatures (e.g.: Listeria)
+                      temperatures (e.g. Listeria)
                     </li>
                     <li>
                       Perishable ready-to-eat food that will spoil (become
-                      mouldy, rancid or soured) before it becomes unsafe (e.g.:
+                      mouldy, rancid or soured) before it becomes unsafe (e.g.
                       deli salads, prepared salads).
                     </li>
                   </ul>

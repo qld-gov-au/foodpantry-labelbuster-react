@@ -157,7 +157,15 @@ const generalRequirements: AccordionItemConfig[] = [
           allergen management in Australia and New Zealand.
         </p>
         <ul>
-          <li>https://allergenbureau.net/</li>
+          <li>
+            <a
+              href="https://allergenbureau.net/"
+              target="_blank"
+              rel="noopener"
+            >
+              https://allergenbureau.net/
+            </a>{" "}
+          </li>
         </ul>
       </>
     ),

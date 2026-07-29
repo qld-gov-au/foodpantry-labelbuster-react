@@ -198,6 +198,16 @@ type AboutFoodLabelsProps = {
             it is named, extra requirements if an ingredient contains allergens, 
             and how the list is formatted.
           </p>
+          <p>
+            Specified allergens must also be declared, using a required name, in 
+            both in the statement of ingredients, and in a distinctly separate 
+            summary statement next to the statement of ingredients.
+          </p>
+          <p>
+            The allergen declaration must be printed in bold font that provides a 
+            distinct contrast with other text, in a size of type no less than used 
+            for other text.
+          </p>
           <figure>
             <img
             //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
@@ -215,10 +225,15 @@ type AboutFoodLabelsProps = {
       content: (
         <>
           <p>
-            A food label must contain a list of ingredients. The Food Standards
-            Code has rules that describe how each ingredient must be listed, how
-            it is named, extra requirements if an ingredient contains allergens,
-            and how the list is formatted.
+            An allergen summary statement must be printed next to the statement of 
+            ingredients in <b>bold</b> font in the same typeface and size as the declarations 
+            in the statement of ingredients. It must commence with the word ‘Contains’ 
+            then list the required name of each food to be declared e.g. <b>Contains milk</b>.
+          </p>
+          <p>
+            Mandatory warning statements also exist in relation to certain foods, 
+            including royal jelly, as well as advisory statements in relation to 
+            certain products that include a specified ingredient.
           </p>
           <figure>
             <img
@@ -237,30 +252,28 @@ type AboutFoodLabelsProps = {
       content: (
         <>
           <p>
-            The nutrition information panel (NIP) shows the number of servings
-            in the package and the average amounts in a serving of food and per
-            100 grams (or 100 millilitres) of food for:
+            The format of a nutrition information panel (NIP) is prescribed in the 
+            Food Standards Code under Schedule 12 – Nutrition information panels.
           </p>
-          <ul>
-            <li>energy (in kilojoules)</li>
-            <li>protein</li>
-            <li>fat (including saturated fat)</li>
-            <li>carbohydrates (including sugars)</li>
-            <li>sodium</li>
-          </ul>
+          <p>
+            The following is the prescribed format for a NIP:
+          </p>
           <figure>
             <img
-              src="https://www.qld.gov.au/?a=145671"
-              alt="Example food label with nutrition information panel."
+            //@todo might need to resize image to be smaller and more suitable for an accordiion panel.
+              src="src\assets\exampleNIPformat.png"
+              alt="Example of nutrition information panel format"
               className="img-fluid"
             />
           </figure>
-          <p>
-            If a nutrition, health or related claim is made, the NIP must also
-            show the amount of nutrient or substance. For example: the amount of
-            calcium must be shown in the nutrition information panel if a claim
-            about calcium is made.
-          </p>
+          <p>*Additional information is required for the NIP where:</p>
+          <ul>
+            <li>a nutrition claim is made</li>
+            <li>percentage daily intake information is included</li>
+            <li>the food is a formulated caffeinated beverage</li>
+            <li>it is a food for infants</li>
+            <li>calcium is added to chewing gum.</li>
+          </ul>
         </>
       ),
     },

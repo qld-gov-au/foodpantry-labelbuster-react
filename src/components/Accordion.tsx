@@ -33,16 +33,25 @@ export const Accordion: React.FC<AccordionProps> = ({
     return initialOpen;
   });
 
+  const [prevActiveItemId, setPrevActiveItemId] = useState(activeItemId);
+
+  // Open the requested item when activeItemId changes. This is a render-phase
+  // state adjustment (not an effect) so it does not trigger cascading renders /
+  // the react-hooks/set-state-in-effect rule.
+  if (activeItemId !== prevActiveItemId) {
+    setPrevActiveItemId(activeItemId);
+    if (activeItemId && !openItems.has(activeItemId)) {
+      setOpenItems((prev) => {
+        const next = new Set(prev);
+        next.add(activeItemId);
+        return next;
+      });
+    }
+  }
+
+  // Scrolling to the active item is a genuine DOM side effect -> keep in an effect.
   useEffect(() => {
     if (!activeItemId) return;
-    setOpenItems((prev) => {
-      if (prev.has(activeItemId)) {
-        return prev;
-      }
-      const next = new Set(prev);
-      next.add(activeItemId);
-      return next;
-    });
     const target = document.getElementById(`accordion-item-${activeItemId}`);
     if (target) {
       target.scrollIntoView({ behavior: "smooth", block: "center" });

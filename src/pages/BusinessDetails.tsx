@@ -21,7 +21,6 @@ export const BusinessDetails = ({
   const {
     businessName,
     businessAddress,
-    addressLine1,
     addressLine2,
     suburb,
     stateValue,
@@ -32,7 +31,6 @@ export const BusinessDetails = ({
   const isValid =
     businessName.trim() &&
     businessAddress.trim() &&
-    addressLine1.trim() &&
     suburb.trim() &&
     stateValue.trim() &&
     postcode.trim();
@@ -143,26 +141,6 @@ export const BusinessDetails = ({
               required
             />
             <div className="invalid-feedback">Business address is required</div>
-          </div>
-
-          <div className="address-line1">
-            <label className="qld-text-input-label field-required ">
-              Address line 1
-            </label>
-            <input
-              className="form-control"
-              type="text"
-              placeholder=""
-              tabIndex={0}
-              value={addressLine1}
-              onChange={(e) =>
-                updateBusinessDetails({ addressLine1: e.target.value })
-              }
-              onInput={(e) => toggleInvalidState(e.currentTarget)}
-              onBlur={(e) => toggleInvalidState(e.currentTarget)}
-              required
-            />
-            <div className="invalid-feedback">Address line 1 is required</div>
           </div>
 
           <div className="address-line2">

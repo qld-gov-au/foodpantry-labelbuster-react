@@ -33,7 +33,7 @@ export const Home = ({ onStart }: HomeProps) => {
         <p>
           The
           <a
-            href="https://www.foodstandards.gov.au/code/Pages/default.aspx"
+            href="https://www.foodstandards.gov.au/food-standards-code/legislation"
             rel="noopener"
             target="_blank"
           >
@@ -100,50 +100,19 @@ export const Home = ({ onStart }: HomeProps) => {
         />
 
         <p>
-          PLEASE NOTE: The Label Buster tool is in the process of being updated
-          to incorporate the Plain English Allergen Labelling (PEAL) provisions
-          of the Australia New Zealand Food Standards Code that came into effect
-          on 25 February 2024.
-        </p>
-        <div className="text-primary">
-          <p>
-            <em>
-              <strong>IMPORTANT:</strong> After you have completed Label Buster,
-              you will need to refer to the{" "}
-              <a href="https://www.health.qld.gov.au/__data/assets/pdf_file/0030/1126947/allergen-labelling.pdf">
-                Allergen labelling
-              </a>{" "}
-              fact sheet to make the required PEAL changes to your draft food
-              label and ensure you have a label that is compliant with the Food
-              Standards Code.
-            </em>
-          </p>
-          <p>
-            <em>
-              If your food contains any allergens, this will mainly involve
-              changing the format of the ingredient list and including an
-              allergy ‘summary statement’. It should only take an additional{" "}
-              <strong>5-10 minutes</strong>.
-            </em>
-          </p>
-        </div>
-
-        <p>
-          Another resource you may find helpful is{" "}
-          <a href="https://www.foodstandards.gov.au/business/labelling/allergen-labelling">
-            Allergen labelling for food businesses
-          </a>
-          , which is available on the Food Standards Australia New Zealand
-          website.
-        </p>
-        <p>
-          If you have trouble or have any further questions in relation to
-          incorporating the allergen requirements into your label, please
-          contact the Food Safety Standards and Regulation Unit via{" "}
+          If you have any further questions in relation to your label, 
+          please contact the Food Safety Standards and Regulation Unit via{" "}
           <a href="mailto:foodsafety@health.qld.gov.au">
             foodsafety@health.qld.gov.au
           </a>{" "}
           or phone (07) 3328 9310.
+        </p>
+        <p>
+          Please note: Queensland Health does not approve labels. For 
+          assessment of your particular product or labels against the 
+          requirements of the Food Standards Code, you may need to obtain 
+          the assistance of an independent legal adviser or food labelling 
+          consultant.
         </p>
 
         <Alert
@@ -180,7 +149,7 @@ export const Home = ({ onStart }: HomeProps) => {
               </a>
               labelling.{" "}
               <a
-                href="http://www.healthstarrating.gov.au/internet/healthstarrating/publishing.nsf/content/home"
+                href="https://www.healthstarrating.gov.au/"
                 target="_blank"
                 rel="noopener"
               >

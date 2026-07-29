@@ -223,12 +223,21 @@ const allergenPreviewKeywords = [
   "walnut",
 ];
 
-const isAllergenPreviewIngredient = (ingredient: string) => {
+const getAllergenPreviewKeywordInIngredient = (ingredient: string): string | null => {
   const normalizedIngredient = ingredient.trim().toLowerCase();
 
-  return allergenPreviewKeywords.some((keyword) =>
-    normalizedIngredient.includes(keyword),
-  );
+  for (const keyword of allergenPreviewKeywords) {
+    const pluralForm = keyword.endsWith('s') ? keyword : keyword + 's';
+    
+    // Check plural form first (longer match priority)
+    if (normalizedIngredient.includes(pluralForm)) {
+      return pluralForm;
+    }
+    if (normalizedIngredient.includes(keyword)) {
+      return keyword;
+    }
+  }
+  return null;
 };
 
 const renderIngredientPreview = (ingredientText: string) => {
@@ -237,16 +246,32 @@ const renderIngredientPreview = (ingredientText: string) => {
     .map((ingredient) => ingredient.trim())
     .filter(Boolean);
 
-  return items.map((ingredient, index) => (
-    <span key={`${ingredient}-${index}`}>
-      {index > 0 ? ", " : ""}
-      {isAllergenPreviewIngredient(ingredient) ? (
-        <strong>{ingredient}</strong>
-      ) : (
-        ingredient
-      )}
-    </span>
-  ));
+  return items.map((ingredient, index) => {
+    const allergenKeyword = getAllergenPreviewKeywordInIngredient(ingredient);
+    
+    if (allergenKeyword) {
+      const parts = ingredient.split(new RegExp(`(${allergenKeyword})`, 'i'));
+      return (
+        <span key={`${ingredient}-${index}`}>
+          {index > 0 ? ", " : ""}
+          {parts.map((part, i) =>
+            part.toLowerCase() === allergenKeyword ? (
+              <strong key={i}>{part}</strong>
+            ) : (
+              part
+            )
+          )}
+        </span>
+      );
+    }
+
+    return (
+      <span key={`${ingredient}-${index}`}>
+        {index > 0 ? ", " : ""}
+        {ingredient}
+      </span>
+    );
+  });
 };
 
 type YourLabelProps = {
@@ -473,29 +498,21 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
             }
           />
           <p>
-            <strong className="text-danger">**Don't forget</strong> to refer to
-            the {" "}
-            <a href="https://www.health.qld.gov.au/__data/assets/pdf_file/0030/1126947/allergen-labelling.pdf">
-              Allergen labelling
-            </a>
-            {" "}fact sheet to make the changes required to ensure that your label is
-            fully compliant with the Food Standards Code requirements.
-          </p>
-          <p>
-            If you have trouble or have any further questions in relation to
-            incorporating the allergen requirements into your label, please
-            contact the Food Safety Standards and Regulation Unit via{" "}
+            Label Buster is a brief guide to help you understand your labelling
+            requirements. If you have any further questions in relation to your label, 
+            please contact the Food Safety Standards and Regulation Unit via{" "}
             <a href="mailto:foodsafety@health.qld.gov.au">
               foodsafety@health.qld.gov.au
             </a>
             {" "}or phone (07) 3328 9310.
           </p>
           <p>
-            Label Buster is a brief guide to help you understand your labelling
-            requirements. You may choose to get advice from a labelling
-            consultant to make sure that your label complies with the Food
-            Standards Code.
+            Please note: Queensland Health does not approve labels. 
+            For assessment of your particular product or labels against the 
+            requirements of the Food Standards Code, you may need to obtain the 
+            assistance of an independent legal adviser or food labelling consultant.
           </p>
+          
           <p>On this page, you will find:</p>
           <ul>
             <li>
@@ -522,15 +539,10 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
 
         <div className="d-flex flex-column gap-3">
           <div className="product-sheet">
-            <h2>Product Sheet</h2>
+            <h2>Product sheet</h2>
             <p>
               You can take this information to a printer or graphic designer to
-              create a label or use your own tools/templates. When creating your
-              food label, you must ensure you meet the{" "}
-              <a href="#legibility-requirements">
-                <span className="title">legibility requirements</span>
-              </a>
-              {" "}, such as minimum type size.
+              create a label or use your own tools/templates.
             </p>
             <div className="table-responsive">
               <table className="table">
@@ -616,7 +628,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                     <td>Statements and declarations</td>
                     <td>
                       <p>
-                        <b>{containsList.length ? "Contains:" : ""}</b>
+                        <b>{containsList.length ? "Contains" : ""}</b>
                         <b>{containsList.length
                           ? ` ${containsList.join(", ")}.`
                           : ""}</b>
@@ -628,9 +640,30 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                           : ""}
                       </p>
                       <p>
-                        {containsList.length
-                          ? "Note: Warning statements must be a minimum size of type of 3 mm. In the case of small packages, a minimum size of type of 1.5 mm is required."
-                          : "No data provided"}
+                        {containsList.length ? (
+                          <>
+                            <p>
+                              Notes:
+                            </p>
+                            <ul>
+                              <li>
+                                Allergen statements must be located in the same field of view and next to the ingredients list.
+                              </li>
+                              <li>
+                                Allergen declarations must use the required names defined in
+                                Schedule 9 of the Food Standards Code to identify allergens in the food.
+                                The allergen declaration must be printed near the ingredients list in bold
+                                font type, using the same typeface and size as the ingredients.
+                              </li>
+                              <li>
+                                Warning statements must be a minimum size of type of 3 mm. In the
+                                case of small packages, a minimum size of type of 1.5 mm is required.
+                              </li>
+                            </ul>
+                          </>
+                        ) : (
+                          <p>No data provided</p>
+                        )}
                       </p>
                     </td>
                   </tr>
@@ -707,13 +740,13 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
           </div>
 
           <div className="example-food-label">
-            <h2>Example of food label</h2>
+            <h2>Example food label</h2>
             <p>
               Below is an example of what your label could look like, using the
               information you provided in Label Buster. Label components can be
-              placed anywhere on the label you create. They do not need to be in
-              the specific layout shown here. They may be displayed in any order
-              or arrangement
+              placed anywhere on the label you create, except if an allergen statement
+              is required. The allergen statement must be located in the same field of view and directly 
+              next to or below the statement of ingredients. 
             </p>
             <div className="example-label-wrapper">
               <div className="example-label">
@@ -754,7 +787,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                     </p>
                     <div>
                       <p>
-                        <b>{containsList.length ? "Contains:" : ""}</b>
+                        <b>{containsList.length ? "Contains" : ""}</b>
                         <b>{containsList.length
                           ? ` ${containsList.join(", ")}.`
                           : ""}</b>
@@ -766,7 +799,7 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                           : ""}
                       </p>
                     </div>
-                    <br />
+                    
                   </div>
                   <div className="address-block">
                     <b>{businessDetails.businessName || "no name provided"}</b>
@@ -832,8 +865,8 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
           <div className="exmptions">
             <h2>Exemptions</h2>
             <p>
-              All of the food label information needs to be included on your
-              food label, except for:
+              All food label information needs to be included on your
+              food label, with exceptions that relate to:
             </p>
             <ul>
               <li>
@@ -885,7 +918,11 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
           <div className="download-pdf">
             <h2>Download your product sheet here</h2>
             <p>
-              You can download a pdf of your label information summary below. 
+              You can download a pdf copy of your label information using the button below. 
+            </p>
+            <p>
+              If you need to make changes to your food label, go back to the relevant step 
+              and update your answers, then regenerate your label.
             </p>
 
             {/* Download PDF Button */}
@@ -909,19 +946,6 @@ export const YourLabel = ({ onBack, onCancel }: YourLabelProps) => {
                 )}
               </button>
             </div>
-          </div>
-
-          
-
-          <div className="need-to-change-your-food-label">
-            <h2>Need to update your food label</h2>
-            <p>
-              If you would like to update details in your food 
-              label, such as different flavours or ingredients, 
-              you can go back and update your answers by clicking 
-              on the relevant step. You can then regenerate your 
-              label with these new details.
-            </p>
           </div>
 
         </div>

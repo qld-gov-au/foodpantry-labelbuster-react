@@ -154,36 +154,70 @@ const allergenKeywordMap: Record<string, string[]> = {
   walnut: ["walnut"],
 };
 
-const isAllergenIngredient = (ingredient: string, allergenLabels: string[]) => {
+const getAllergenKeywordInIngredient = (ingredient: string): string | null => {
   const normalizedIngredient = ingredient.trim().toLowerCase();
 
-  return allergenLabels.some((label) => {
-    const normalizedLabel = label.trim().toLowerCase();
-    const keywords = allergenKeywordMap[normalizedLabel] ?? [normalizedLabel];
-
-    return keywords.some((keyword) => normalizedIngredient.includes(keyword));
+  // Get all keywords from allergenKeywordMap
+  const allKeywords: string[] = [];
+  Object.values(allergenKeywordMap).forEach(keywords => {
+    allKeywords.push(...keywords);
   });
+
+  // Sort by length descending to match longer terms first (e.g., "brazil nut" before "nut")
+  allKeywords.sort((a, b) => b.length - a.length);
+
+  for (const keyword of allKeywords) {
+    const pluralForm = keyword.endsWith('s') ? keyword : keyword + 's';
+    
+    // Check plural form first (longer match)
+    if (normalizedIngredient.includes(pluralForm)) {
+      return pluralForm;
+    }
+    // Then check singular form
+    if (normalizedIngredient.includes(keyword)) {
+      return keyword;
+    }
+  }
+  return null;
 };
 
-const renderIngredientList = (ingredientList: string, allergenLabels: string[]) => {
+const renderIngredientList = (ingredientList: string) => {
   if (!ingredientList) {
     return null;
   }
 
-  return ingredientList
+  const items: (string | ReactNode)[] = [];
+
+  ingredientList
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean)
-    .map((ingredient, index) => {
-      const isAllergen = isAllergenIngredient(ingredient, allergenLabels);
+    .forEach((ingredient, index) => {
+      if (index > 0) {
+        items.push(", ");
+      }
 
-      return (
-        <Text key={`${ingredient}-${index}`}>
-          {index > 0 ? ", " : ""}
-          {isAllergen ? <Text style={styles.bold}>{ingredient}</Text> : ingredient}
-        </Text>
-      );
+      const allergenKeyword = getAllergenKeywordInIngredient(ingredient);
+
+      if (allergenKeyword) {
+        const parts = ingredient.split(new RegExp(`(${allergenKeyword})`, 'i'));
+        parts.forEach((part, partIndex) => {
+          if (part.toLowerCase() === allergenKeyword) {
+            items.push(
+              <Text key={`${ingredient}-${index}-${partIndex}`} style={styles.bold}>
+                {part}
+              </Text>
+            );
+          } else {
+            items.push(part);
+          }
+        });
+      } else {
+        items.push(ingredient);
+      }
     });
+
+  return items;
 };
 
 /**
@@ -202,13 +236,13 @@ export const ProductSheetDocument = ({ data }: { data: ProductSheetData }) => {
 
   const statements = [
     data.containsList.length
-      ? `Contains: ${data.containsList.join(", ")}.`
+      ? `Contains ${data.containsList.join(", ")}.`
       : null,
     ...data.statementMessages,
   ].filter(Boolean) as string[];
 
   const renderedStatements = statements.map((statement, index) => {
-    const isContainsStatement = statement.startsWith("Contains:");
+    const isContainsStatement = statement.startsWith("Contains");
 
     return (
       <Line key={`${statement}-${index}`}>
@@ -291,12 +325,23 @@ export const ProductSheetDocument = ({ data }: { data: ProductSheetData }) => {
           <Line>
             {data.ingredientList ? (
               <Text>
-                Ingredients: {renderIngredientList(data.ingredientList, data.containsList)}
+                Ingredients: {renderIngredientList(data.ingredientList)}
               </Text>
+              
             ) : (
               NA
             )}
           </Line>
+          <Text style={styles.para}>
+            Note: The ingredient list must use the required names defined in{" "} 
+            <Link
+              src="https://www.legislation.gov.au/F2015L00479/latest/text"
+            >
+              Schedule 9
+            </Link>{" "} 
+            of the Food Standards Code to identify allergens in the food. The required name must 
+            be the same font size as all other ingredient names and printed in bold font type.    
+          </Text>
         </Row>
 
         {/* Nutritional information panel (static, full width) */}
@@ -325,6 +370,15 @@ export const ProductSheetDocument = ({ data }: { data: ProductSheetData }) => {
 
         <Row heading="Statements and declarations">
           {statements.length ? renderedStatements : <Line>{NA}</Line>}
+          <Text style={styles.para}>
+            Note: For more information about Statements, declarations and allergen labelling, please refer to{" "} 
+            <Link
+              src="https://www.qld.gov.au/health/staying-healthy/food-pantry/food-labelling/about-food-labels"
+            >
+              About food labels
+            </Link>   
+            .
+          </Text>
         </Row>
 
         <Row heading="Date mark" secondary>

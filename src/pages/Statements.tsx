@@ -38,7 +38,7 @@ const CEREALS_AND_GRAINS_CHECKBOX_CONFIGS: CheckboxConfig[] = [
   {
     label: "Cereals containing gluten",
     key: "cerealsContainingGluten",
-    hint: "For example: wheat, barley, oats and rye and their hybridised strains of the cereal, other than when present in beer or spirits.",
+    hint: "For example: barley, oats and rye and their hybridised strains of the cereal, other than when present in beer or spirits.",
   },
   {
     label: "Wheat",
@@ -83,7 +83,7 @@ const EGG_AND_EGG_PRODUCTS_CHECKBOX_CONFIGS: CheckboxConfig[] = [
 
 const FISH_CRUSTACEA_SEAFOOD_CHECKBOX_CONFIGS: CheckboxConfig[] = [
   {
-    label: "Crustacea Cereals",
+    label: "Crustacea",
     key: "crustaceaCereals",
     hint: "For example: crab, crayfish, lobster, prawns",
   },
@@ -112,7 +112,7 @@ const LEGUMES_AND_PULSES_CHECKBOX_CONFIGS: CheckboxConfig[] = [
     key: "lupin",
   },
   {
-    label: "Soybeans",
+    label: "Soy, Soya or Soybean",
     key: "soybeans",
     hint: (
       <>
@@ -662,8 +662,9 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
               These foods or ingredients must be written on the label no matter
               how small the amount <br /> and may also need a warning statement.
             </figcaption>
+            {/* @todo replace image asset with uploaded image on franchise */}
             <img
-              src="https://www.qld.gov.au/?a=145923"
+              src="src\assets\contains-statement.png"
               alt="Example food label with advisory statements, warning statements and declarations."
               className="img-fluid"
             />
@@ -821,7 +822,7 @@ export const Statements = ({ onBack, onNext, onCancel }: StatementsProps) => {
             alertMessage={
               <>
                 <p>
-                  <strong>Contains:</strong>
+                  <strong>Contains</strong>
                   <b>
                   {selectedLabels.length > 0
                     ? ` ${selectedLabels.join(", ")}`
