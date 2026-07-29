@@ -5,8 +5,8 @@ name: Publish
 
 on:
   push:
-    branches: ['master', 'develop', 'uat']
-    # tags: ['*'] #todo work out how to get tag name reliably to send to next repo
+    branches: ['main', 'develop', 'uat']
+    tags: ['*.*.*']
 
 jobs:
   build:

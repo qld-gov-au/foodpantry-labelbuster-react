@@ -5,10 +5,7 @@ name: Test
 
 on:
   push:
-    branches: ['!develop', '!uat']
   pull_request:
-    branches: 
-    - '*'
 
 jobs:
   build:
